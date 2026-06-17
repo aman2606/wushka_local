@@ -119,10 +119,10 @@ if (! is_user_logged_in()) {
             }
         }
 
-        if (empty($a_shelves)) {
-            wp_redirect('/404');
-            exit();
-        }
+        // if (empty($a_shelves)) {
+        //     wp_redirect('/404');
+        //     exit();
+        // }
 
         $allowReading = false;
 
@@ -133,6 +133,8 @@ if (! is_user_logged_in()) {
                     $allowReading = true;
                 }
             }
+        }else{
+            $allowReading = true;
         }
 
         // if (!$allowReading) {
