@@ -160,7 +160,8 @@ if (! is_user_logged_in()) {
             }
         }
 
-        if (!$allowReading && (!empty($a_books) && !in_array($i_id, $a_books))) {
+
+        if (!$allowReading && (!in_array($i_id, $a_books))) {
             wp_redirect('/403');
             exit();
         }

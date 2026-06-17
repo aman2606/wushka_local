@@ -2,7 +2,7 @@
 /*
  * Update students related information into database
  */
-include $_SERVER['DOCUMENT_ROOT'] . '/wp-config.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/wushka_local/wp-config.php';
 /* Update user meta data */
 
 if( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST['meta']) ) {
