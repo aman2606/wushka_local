@@ -95,7 +95,7 @@ $isQRDisabled = isQRDisabled();
     </div>
 
     <div class="row">
-        <div class="col-lg-9 col-md-9">
+        <div class="col-lg-9 col-md-9" id="class-list-column">
             <div class="panel panel-default panel-class-lists">
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-group"></i><span id="panel-title">
@@ -171,8 +171,13 @@ $isQRDisabled = isQRDisabled();
             <div class="panel panel-default" id="add-new-child">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-lg-11 col-md-10 editable" data-class="class-name">
+                        <div class="col-xs-10 editable" data-class="class-name">
                             <i class="glyphicon glyphicon-user"></i> Add New Student
+                        </div>
+                        <div class="col-xs-2 text-right">
+                            <button id="toggle-student-drawer" class="btn btn-xs btn-default" title="Hide student form">
+                                <i class="glyphicon glyphicon-chevron-right"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -2855,6 +2860,27 @@ if ($arhiveStudentList) { ?>
 
             $(this).html('Closing ...');
             location.reload();
+        });
+
+        // Add Student drawer toggle — appended to body with inline styles so position:fixed is never blocked
+        $('body').append(
+            '<div id="add-student-tab" title="Add New Student" style="display:none;position:fixed;right:0;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;background:#337ab7;color:#fff;padding:14px 8px;cursor:pointer;border-radius:4px 0 0 4px;font-size:13px;font-weight:600;z-index:9999;align-items:center;gap:6px;user-select:none;box-shadow:-2px 0 6px rgba(0,0,0,0.15);">' +
+            '<i class="glyphicon glyphicon-plus" style="margin-bottom:4px;"></i>' +
+            '<i class="glyphicon glyphicon-user" style="margin-bottom:6px;"></i>' +
+            '<span>Add Student</span>' +
+            '</div>'
+        );
+
+        $('#toggle-student-drawer').on('click', function() {
+            $('#sticky-panel').hide();
+            $('#class-list-column').removeClass('col-lg-9 col-md-9').addClass('col-lg-12 col-md-12');
+            $('#add-student-tab').css('display', 'flex');
+        });
+
+        $('#add-student-tab').on('click', function() {
+            $(this).hide();
+            $('#sticky-panel').show();
+            $('#class-list-column').removeClass('col-lg-12 col-md-12').addClass('col-lg-9 col-md-9');
         });
     });
 </script>
