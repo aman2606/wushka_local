@@ -1,0 +1,393 @@
+<link rel="stylesheet" href="<?php echo wsm_dashboard_assets ?>/css/bootstrap-custom.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
+<link rel="stylesheet" href="<?php echo wsm_dashboard_assets ?>/css/styles.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
+<script src="<?php echo wsm_dashboard_assets ?>/js/ask-me.js"></script>
+<style>
+    .boot_wsm .card {
+
+        max-width: 100%;
+    }
+
+    .select2-selection__rendered {
+        line-height: 38px !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 38px !important;
+    }
+
+    .select2-selection__arrow {
+        height: 38px !important;
+    }
+    
+</style>
+
+<div class="boot_wsm">
+    <div class="wrap">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Transfer Teachers</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="wsm-form">
+                            <input type="hidden" name="wsm_school_name" />
+                            <!-- <input type="hidden" name="wsm_class_name" /> -->
+
+                            <div class="form-row">
+                                <!-- <div class="form-group col-md-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="wsm_bulk_transfer" type="checkbox" id="wsm_bulk_transfer">
+                                        <label class="form-check-label" for="wsm_bulk_transfer">
+                                            Bulk Transfer
+                                        </label>
+                                    </div>
+                                </div> -->
+                                <div class="form-group col-md-4 teacher-csv-div" style="display:none;">
+                                    <label for="wsm_teacher_csv">Select Teachers CSV ( <a href="<?php echo get_template_directory_uri() ?>/download-transfer-student-template.php">Download CSV Template</a> )</label>
+                                    <input type="file" class="form-control-file" name="wsm_teacher_csv" id="wsm_teacher_csv">
+                                </div>
+                                <div class="form-group col-md-12 select-teacher-div">
+                                    <label>Select Teacher</label>
+                                    <select id="select-teacher" class="form-control" style="width:100%" name="wsm_teacher" required></select>
+                                </div>
+                                <!-- <div class="form-group col-md-12 wsm_clr_tc_data-div">
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="wsm_clr_tc_data" type="checkbox" id="wsm_clr_tc_data">
+                                        <label class="form-check-label" for="wsm_clr_tc_data">
+                                            Clear Teacher's previous data
+                                        </label>
+                                    </div>
+                                </div> -->
+                                <div class="form-group col-md-12">
+                                    <label>Select Target School</label>
+                                    <select id="select-school" class="form-control" style="width:100%" name="wsm_school" required></select>
+                                    <small id="select-school-help" class="form-text text-muted">School where you want to transfer the selected Teacher</small>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <input type="submit" class="btn btn-primary" value="Submit" />
+                                </div>
+                            </div>
+                        </form>
+                        <div class="alert alert-warning alert-dismissible fade import-info" role="alert">
+                            <ul class="list-group">
+                            </ul>
+                            <button type="button" class="close" onclick="hideImportInfo()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function template(data) {
+        return data.html;
+    }
+
+    function hideImportInfo() {
+        jQuery('.import-info').removeClass('show');
+    }
+
+    function wsmTransferTeacher(tInfo) {
+
+        jQuery("[type='submit']").val("Transfering ...");
+
+        jQuery.ajax({
+            type: 'POST',
+            url: "<?php echo admin_url('admin-ajax.php') ?>",
+            data: {
+                action: 'wsm_transfer_teacher',
+                tInfo: tInfo
+            },
+            success: function(response) {
+
+                jQuery("[type='submit']").val("Submit");
+
+                var response = JSON.parse(response);
+
+                if (response.success) {
+
+                    ask.flash.render({
+                        message: response.message.info,
+                        afterElement: "#wsm-form",
+                        infoClass:response.message.class
+                    });
+
+                }
+
+
+            },
+            error: function() {
+
+                jQuery("[type='submit']").val("Submit");
+
+                alert("Something went wrong. Please try again");
+
+            }
+        });
+
+    }
+
+
+
+    function transferSingleTeacher(formData) {
+
+        jQuery.ajax({
+            type: 'POST',
+            data: formData,
+            url: "<?php echo admin_url('admin-ajax.php') ?>",
+            processData: false,
+            contentType: false,
+            success: function(response) {
+
+                var response = JSON.parse(response);
+
+                if (response.success) {
+                    ask.confirm.render({
+                        message: response.message,
+                        onConfirm: function() {
+
+
+                            wsmTransferTeacher(response.transfer_info);
+
+
+                        }
+                    });
+                }
+            },
+            error: function() {
+
+                alert("Something went wrong. Please try again");
+
+            }
+        });
+    }
+
+    function transferBulkTeachers(formData) {
+
+        jQuery("[type='submit']").val("Transfering... Please wait.");
+        jQuery("[type='submit']").prop('disabled', true);
+
+
+        jQuery.ajax({
+
+            type: "POST",
+            data: formData,
+            url: "<?php echo admin_url('admin-ajax.php') ?>",
+            processData: false,
+            contentType: false,
+            success: function(response) {
+
+                jQuery("[type='submit']").val("Submit");
+                jQuery("[type='submit']").prop('disabled', false);
+
+                var response = JSON.parse(response);
+
+                if (response.success) {
+
+                    ask.flash.render({
+                        message: "Teacher Transfer Successfully !",
+                        afterElement: "#wsm-form"
+                    });
+
+                    if (response.import_info.length > 0) {
+
+                        var importInfoLis = '';
+
+                        for (var info of response.import_info) {
+
+                            importInfoLis += `<li class="list-group-item"><strong>Row #${info.row}  ${info.value} ${info.type} </strong></li>`;
+
+                        }
+
+                        jQuery('.import-info ul').html(importInfoLis);
+                        jQuery('.import-info').addClass('show');
+
+
+
+                    }
+
+                } else if (response.success === false) {
+
+                    if (response.v_errors.length > 0) {
+
+                        for (var error of response.v_errors) {
+
+                            var errorBlock = `<div class="invalid-feedback" style="display:block;font-size:14px;">${error.error}</div>`;
+
+                            jQuery(errorBlock).insertAfter("[name='" + error.name + "']");
+
+                        }
+                    }
+
+                }
+
+            },
+            error: function() {
+
+                jQuery("[type='submit']").val("Submit");
+                jQuery("[type='submit']").prop('disabled', false);
+
+                alert("Something went wrong. Please try again");
+
+
+            }
+
+        });
+
+
+        console.log("Transfer Bulk Data here");
+
+
+
+    }
+
+
+    jQuery(document).ready(function($) {
+
+        jQuery('body').addClass('boot_wsm');
+
+        $("#wsm_bulk_transfer").on('change', function() {
+
+            if ($(this).is(':checked')) {
+
+                $('.select-teacher-div').hide();
+                $("#select-teacher").prop('required', false);
+                $('.teacher-csv-div').show();
+                $('.wsm_clr_tc_data-div').hide();
+                $("#wsm_teacher_csv").prop('required', true);
+
+
+            } else {
+
+                $('.select-teacher-div').show();
+                $("#select-teacher").prop('required', true);
+                $('.teacher-csv-div').hide();
+                $('.wsm_clr_tc_data-div').show();
+                $("#wsm_teacher_csv").prop('required', false);
+                jQuery("[name='wsm_teacher_csv']").val('');
+
+            }
+        });
+
+        $("#select-school").select2({
+            ajax: {
+                url: "<?php echo admin_url('admin-ajax.php') ?>",
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page,
+                        action: 'wsm_find_schools'
+                    };
+                },
+                processResults: function(data, params) {
+
+                    params.page = params.page || 1;
+
+                    return {
+                        results: data.results.items,
+                        pagination: {
+                            more: data.results.more
+                        }
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Search for a School',
+            minimumInputLength: 3,
+            templateResult: template,
+        });
+
+
+        $('#select-school').on('select2:select', function(e) {
+
+            var schoolNameEl = $("[name=wsm_school_name]");
+
+            schoolNameEl.val("");
+
+            var data = e.params.data;
+
+            schoolNameEl.val(data.text);
+
+        });
+
+
+
+        $("#select-teacher").select2({
+            ajax: {
+                url: "<?php echo admin_url('admin-ajax.php') ?>",
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page,
+                        action: 'wsm_find_teacher'
+                    };
+                },
+                processResults: function(data, params) {
+
+                    params.page = params.page || 1;
+
+                    return {
+                        results: data.results.items,
+                        pagination: {
+                            more: data.results.more
+                        }
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Search for a Teacher',
+            minimumInputLength: 3,
+            templateResult: template,
+        });
+
+
+        $("#wsm-form").on('submit', function(e) {
+
+            $('.invalid-feedback').remove();
+
+            jQuery('.import-info ul').html('');
+            jQuery('.import-info').removeClass('show');
+
+            e.preventDefault();
+
+            var formData = new FormData(this);
+
+            var wsmClass = jQuery("#select-class option:selected").text();
+            formData.set('wsm_class_name', wsmClass);
+
+            if (formData.has('wsm_bulk_transfer')) {
+
+                formData.set('action', 'wsm_teacher_bulk_transfer');
+                transferBulkTeachers(formData);
+
+            } else {
+
+                formData.set('action', 'confirm_teacher_wsm_form');
+                transferSingleTeacher(formData);
+            }
+
+
+
+        });
+
+
+
+
+    });
+</script>

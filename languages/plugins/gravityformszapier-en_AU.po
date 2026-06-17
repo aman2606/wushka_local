@@ -1,0 +1,77 @@
+# Translation of RocketGenius - Gravity Forms Zapier Add-On in English (Australia)
+# This file is distributed under the same license as the RocketGenius - Gravity Forms Zapier Add-On package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2022-06-27 09:18:29+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-rc.4\n"
+"Language: en_AU\n"
+"Project-Id-Version: RocketGenius - Gravity Forms Zapier Add-On\n"
+
+#: includes/rest/class-zapier-controller.php:25
+msgid "Form not found."
+msgstr "Form not found."
+
+#: class-gf-zapier.php:408 class-gf-zapier.php:415
+msgid "URL"
+msgstr "URL"
+
+#: class-gf-zapier.php:395 class-gf-zapier.php:402 class-gf-zapier.php:497
+msgid "Name"
+msgstr "Name"
+
+#: includes/setup-instructions.php:23
+msgid "View Instructions"
+msgstr "View Instructions"
+
+#. Author of the plugin
+msgid "Gravity Forms"
+msgstr "Gravity Forms"
+
+#: class-gf-zapier.php:171
+msgid "Send feed to Zapier only when payment is received."
+msgstr "Send feed to Zapier only when payment is received."
+
+#: class-gf-zapier.php:439
+msgid "By default the field labels will be sent to Zapier. Enable this option to send the field admin labels when available."
+msgstr "By default the field labels will be sent to Zapier. Enable this option to send the field admin labels when available."
+
+#: class-gf-zapier.php:466
+msgid "When Conditional Logic is enabled, submissions for this form will only be sent to Zapier when the condition is met. When disabled, all submissions for this form will be sent to Zapier."
+msgstr "When Conditional Logic is enabled, submissions for this form will only be sent to Zapier when the condition is met. When disabled, all submissions for this form will be sent to Zapier."
+
+#: class-gf-zapier.php:461 class-gf-zapier.php:465
+msgid "Conditional Logic"
+msgstr "Conditional Logic"
+
+#: class-gf-zapier.php:416
+msgid "This is the URL provided by Zapier when you created your Zap on their website. This is the location to which your form data will be submitted to Zapier for additional processing."
+msgstr "This is the URL provided by Zapier when you created your Zap on their website. This is the location to which your form data will be submitted to Zapier for additional processing."
+
+#: class-gf-zapier.php:403
+msgid "This is a friendly name so you know what Zap is run when this form is submitted."
+msgstr "This is a friendly name so you know what Zap is run when this form is submitted."
+
+#: class-gf-zapier.php:591
+msgid "Form Title"
+msgstr "Form Title"
+
+#: class-gf-zapier.php:421 class-gf-zapier.php:438
+msgid "Use Admin Labels"
+msgstr "Use Admin Labels"
+
+#. Description of the plugin
+msgid "Integrates Gravity Forms with Zapier, allowing form submissions to be automatically sent to your configured Zaps."
+msgstr "Integrates Gravity Forms with Zapier, allowing form submissions to be automatically sent to your configured Zaps."
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://gravityforms.com"
+msgstr "https://gravityforms.com"
+
+#. Plugin Name of the plugin
+msgid "Gravity Forms Zapier Add-On"
+msgstr "Gravity Forms Zapier Add-on"

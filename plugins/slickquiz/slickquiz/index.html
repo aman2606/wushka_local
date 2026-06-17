@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="content-type">
+
+        <title>SlickQuiz Demo</title>
+
+        <link href="css/reset.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="css/slickQuiz.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="css/master.css" media="screen" rel="stylesheet" type="text/css">
+    </head>
+
+    <body id="slickQuiz1">
+        <h1 class="quizName"><!-- where the quiz name goes --></h1>
+
+        <div class="quizArea">
+            <div class="quizHeader">
+                <!-- where the quiz main copy goes -->
+
+                <a class="button startQuiz" href="#">Get Started!</a>
+            </div>
+
+            <!-- where the quiz gets built -->
+        </div>
+
+        <div class="quizResults">
+            <h3 class="quizScore">You Scored: <span><!-- where the quiz score goes --></span></h3>
+
+            <h3 class="quizLevel"><strong>Ranking:</strong> <span><!-- where the quiz ranking level goes --></span></h3>
+
+            <div class="quizResultsCopy">
+                <!-- where the quiz result copy goes -->
+            </div>
+        </div>
+
+        <div id="quizMedia"></div>
+        <script src="js/jquery-1.7.min.js"></script>
+        <script>
+            const quizJSON = {"info":{"name":"Going Places","main":"","results":"Well done! Thank you for completing this quiz.","level1":"Top 20%","level2":"Great","level3":"Could do better","level4":"Try harder","level5":"Best go home"},"questions":[{"a":[{"option":"the beach"},{"option":"the race track"},{"option":"the shop","correct":"checked"},{"option":"the lake"}],"q":"I am going to...\n","correct":"Correct","incorrect":"Wrong","select_any":false,"force_checkbox":false},{"a":[{"option":"the school "},{"option":"the pool "},{"option":"the caf\u00e9 "},{"option":"the park","correct":"checked"}],"q":"They are playing baseball at...\n","correct":"Correct","incorrect":"Wrong","select_any":false,"force_checkbox":false},{"a":[{"option":"the library ","correct":"checked"},{"option":"the park "},{"option":"the movies "},{"option":"the petrol station"}],"q":"They can borrow a book at...\n","correct":"Correct","incorrect":"Wrong","select_any":false,"force_checkbox":false},{"a":[{"option":"the pool ","correct":"checked"},{"option":"the petrol station "},{"option":"the caf\u00e9 "},{"option":"the library"}],"q":"They can go for a swim at...\n","correct":"Correct","incorrect":"Wrong","select_any":false,"force_checkbox":false},{"a":[{"option":"eating "},{"option":"going","correct":"checked"},{"option":"table"},{"option":"looking"}],"q":"I am g_ _ _ _ to school. ","correct":"Correct","incorrect":"Wrong","select_any":false,"force_checkbox":false}],"extra":null};
+        </script>
+        <!-- <script src="js/slickQuiz-config.js"></script> -->
+        <script src="js/slickQuiz.js"></script>
+        <script src="js/master.js"></script>
+    </body>
+</html>

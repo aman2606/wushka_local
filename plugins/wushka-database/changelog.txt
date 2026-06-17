@@ -1,0 +1,7 @@
+=== changelog ===
+
+= V 1.0 =
+ - No Changes
+= V 1.1 =
+ - 2 new fields for licence table to cater for multiple licences
+ - New taxonomy for phonics phases

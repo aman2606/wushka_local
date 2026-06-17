@@ -1,0 +1,197 @@
+<?php
+/**
+ * This file is part of the SetaPDF-Stamper Component
+ *
+ * @copyright  Copyright (c) 2012 Setasign - Jan Slabon (http://www.setasign.de)
+ * @category   SetaPDF
+ * @package    SetaPDF_Stamper
+ * @license    http://www.setasign.de/ Commercial
+ * @version    $Id: XObject.php 448 2013-05-15 09:11:21Z jan.slabon $
+ */
+
+/**
+ * The XObject stamp class
+ * 
+ * This stamp class is able to use an {@link SetaPDF_Core_XObject} instance as a stamp appearance.
+ * XObjects could be {@link SetaPDF_Core_XObject_Image images} or so called {@link SetaPDF_Core_XObject_Form form XObjects}.
+ * 
+ * A form XObject is a PDF content stream that is a self-contained description of any sequence of
+ * graphics objects (including path objects, text objects, and sampled images).
+ * 
+ * This stamp class allows a developer to stamp separately create form XObjects or images XObjects.
+ * A form XObject could include for example drawing operations:
+ * 
+ * <code>
+ * // Create a form XObject with the dimensions of 100 x 100
+ * $xObject = SetaPDF_Core_XObject_Form::create($document, array(0, 0, 100, 100));
+ * $canvas = $xObject->getCanvas();
+ * $canvas->path()->setLineWidth(1); 
+ * $canvas->draw()
+ *     ->rect(0, 0, 100, 100) // Draw a rectangle into the form XObject
+ *     ->circle(50, 50, 50); // Draw a circle into the form XObject
+ *      
+ * $stamp = new SetaPDF_Stamper_Stamp_XObject($xObject);
+ * </code>
+ *
+ * @copyright  Copyright (c) 2012 Setasign - Jan Slabon (http://www.setasign.de)
+ * @category   SetaPDF
+ * @package    SetaPDF_Stamper
+ * @license    http://www.setasign.de/ Commercial
+ */
+class SetaPDF_Stamper_Stamp_XObject extends SetaPDF_Stamper_Stamp
+{
+    /**
+     * The XObject instance
+     *
+     * @var SetaPDF_Core_XObject
+     */
+    protected $_xObject = null;
+    
+    /**
+     * The individual width of the image
+     *  
+     * @var float|integer
+     */
+    protected $_width = null;
+    
+    /**
+     * The individual height of the image
+     * 
+     * @var float|integer
+     */
+    protected $_height = null;
+
+    /**
+     * The constructor
+     * 
+     * @param SetaPDF_Core_XObject $xObject
+     */
+    public function __construct(SetaPDF_Core_XObject $xObject)
+    {
+        $this->setXObject($xObject);
+    }
+
+    /**
+     * Release resources / cycled references
+     */
+    public function cleanUp()
+    {
+        $this->_xObject = null;
+    }
+
+    /**
+     * Set the XObject
+     * 
+     * @param SetaPDF_Core_XObject $xObject
+     */
+    public function setXObject(SetaPDF_Core_XObject $xObject)
+    {
+        $this->_xObject = $xObject;
+    }
+
+    /**
+     * Set the individual width of the XObject stamp
+     * 
+     * @param float|integer $width
+     */
+    public function setWidth($width)
+    {
+        $this->_width = $width;    
+    }
+
+    /**
+     * Get the width of the XObject stamp
+     * 
+     * If no individual width is given the width will be received from the XObject object by
+     * forwarding an individual height (if available) to keep the aspect ratio. 
+     * 
+     * @return float|integer
+     */
+    public function getWidth()
+    {
+        return $this->_width !== null
+            ? $this->_width
+            : $this->_xObject->getWidth($this->_height);
+    }
+
+    /**
+     * Set the individual height if the XObject stamp
+     *
+     * @param float|integer $height
+     */
+    public function setHeight($height)
+    {
+        $this->_height = $height;
+    }
+
+    /**
+     * Get the height of the XObject stamp
+     * 
+     * If no individual height is given the height will be received from the XObject object by
+     * forwarding an individual width (if available) to keep the aspect ratio. 
+     * 
+     * @return float|integer
+     */
+    public function getHeight()
+    {
+        return $this->_height !== null
+            ? $this->_height
+            : $this->_xObject->getHeight($this->_width);  
+    }
+    
+    /**
+     * Set the dimensions of this stamp
+     *
+     * @param float|integer $width
+     * @param float|integer $height
+     */
+    public function setDimensions($width, $height)
+    {
+        $this->setWidth($width);
+        $this->setHeight($height);
+    }
+
+    /**
+     * Ensures that all stamp resources are added to the page
+     *
+     * This is needed to reuse a cached stamp stream
+     *
+     * @see SetaPDF_Stamper_Stamp::_ensureResources()
+     * @param SetaPDF_Core_Document $document
+     * @param SetaPDF_Core_Document_Page $page
+     * @return array An array of resource names
+     */
+    protected function _ensureResources(SetaPDF_Core_Document $document, SetaPDF_Core_Document_Page $page)
+    {
+        $names = parent::_ensureResources($document, $page);
+        $names[SetaPDF_Core_Resource::TYPE_X_OBJECT][] = $page->getCanvas()->addResource($this->_xObject);
+    
+        return $names;
+    }
+    
+    /**
+     * Writes the xobject draw operators of this stamp onto the canvas
+     * 
+     * @param SetaPDF_Core_Document $document
+     * @param SetaPDF_Core_Document_Page $page
+     * @param array $stampData
+     * @return bool
+     */
+    protected function _stamp(SetaPDF_Core_Document $document, SetaPDF_Core_Document_Page $page, array $stampData)
+    {
+        $x = $this->getOriginX($page, $stampData['position']);
+        $y = $this->getOriginY($page, $stampData['position']);
+        
+        $opacity = $this->getOpacity();
+        if (abs($opacity - 1.0) > SetaPDF_Core::FLOAT_COMPARSION_PRECISION &&
+            $this->_xObject instanceof SetaPDF_Core_XObject_Form
+        ) {
+            $this->_xObject->setGroup(new SetaPDF_Core_TransparencyGroup());
+        }
+        
+        $canvas = $page->getCanvas();
+        $this->_xObject->draw($canvas, $x, $y, $this->getWidth(), $this->getHeight());
+        
+        return true;
+    }
+}

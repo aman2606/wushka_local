@@ -1,0 +1,10 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+.pardot-box .acf-fields > .acf-field:first-child {
+    display: block;
+}
+.pardot-box .acf-fields > .acf-field{
+    display: none;
+}

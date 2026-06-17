@@ -1,0 +1,92 @@
+/*==================================
+	LessonZone Post Attachment CSS
+==================================*/
+
+/*------------------- IMAGE GALLERY -------------------- */
+
+.lzPA-resImgGallery
+{
+	height: 100px;
+	width: 350px;
+	background: none;
+	border: none;
+	display: none;
+
+}
+
+.lzPA-resImg
+{
+	width: 50px;
+	display: inline-block;
+	margin: 5px;
+}
+
+/*------------------- Resource Language Variants -------------------- */
+
+#lzPA-altCountriesWrap
+{
+	background: white; 
+	padding: 20px; 
+	height: auto;
+	overflow: hidden;
+
+}
+.lzPA-ForeignCountry
+{
+	width: 200px;
+	overflow-y:hidden;
+	height: auto;
+	min-height: 370px;
+	padding: 10px;
+	margin: 10px 10px 10px 0px;
+	float:left;
+    background: #FFFFFF;
+    font-size: 95%;
+	line-height: 140%;
+	border: solid 1px lightgrey;
+}
+
+.lzPA-foreignResImg{
+    width: 90%;
+	height: auto;
+    margin: 10px;
+}
+.lzPA-foreignResImg img{
+    width: 100%;
+    height: auto;
+}
+
+
+
+.lzPA-foreignCountryTitle
+{
+	display: block;
+	margin: 0px 10px 0px 10px;
+	font-size: 11pt;
+	font-weight: bold;
+	height: auto;
+}
+
+
+input[type="button"].foreignResBtns
+{
+	height: 30px;
+	width: 90px;
+	border: solid 1px lightgrey;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	transition: none;
+	cursor: pointer;
+	position: relative;
+	background: #F1F1F1;
+	color: grey;
+	margin: 5px;
+	bottom: 0px;
+}
+
+input[type="button"].foreignResBtns:hover
+{
+	background-color: darkgrey;
+	color: grey;
+}

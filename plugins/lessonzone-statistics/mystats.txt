@@ -1,0 +1,17 @@
+/** ============================================================================
+ * 
+ * 							My Area Statistics Page
+ * The Following Statistics will be displayed Here:
+ * - Most Flagged Resources 	(Top 10)
+ * - Most Collected Resources 	(Top 10)
+ * - Largest Collections 		(Top 10)
+ * - Most Followed Collections 	(Top 10)
+ * - Most Saved Collections 	(Top 10)
+ * - User with most Followers 	(Top 10)
+ * - User with most Flags 		(Top 10)
+ * - User with most Collections (Top 10)
+ * - Top User Overall 			(Top 10)
+ * 
+ * ============================================================================ **/
+ 
+ How to structure this : Class object.

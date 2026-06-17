@@ -1,0 +1,81 @@
+/*==================================
+	pdfStamp Plugin CSS
+==================================*/
+
+
+/*------------------- Option Menu CSS -------------------- */
+/* ----- Logo Image Styling ----- */
+#pdfStamp_singleLogoImg
+{
+	display: block;
+}
+#pdfStamp_singleLogoImg:hover
+{
+	background-color:lightgrey;
+	cursor: pointer;
+}
+#pdfStamp_logoImageWrap
+{
+	width: 502px;
+	border: solid 1px grey;
+	height: auto;
+	min-height:22px;
+	max-height: 400px;
+	overflow-y: auto;
+}
+#pdfStamp_logoImageSearchBar
+{
+	width: 470px; 
+	border: none; 
+	display:block;
+	box-shadow: none;
+}
+
+#pdfStamp_logoImgLoader
+{
+	background: url('pdfStamp_loader.gif') no-repeat;
+	width: 20px;
+	height: 20px;
+	float: right;
+	display: none;
+	position: relative;
+	top: -19px;
+}
+/* ----- Background Image Styling ----- */
+#pdfStamp_singleBgImg
+{
+	display: block;
+}
+#pdfStamp_singleBgImg:hover
+{
+	background-color:lightgrey;
+	cursor: pointer;
+}
+#pdfStamp_bgImageWrap
+{
+	width: 502px;
+	border: solid 1px grey;
+	height: auto;
+	min-height:22px;
+	max-height: 400px;
+	overflow-y: auto;
+	
+}
+#pdfStamp_bgImageSearchBar
+{
+	width: 470px; 
+	border: none; 
+	display:block;
+	box-shadow: none;
+}
+
+#pdfStamp_bgImgLoader
+{
+	background: url('pdfStamp_loader.gif') no-repeat;
+	width: 20px;
+	height: 20px;
+	float: right;
+	display: none;
+	position: relative;
+	top: -19px;
+}

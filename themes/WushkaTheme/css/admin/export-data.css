@@ -1,0 +1,89 @@
+#exportTable_filter input{
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+#exportTable_filter label{
+    color: #2271b1;
+    font-size: 13px ;
+
+}
+#exportTable{
+    background: #fff;
+    margin: 15px 0;
+    text-align: left;
+    border: none;
+}
+#exportTable th, td{
+    border: 1px solid #ddd;
+    padding: 12px 24px !important;
+}
+#exportTable th{
+    color: #2271b1;
+    font-size: 14px; 
+}
+
+#exportTable td{
+    font-size: 14px;
+}
+#exportTable tbody tr:nth-child(odd) {
+    background-color: #f6f7f7;
+}
+#exportTable_wrapper{
+    margin-top: 20px;
+}
+#exportTable_wrapper .dt-buttons{
+    display: inline-block;
+}
+#exportTable_wrapper .dt-buttons button{
+    text-decoration: none;
+    border: 1px solid #2271b1;
+    border-radius: 2px;
+    text-shadow: none;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: normal;
+    color: #2271b1;
+    background: #f6f7f7;
+    cursor: pointer;
+    padding: 10.2px 20px;
+    transition: 0.3s;
+}
+#exportTable_wrapper .dt-buttons button:hover,
+#exportTable_wrapper .dt-buttons button:active,
+#exportTable_wrapper .dt-buttons button:focus{
+    background: #fff;
+}
+
+
+#exportTable th.sn{
+    width: 30px;
+}
+
+#exportTable_wrapper .dataTables_paginate{
+    color: #3c434a;
+    font-size: 13px;
+}
+
+#exportTable_wrapper .paginate_button.current{
+    background: #2271b1 !important;
+    color: #fff !important;
+    border-color: #2271b1 !important;
+}
+
+#exportTable_wrapper .paginate_button:active,
+#exportTable_wrapper .paginate_button:hover,
+#exportTable_wrapper .paginate_button:focus{
+    color: #2271b1 !important;
+    border-color: #2271b1 !important;
+    background: #f6f7f7;
+}
+
+#exportTable_wrapper .dataTables_length label{
+    color: #2271b1;
+    margin-right: 5px;
+}
+#exportTable_wrapper .dataTables_length select{
+    padding: 4px 25px 4px 10px;
+    background-color: white;
+}

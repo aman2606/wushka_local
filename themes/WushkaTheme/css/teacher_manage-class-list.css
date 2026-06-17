@@ -1,0 +1,410 @@
+@CHARSET "ISO-8859-1";
+
+/* ----- MANAGE CLASS LIST PAGE CSS ----- */
+table[id^="table-"] {
+    padding-top: 5px;
+}
+
+.tab-content {
+    margin-top: 5px;
+}
+
+.modal .btn {
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 0 0px 5px rgba(255,255,255,0.3) inset;
+}
+
+.modal-footer .btn {
+    margin: 0;
+}
+
+.archive-switch {
+    position: absolute;
+}
+
+.settings-label {
+    text-align: center;
+    width: 100%;
+    line-height: 1.2;
+}
+
+div.tab-pane .dataTables_filter {
+    position: absolute;
+    top: -40px;
+    right: 0;
+}
+
+.dataTables_filter label {
+    color: #444 !important;
+}
+
+table#child-view, #child-view_paginate, #child-view_info {
+    display: none;
+    opacity: 0;
+}
+
+.archive-students-wrap {
+    display: none;
+}
+
+.archive-students-wrap.active {
+    display: block;
+}
+
+.archive-students-wrap .btn-student-unarchive {
+    margin-bottom: 10px;
+}
+
+.class-counter {
+    display: none;
+    margin-right: 10px;
+}
+
+.class-counter.active {
+    display: block;
+}
+
+.btn.btn-mc-modal {
+    height: 40px;
+    line-height: 0;
+    top: 2px;
+    position: absolute;
+    right: 2px;
+}
+
+.classes-tab-label {
+    margin-right: 5px;
+}
+
+.panel-class-lists .panel-heading,
+.panel-class-lists .panel-footer {
+    position: relative;
+}
+
+.class-archiving-wrapper {
+    margin-top: 15px;
+    border-top: 1px solid #E5E5E5;
+    padding-top: 15px;
+}
+
+/* Class Level Access */
+
+.set-class-access[data-id=""]{
+  background-color: #d64242;
+  border-color: #DB1017;
+  background-image: none;
+  color: #FFF;
+}
+.set-class-access[data-id=""]:visited,
+.set-class-access[data-id=""]:hover,
+.set-class-access[data-id=""]:focus,
+.set-class-access[data-id=""]:active {
+  background-color: #D32F2F;
+  border-color: #DB1017;
+  background-image: none;
+  color: #FFF;
+}
+.set-class-access[data-id="Reading Group Only"]{
+    background-color: #FF5722;
+    border-color: #F4511E;
+    color: #FFF;
+}
+.set-class-access[data-id="Reading Group Only"]:visited,
+.set-class-access[data-id="Reading Group Only"]:hover,
+.set-class-access[data-id="Reading Group Only"]:focus,
+.set-class-access[data-id="Reading Group Only"]:active {
+    background-color: #F4511E;
+    border-color: #E64A19;
+    color: #FFF;
+}
+.set-class-access[data-id="Reading Level Only"]{
+  background-color: #F57C00;
+  border-color: #EF6C00;
+  color: #FFF;
+}
+.set-class-access[data-id="Reading Level Only"]:visited,
+.set-class-access[data-id="Reading Level Only"]:hover,
+.set-class-access[data-id="Reading Level Only"]:focus,
+.set-class-access[data-id="Reading Level Only"]:active {
+  background-color: #EF6C00;
+  border-color: #E65100;
+  color: #FFF;
+}
+.set-class-access[data-id="Reading Level + One Level Above"]{
+  background-color: #FF9800;
+  border-color: #FB8C00;
+  color: #FFF;
+}
+.set-class-access[data-id="Reading Level + One Level Above"]:visited,
+.set-class-access[data-id="Reading Level + One Level Above"]:hover,
+.set-class-access[data-id="Reading Level + One Level Above"]:focus,
+.set-class-access[data-id="Reading Level + One Level Above"]:active {
+  background-color: #FB8C00;
+  border-color: #F57C00;
+  color: #FFF;
+}
+.set-class-access[data-id="Reading Level + One Level Below"]{
+  background-color: #FFC107;
+  border-color: #FFB300;
+  color: #FFF;
+}
+.set-class-access[data-id="Reading Level + One Level Below"]:visited,
+.set-class-access[data-id="Reading Level + One Level Below"]:hover,
+.set-class-access[data-id="Reading Level + One Level Below"]:focus,
+.set-class-access[data-id="Reading Level + One Level Below"]:active {
+  background-color: #FFB300;
+  border-color: #FFA000;
+  color: #FFF;
+}
+.set-class-access[data-id="Reading Level + Levels Below"]{
+  background-color: #F4D10B;
+  border-color: #F4C50B;
+  color: #FFF;
+}
+.set-class-access[data-id="Reading Level + Levels Below"]:visited,
+.set-class-access[data-id="Reading Level + Levels Below"]:hover,
+.set-class-access[data-id="Reading Level + Levels Below"]:focus,
+.set-class-access[data-id="Reading Level + Levels Below"]:active {
+  background-color: #ECC903;
+  border-color: #EFC006;
+  color: #FFF;
+}
+.set-class-access[data-id="Levels Below Reading Level Only"]{
+  background-color: #CDDC39;
+  border-color: #C0CA33;
+  color: #FFF;
+}
+.set-class-access[data-id="Levels Below Reading Level Only"]:visited,
+.set-class-access[data-id="Levels Below Reading Level Only"]:hover,
+.set-class-access[data-id="Levels Below Reading Level Only"]:focus,
+.set-class-access[data-id="Levels Below Reading Level Only"]:active {
+  background-color: #C0CA33;
+  border-color: #AFB42B;
+  color: #FFF;
+}
+.set-class-access[data-id="All Levels"]{
+  background-color: #8BC34A;
+  border-color: #7CB342;
+  color: #FFF;
+}
+.set-class-access[data-id="All Levels"]:visited,
+.set-class-access[data-id="All Levels"]:hover,
+.set-class-access[data-id="All Levels"]:focus,
+.set-class-access[data-id="All Levels"]:active {
+  background-color: #7CB342;
+  border-color: #689F38;
+  color: #FFF;
+}
+
+/* Buttons Styling */
+.modal .btn-upload-class-list {
+    background-color: #4CAF50;
+    border-color: #43A047;
+    color: #FFF;
+}
+
+.modal .btn-upload-class-list:visited,
+.modal .btn-upload-class-list:hover,
+.modal .btn-upload-class-list:focus,
+.modal .btn-upload-class-list:active {
+    background-color: #43A047;
+    border-color: #388E3C;
+    color: #FFF;
+}
+
+.modal .btn-set-class-password {
+    background-color: #8BC34A;
+    border-color: #7CB342;
+    color: #FFF;
+}
+
+.modal .btn-set-class-password:visited,
+.modal .btn-set-class-password:hover,
+.modal .btn-set-class-password:focus,
+.modal .btn-set-class-password:active {
+    background-color: #7CB342;
+    border-color: #689F38;
+    color: #FFF;
+}
+
+.modal .set-class-level {
+    background-color: #CDDC39;
+    border-color: #C0CA33;
+    color: #FFF;
+}
+
+.modal .set-class-level:visited,
+.modal .set-class-level:hover,
+.modal .set-class-level:focus,
+.modal .set-class-level:active {
+    background-color: #C0CA33;
+    border-color: #AFB42B;
+    color: #FFF;
+}
+
+.modal .btn-set-class-level {
+    background-color: #CDDC39;
+    border-color: #C0CA33;
+    color: #FFF;
+}
+
+.modal .btn-set-class-level:visited,
+.modal .btn-set-class-level:hover,
+.modal .btn-set-class-level:focus,
+.modal .btn-set-class-level:active {
+    background-color: #C0CA33;
+    border-color: #AFB42B;
+    color: #FFF;
+}
+
+.modal .btn-set-class-narration,
+.modal .set-class-narration {
+    background-color: #FFC107;
+    border-color: #FFB300;
+    color: #FFF;
+}
+
+.modal .btn-set-class-narration:visited,
+.modal .btn-set-class-narration:hover,
+.modal .btn-set-class-narration:focus,
+.modal .btn-set-class-narration:active,
+.modal .set-class-narration:visited,
+.modal .set-class-narration:hover,
+.modal .set-class-narration:focus,
+.modal .set-class-narration:active {
+    background-color: #FFB300;
+    border-color: #FFA000;
+    color: #FFF;
+}
+
+.modal .btn-set-level-access,
+.modal .set-level-access {
+  background-color: #F4D10B;
+  border-color: #F4C50B;
+  color: #FFF;
+}
+
+.modal .btn-set-level-access:visited,
+.modal .btn-set-level-access:hover,
+.modal .btn-set-level-access:focus,
+.modal .btn-set-level-access:active,
+.modal .set-level-access:visited,
+.modal .set-level-access:hover,
+.modal .set-level-access:focus,
+.modal .set-level-access:active {
+  background-color: #ECC903;
+  border-color: #EFC006;
+  color: #FFF;
+}
+
+
+.modal .btn-set-class-quiz,
+.modal .set-class-quiz {
+    background-color: #FF9800;
+    border-color: #FB8C00;
+    color: #FFF;
+}
+
+.modal .btn-set-class-quiz:visited,
+.modal .btn-set-class-quiz:hover,
+.modal .btn-set-class-quiz:focus,
+.modal .btn-set-class-quiz:active,
+.modal .set-class-quiz:visited,
+.modal .set-class-quiz:hover,
+.modal .set-class-quiz:focus,
+.modal .set-class-quiz:active {
+    background-color: #FB8C00;
+    border-color: #F57C00;
+    color: #FFF;
+}
+
+.modal .btn-set-class-setting,
+.modal .set-class-setting {
+    background-color: #FF5722;
+    border-color: #F4511E;
+    color: #FFF;
+}
+
+.modal .btn-set-class-setting:visited,
+.modal .btn-set-class-setting:hover,
+.modal .btn-set-class-setting:focus,
+.modal .btn-set-class-setting:active,
+.modal .set-class-setting:visited,
+.modal .set-class-setting:hover,
+.modal .set-class-setting:focus,
+.modal .set-class-setting:active {
+    background-color: #F4511E;
+    border-color: #E64A19;
+    color: #FFF;
+}
+
+/*.modal .btn-generate-student-login {
+    background-color: #673AB7;
+    border-color: #5E35B1;
+    color: #FFF;
+}
+
+.modal .btn-generate-student-login:visited,
+.modal .btn-generate-student-login:hover,
+.modal .btn-generate-student-login:focus,
+.modal .btn-generate-student-login:active {
+    background-color: #5E35B1;
+    border-color: #512DA8;
+    color: #FFF;
+}*/
+
+.modal .btn-tutorial {
+    background-color: #673AB7;
+    border-color: #5E35B1;
+    color: #FFF;
+}
+
+.modal .btn-tutorial:visited,
+.modal .btn-tutorial:hover,
+.modal .btn-tutorial:focus,
+.modal .btn-tutorial:active {
+    background-color: #5E35B1;
+    border-color: #512DA8;
+    color: #FFF;
+}
+
+.modal .btn-new-rg {
+    background-color: #F57C00;
+    border-color: #EF6C00;
+    color: #FFF;
+}
+
+.modal .btn-new-rg:visited,
+.modal .btn-new-rg:hover,
+.modal .btn-new-rg:focus,
+.modal .btn-new-rg:active {
+    background-color: #EF6C00;
+    border-color: #E65100;
+    color: #FFF;
+}
+
+.btn.btn-add-student {
+    width: 150px;
+}
+
+table.archive-table.dataTable.stripe tbody tr.odd, table.archive-table.dataTable.display tbody tr.odd {
+    background-color: rgba(249, 183, 183, 0.8) !important;
+}
+
+table.archive-table.dataTable.display tbody tr.even > .sorting_1, table.archive-table.dataTable.order-column.stripe tbody tr.even > .sorting_1 {
+    background-color: rgba(249, 183, 183, 0.8) !important;
+}
+
+table.archive-table.dataTable.display tbody tr.odd > .sorting_1, table.archive-table.dataTable.order-column.stripe tbody tr.odd > .sorting_1 {
+    background-color: rgba(247, 169, 169, 0.8) !important;
+}
+
+.archive-table.table-hover > tbody > tr:hover > td, .archive-table.table-hover > tbody > tr:hover > th {
+    background-color: rgba(249, 183, 183, 0.8) !important;
+}
+
+/*---EDITABLE UNDERLINE -----*/
+.editable-click {
+    border-bottom: dashed 1px #D64242;
+}

@@ -1,0 +1,9 @@
+=== changelog ===
+
+= V 1.0 =
+ - No Changes
+
+= V 2.0 =
+ - new database fields
+ - removed unused code
+ - renamed old lessonzone functions to wushka

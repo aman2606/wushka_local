@@ -1,0 +1,87 @@
+/*
+=======================================================================================
+				
+								MY STATISTICS CSS FILE
+								
+=======================================================================================
+*/
+/*		MENU ITEMS 		*/
+.statistics-menu-wrap {
+	width: 100%;
+	margin-bottom: 20px;
+}
+.item_separator {
+	border-bottom: solid 2px #999;
+	width:10px;
+	display:inline-block;
+	vertical-align:bottom;
+}
+.item_separator_end {
+	border-bottom: solid 2px #999;
+	width:60%;
+	display:inline-block;
+	vertical-align:bottom;
+}
+.statistics-menu-shelf {
+	margin: 10px 0px 10px;
+	height: 40px;
+	overflow-y: hidden;
+}
+.statistics-menu-item {
+	padding: 7px 20px 0px;
+	margin: 0px;
+	border: solid 2px #99A;
+	height: 25px;
+	color: #7C7C7C;
+	text-decoration: none;
+	vertical-align: super;
+	display: inline-block;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.statistics-menu-item.selected {
+	border-bottom: none;
+	padding-bottom: 2px;
+}
+
+.statistics-menu-item:hover {
+	text-decoration: none;
+	background-color: #BEBEBE;
+	color: #FFF;
+}
+
+.statistics-item-wrap {
+	display:			inline-block;
+	padding:			5px;
+	margin:				10px;
+	vertical-align:		top;
+	background-color:	#fff;
+	border: solid 2px #999;
+	border-radius: 5px;
+}
+table[class*="statistics-results-table"] {
+	border-spacing: 0px;
+}
+h2[class='statistics-item-heading'] {
+	border-bottom:	solid 1px #999;
+	margin:			0px;
+}
+
+.statistics-item th {
+	text-align:left;
+	padding: 0px 4px;
+}
+
+.statistics-item td {
+	text-align:left;
+	padding: 0px 4px;
+}
+.statistics-item tr {
+	background-color: #FFF;
+}
+.statistics-item tr:nth-child(even) {
+    background-color: #F3F3F3;
+}
+
+/* --- EOF --- */

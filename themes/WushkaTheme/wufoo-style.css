@@ -1,0 +1,96 @@
+.wufoo .info, .wufoo .paging-context {
+  /*border-bottom: 1px dotted #CCC;*/
+  border-bottom: 1px solid #DCE0E0;
+  text-align: center;
+}
+.wufoo .info h2 {
+  font-family: ProximaNovaSoft-Regular, Arial, Helvetica, sans-serif !important;
+  font-size: 28px;
+}
+
+.wufoo input.text, .wufoo textarea.textarea, .wufoo input.file, .wufoo select.select {
+  font-style: normal;
+  font-weight: normal;
+  color: #333;
+  display: block;
+  padding: 8px;
+  font-size: 14px;
+  color: #333;
+  background-color: #FFF;
+  background-image: none;
+  border: 1px solid #CCC;
+box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+transition: border linear 0.2s,box-shadow linear 0.2s;
+border-radius: 2px;
+}
+
+.safari .wufoo select.select {
+  background: #FFF url(/images/fieldbg.gif) repeat-x top;
+  border: 1px solid Background color 'FFFFFF url(/images/fieldbg.gif) repeat-x top' is not a hex color value.#;
+  border-bottom: 1px solid Background color 'FFFFFF url(/images/fieldbg.gif) repeat-x top' is not a hex color value.#;
+  border-right: 1px solid Background color 'FFFFFF url(/images/fieldbg.gif) repeat-x top' is not a hex color value.#;
+  font-size: 95% !important;
+  font-size: 14px;
+  font-size: 1.4rem;
+  line-height: 1.8;
+  background-color: #FFF;
+  background-image: linear-gradient(#FFF 20%, #F6F6F6 50%, #EEE 52%, #F4F4F4 100%);
+  border-radius: 5px;
+  background-clip: padding-box;
+  border: 1px solid #AAA;
+  box-shadow: 0 0 3px #FFF inset,0 1px 1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  padding: 0 0 0 8px;
+  color: #333;
+  text-decoration: none;
+  height: 35px;
+}
+
+.wufoo input.btTxt {
+  display: inline-block;
+  margin-bottom: 0;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-width: 0 0 1px;
+  border-radius: 2px;
+  padding: 8px 20px 6px;
+  line-height: 1.6;
+  background-color: #D64242;
+  border-color: #DB1017;
+  background-image: none;
+  color: #fff;
+}
+  .wufoo input.btTxt:hover{
+    background-color: #D32F2F;
+    border-color: #DB1017;
+    background-image: none;
+  }
+
+#errorLi {
+  width: 99%;
+  margin: 15px auto 15px auto;
+  background: #FFF !important;
+  border: 2px solid #F00;
+  text-align: center;
+  padding: 1em 0 1em 0;
+  border-radius: 2px;
+}
+
+form li.error p.error {
+  display: block;
+  text-align: left;
+  font-size: 12px;
+}
+
+form.rightLabel label.desc {
+padding-top: 6px;
+}

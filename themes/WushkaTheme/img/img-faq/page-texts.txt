@@ -1,0 +1,424 @@
+<div id="schoolFAQ">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 cols">
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Account Set Up and Access</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">Can we have more than one administrator for our school account?</a>
+                <div class="hidden-content">No, Wushka only allows for one administrator/program coordinator per Wushka account. If a second teacher wants to access all the classes on the account, the coordinator will need to add that teacher to all classes in the Classes page. Only the coordinator can add or delete teachers and classes.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">I haven't received my teacher activation email or log in details.</a>
+                <div class="hidden-content">If you haven't received your teacher activation email, please firstly check your junk mail. Please also ask the Wushka Program Coordinator at your school to double check the spelling of your email address in the Teacher Users page. If the spelling is incorrect, the coordinator will need to correct the address and then resend your activation email by clicking on the envelope icon next to your name in the Teacher Users page. If you continue to have issues, please contact our Wushka Support Team. On receipt of your teacher activation email, you will be asked to set your own password. Your username is your email address. </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">As a principal, is there a dashboard that gives me access to all classes?</a>
+                <div class="hidden-content">If the principal is the program coordinator on the account, they will have access to all classes as long as they have been added to all classes. If the principal is not the coordinator, the coordinator should set up the principal as a teacher can add the principal to all classes in the Classes page.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">The teachers can't see their classes - as program coordinator what do I do to fix this?</a>
+                <div class="hidden-content">The teacher must be added to their class in the Classes page - the coordinator needs to drag the teacher's name into the relevant class in the Classes page.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can I have more than one teacher assigned to a class?</a>
+                <div class="hidden-content">Yes, you can have as many teachers as you like in any class. The coordinator just needs to add the teachers to the class in the Classes page.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can I have learning support teachers assigned to more than one class?</a>
+                <div class="hidden-content">Yes, you can add learning support staff and teachers to as many classes as you like. The coordinator just needs to add the support staff or teacher to the relevant classes in the Classes page.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">I teach at two schools and have Wushka accounts at both of them, can I have more than one account with one email address?</a>
+                <div class="hidden-content">No, Wushka does not allow one email address to be used on more than one account at a time. You would need to provide an alternative email address to be registered as a coordinator or teacher at the second school. </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">I need to add a new teacher to our Wushka account, how do I do this?</a>
+                <div class="hidden-content">Only the Program Coordinator can do this. Go to the Teacher Users page in the Coordinator Dashboard and add the teacher's name and email address to the Add New Teacher User box, then click Add New Teacher.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">I uploaded my class list twice, how do I delete the duplicate students?</a>
+                <div class="hidden-content">The easiest way to fix this issue is to go into the Class List page, click the Manage Class button then the Archive class button, then re-upload your class list.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">How can I delete a student from my class?</a>
+                <div class="hidden-content">Go into Class List page, click the Manage Class button then the Archive Student button. </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can I export the student usernames &amp; passwords as an excel document?</a>
+                <div class="hidden-content">You can copy and past the class list with the usernames and passwords into excel. Also, the teacher can generate a PDF of all student log ins for each class by going to Manage Class Lists/ Manage Class/Generate Student Letters. There is also a document called 'Student User Login Details' which can be found under Helpful Resources, which allows the teacher to copy and paste the username and password for each student into an individual document that can be sent home to parents.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Is there a way to delete and reset the child’s reader records to start again.</a>
+                <div class="hidden-content">To delete all records for a student and start again, you will need to archive that student from the class and then set them up again. This means that they will have a new username and you will have to set a new password for them. You will also have to reset the reading level, level access, reading groups and other permissions for the student in the Manage Class Page. (You can filter the reading records by year if you just want to see the records from the current year, rather than all years).</div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Student Log In Details - Usernames &amp; Passwords</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">Can I change my students' usernames and passwords?</a>
+                <div class="hidden-content">The username is automatically generated and can't be changed. Student passwords are set by the class teacher and can be changed at any time by teacher. The username is not case sensitive, the password is.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Are the username and password case sensitive?</a>
+                <div class="hidden-content">The username is not case sensitive, the password is.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">How do I save the Wushka username and password on an iPad?</a>
+                <div class="hidden-content">When you log into Wushka on an iPad it should ask you if you want to save the password for the website. Once this is saved, you should have the option to sign in with the previously saved password when you next log in.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can students change their own passwords?</a>
+                <div class="hidden-content">No, only the teacher or coordinator can change student passwords.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Do you support SSO?</a>
+                <div class="hidden-content">Wushka doesn't support SSO yet but this will happen in the near future and we will let all customers know when this is available.</div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Reading Groups</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">How do students access the book you have assigned them for reading groups?</a>
+                <div class="hidden-content">Under Reading Group Permissions the teacher can decide whether access to the Reading Group is set to 'On' (so students can access any time), 'Off' (so students can't access until the teacher changes it to On), 'School' (so students can only access during school hours), or 'Home' (so students can only access at home, outside of school hours).</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">What do the home and school settings mean in reading group permissions?</a>
+                <div class="hidden-content">Under Reading Group Permissions the teacher can decide whether access to the Reading Group is set to 'On' (so students can access any time), 'Off' (so students can't access until the teacher changes it to On), 'School' (so students can only access during school hours), or 'Home' (so students can only access at home, outside of school hours).</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Once you have allocated children to a reading group and added books to that group, is there any way you can restrict their access to the group books until you are ready for them to work together as a group on that book?</a>
+                <div class="hidden-content">Yes, in the Manage Class page under Reading Group Permissions select Off until you are ready to work with the students, and then select On. </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can students be  in multiple reading groups?</a>
+                <div class="hidden-content">Students can't be in more than one reading group at the same time but teachers can allow students to access different reading groups at different times. The teacher needs to create the various reading groups first, then when they are ready for the student to access a particular group, they select that group for the student from the dropdown in the Reading Group column in the Manage Class page. </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can I create one reading group with the same books across multiple classes in one year group for our reading intervention students, and still allow the students to remain in their own class? </a>
+                <div class="hidden-content">Reading Groups are specific to each class, so students in different classes can't access the same reading group. If the school wants intervention students across multiple classes to access the same books, the teacher in each class would need to set up an Intervention  Reading Group and allocate the same books to the group. They would then select that reading group for the intervention students in the class.  If a Reading Intervention Teacher is working directly with the intervention students across multiple classes, and they will be managing the intervention reading groups, they will need to be added as a teacher to each of the classes, so that they have access. </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can I limit the number of books a student can access for independent reading? </a>
+                <div class="hidden-content">Yes. Under Levels Access, in the Manage Class page, you would select Reading Group Only. Then, you would create a reading group called Independent Reading and assign the chosen readers to that group. You would then select the Independent Reading Group for the relevant students in the Reading Group column.  If you want the same students to access other readers for guided reading, you would create a second reading group called Guided Reading and assign the chosen readers to that group. When you are ready to work with the students on Guided Reading, you would then select the Guided Reading Group for the relevant students in the Reading Group column. (within one class you would normally need to create multiple Independent and Guided Reading Groups for students at the various reading levels.) </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">How do I delete a reading group?</a>
+                <div class="hidden-content">In  the Reading Groups page, select the name of the group you wish to delete then select the grey Tool Kit icon at the top right hand side of the reading group box - this will bring up 3 options - re-name the group, archive all books or delete the group.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Does Wushka show which readers have already been assigned to reading group?</a>
+                <div class="hidden-content">Yes, in the Reading Groups page, once you have read the book with the group, click on the folder icon on the left hand side of the book to archive it - this will remove it from the reading group and will display the folder icon on the cover so that when you go to assign new readers to the group you will know which ones have been used before. If you want to archive all books from the Reading Group in one go, select the grey Tool Kit icon at the top right hand side of the reading group box - this will bring up 3 options - rename the group, archive all books or delete the group.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">After students have read a book, Wushka suggests other books they might want to try-what level are these books? </a>
+                <div class="hidden-content">The suggested readers will be at the same reading level the teacher has set for the student. </div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Reading Levels &amp; Reading Level Correlation Chart</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">What levelling system is used for Wushka? Are the levels aligned with PM Benchmark &amp; Probe reading levels?</a>
+                <div class="hidden-content">The Wushka Levels are based on the Ready to Read Colour Wheel system developed by the NZ Ministry of Education and Learning Media. The Wushka colour reading boxes are the same colour levels as the PM colours, and Wushka levelling correlates to all familiar reading systems. A Reading Level Correlation Chart is available on the website to download under Helpful Resources</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Do you have a reading correlation chart? </a>
+                <div class="hidden-content">A Reading Level Correlation Chart is available on the website to download on the website under Helpful Resources</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can you provide the reading levels for individual books within each reading box?</a>
+                <div class="hidden-content">We are compiling a document which lists the individual reading level for each book and we will add this information to the website under Helpful Resources once it is complete. </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Is Wushka suitable for students in the last few years of primary school? </a>
+                <div class="hidden-content">Yes, Wushka is suitable for students up to Year 6. The readers in Reading Boxes Sapphire to Black are aimed at older primary students. Teachers may want students at this level, who are reading to learn, to have access to all levels so they can use Wushka as a resource library to help them with enquiry or project based learning.</div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Teacher Resources &amp; Assessment</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">Are there any resources for assessment on Wushka?</a>
+                <div class="hidden-content">There are 91 titles on Wushka which have Reading Records across Magenta to Gold level. The document 'Support Materials for Reading Assessment' under Helpful Resources lists the titles which have Reading Records, and other support resources that can be used for assessment. Every title on Wushka also has a comprehension quiz attached to it, and teachers can access students' quiz results to assess their comprehension. </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">What teacher support resources are available to download on Wushka?</a>
+                <div class="hidden-content">Every title on Wushka includes a lesson plan, a blackline master for the student and a black &amp; white printable copy of the reader. In addition to that, each title includes at least one other resource. Depending on the level of the reader this additional resource may be a reading record, word cards, sequence strips, a wordless printable reader, a comprehension assessment or discussion cards.  </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">How do students access the blackline masters?</a>
+                <div class="hidden-content">Support resources can be downloaded and posted to school portals, google classroom or emailed to students.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can you filter by the high frequency words?</a>
+                <div class="hidden-content">There is no filter on Wushka at this stage which allows you to filter by High Frequency Words but we do have a document that lists the high frequency words for each title which we can share with you. </div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Narration/Audio</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">The narration/audio isn't working on Wushka.</a>
+                <div class="hidden-content">Firstly, please check that you have given your students access to narration in the Manage Class page under the heading Allow Narration. If  the narration setting is switched to On and you are accessing Wushka on an iPad, we recommend using Google Chrome, not Safari as your browser. Please also note that if you are using iOS13 on your iPad, you will need make sure you  are not in 'desktop mode', and if you are,  switch to using 'mobile site'.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Does every title have narration? </a>
+                <div class="hidden-content">Every title on Wushka has narration but the teacher controls the students' account settings and they decide whether narration is switched on or off for each student. </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can I change the speed of narration?</a>
+                <div class="hidden-content">The speed of narration increases as the reading level increases and reading fluency improves. For younger students, the narration will be at a much slower speed. The text is highlighted in sync with the narration, word by word for younger students, then gradually increasing to sentence by sentence and later paragraph by paragraph. You can't change the speed of the narration on Wushka.</div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Quizzes</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">Does every title have a quiz?</a>
+                <div class="hidden-content">Every title on Wushka has a quiz. The teacher controls the students' account settings and they decide which students have access to the quizzes.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can I make the quizzes compulsory?</a>
+                <div class="hidden-content">Yes, in Manage Class List page, you can set the quiz as compulsory for the whole class by clicking on the Manage Class button then selecting Set Class Quizzes, then selecting Compulsory. If you want to make the quizzes compulsory for some but not all of the students in the class, find the column headed Quizzes, then select the preferred option for each student from the dropdown that appears when you click on the blue dotted line. Once you have selected your preferred option, press the red tick to save your selection.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Are the quizzes narrated?</a>
+                <div class="hidden-content">Not yet but we are reviewing this and will let our customers know if and when this feature becomes available. In the meantime we suggest that a teacher/parent/caregiver supports the younger students with the quizzes. </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can students access the reader while they do the quiz?</a>
+                <div class="hidden-content">Every title on Wushka has a printable black and white reader which can be printed for students to refer to during the quiz if required. Students can't access the readers on Wushka whilst they are doing the quiz, but they can go back to the reader at the end of the quiz and then retake the quiz if they want. We suggest that a teacher/parent/caregiver supports younger students with the quizzes.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">How can I see the students' quiz results?</a>
+                <div class="hidden-content">You can view students' quiz results in the  Student Statistics page. Click on the relevant student on the left hand side then scroll to the bottom of the page and click See All Quiz Results - this will list the book they read, the date they read it and the quiz score for that book. Click the View box next to each book to see the detailed quiz results for that book, including the questions and the answers they got right and wrong. In this page you also have the option to create a quiz report for each student, or the whole class.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">How do students find the correct answers for the quizzes?</a>
+                <div class="hidden-content">Students can access the correct quiz answers by clicking on My Page, scrolling down to the online quiz results graph, hovering over the graph and then clicking the More button. This shows the student all the questions, any incorrect answers they have given, and the correct answers. </div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Training / Professional Development /Webinars</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">Is there any Professional Development/Training available for Wushka? </a>
+                <div class="hidden-content">Yes, training is available for Wushka. There are a few options for schools to choose from.  Option 1 Webinars: In order to get you started and feeling confident with Wushka we would like to invite you and your team to attend a 45 minute Zoom webinar where one of our team members will take you through the program and be available for any questions you have during the demonstration. If you click on the link below you will be taken to a registration form where you can choose a session that suits you: https://go.modernstar.com/l/265212/2020-04-01/gld96 Option 2 Remote Training:  Remote Training via Zoom for individual schools is also available - please contact our Wushka Support Team if you are interested in this option and we will arrange for a team member to get in touch with you to arrange a suitable day and time. There is no charge for remote training. Option 3 On-Site Training: On-site training can be arranged for your school - please contact our Wushka Support Team if you are interested in this option and we will arrange for a team member to get in touch with you to arrange a suitable day and time. A fee applies for on-site training. </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Is there a video for teachers on how to use Wushka?</a>
+                <div class="hidden-content">Yes, you can find several Wushka videos for teachers on YouTube, including the 'Getting Started with Wushka' series, and recordings of our Wushka Webinars.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">I attended a Wushka Webinar, is there a recording of the webinar available? </a>
+                <div class="hidden-content">Yes, recordings of the Wushka webinars can be found on YouTube. Just search for Wushka Webinar and select a recording. </div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Privacy &amp; Data Security</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">Please can you send me your privacy policy as we have concerns about how &amp; where the student data is stored?</a>
+                <div class="hidden-content">Wushka uses third party, Amazon Web Services (AWS) data storage facilities that are located in Sydney, Australia. For more information on data storage and security, please see our Privacy Policy which is on the homepage of our website, under Useful Information</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">We don’t want to provide the students' names due to privacy concerns.</a>
+                <div class="hidden-content">As long as you provide data for us to upload into the First Name &amp; Last Name fields, you can use any data you like rather than providing the students' actual first and last names.  Examples that schools use are:  first name and initial,  first name and class name,  first name and a colour, or first name and student number. </div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Technical Information</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">What browser should we use to access Wushka?</a>
+                <div class="hidden-content">We recommend using Chrome, Firefox or Microsoft Edge as your browser to access Wushka on Windows, and Chrome or Safari on Apple devices.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">What device can we use to access Wushka?</a>
+                <div class="hidden-content">Most devices will work with Wushka, for example: iPads, Chromebooks, Laptops and Desktop PC’s (Windows or Mac), as long as you have internet connection. (Older iPads, 1 or 2, are not recommended)</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Is there an app for Wushka?</a>
+                <div class="hidden-content">Wushka is cloud-based which means all  updates and upgrades are live, there is no need for schools or parents to run regular upgrades as they would have to with an App. As long as schools have internet access they can access Wushka. </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Do you support SSO?</a>
+                <div class="hidden-content">Wushka doesn't support SSO yet but this will happen in the near future and we will let all customers know when this is available.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">How do I link Wushka directly to my school website?</a>
+                <div class="hidden-content">To link Wushka to your school website go to 'Link to Wushka'  under Useful Information on our homepage</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">The narration/audio isn't working on Wushka.</a>
+                <div class="hidden-content">Firstly, please check that you have given your students access to narration in the Manage Class page under the heading Allow Narration. If  the narration setting is switched to On and you are accessing Wushka on an iPad, we recommend using Google Chrome, not Safari, as your browser. Please also note that if you are using iOS13 on your iPad, you will need make sure you  are not in 'desktop mode', and if you are, switch to using 'mobile site'.  </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">The books my student has read are not being recorded as read on Wushka.</a>
+                <div class="hidden-content">Please check that the student closes each book using the blue cross in the top right hand corner of the screen. Please note that if a student opens and closes a book without visiting each page in the book, it will not register as read.  We recommend that teachers check the 'time spent reading' in the Students Statistics page or the Reader Records page, so they can assess whether the book has actually been read or just opened and skimmed through. If you avhe further questions about reading data, please contact our Wushka Support Team.</div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Tutoring Agencies &amp; Home Schools</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">Can I purchase a Wushka licence to use with my students /children?</a>
+                <div class="hidden-content">Wushka does not offer licences for home schools or tutoring agencies at this stage. It is available as a school-based licence only. </div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Overseas Customers</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">Can I purchase a Wushka licence if I am based overseas? </a>
+                <div class="hidden-content">Wushka is only available to schools in Australia &amp; New Zealand at this stage. If you are a teacher in a school in Singapore, Malaysia or Hong Kong, please contact our Wushka Support Team as we our starting to trial Wushka in schools in these countries. Wushka is not available as an individual licence for parents, home schools or tutoring agencies. </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="parentFAQ">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 cols">
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Student Log In Details - Usernames &amp; Passwords</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">I don’t know my child's password.</a>
+                <div class="hidden-content">The teacher sets the students' passwords, so if you haven't received a password from your child's teacher yet, please contact them directly. If you have lost or forgotten your child's password, please contact the teacher. If it is school holidays, please contact our Wushka Support Team who will help you.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can I change my child's username and password?</a>
+                <div class="hidden-content">The username is automatically generated and can't be changed. Student passwords are set by the class teacher and can only be changed by the teacher. The username is not case sensitive, the password is.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Are the username and password case sensitive?</a>
+                <div class="hidden-content">The username is not case sensitive, the password is.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">My child's login is not working.</a>
+                <div class="hidden-content">If your child's log in is not working, please double check the username and password provided by the teacher and please note that the password is case sensitive. If you continue to have problems logging in, please contact our Wushka Support Team who will help you.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">How do I save the Wushka username and password on an iPad?</a>
+                <div class="hidden-content">When you log into Wushka on an iPad it should ask you if you want to save the password for the website. Once this is saved, you should have the option to sign in with the previously saved password when you next log in.</div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Technical Information</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">What browser should we use to access Wushka?</a>
+                <div class="hidden-content">We recommend using Chrome, Firefox or Microsoft Edge as your browser to access Wushka on Windows, and Chrome or Safari on Apple devices.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">What device can we use to access Wushka?</a>
+                <div class="hidden-content">Most devices will work with Wushka, for example: iPads, Chromebooks, Laptops and Desktop PC’s (Windows or Mac), as long as you have internet connection. (Older iPads, 1 or 2, are not recommended)</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Is there an app for Wushka?</a>
+                <div class="hidden-content">Wushka is cloud-based which means all updates and upgrades are live, there is no need for parents to run regular upgrades as they would have to with an App. As long as you have internet access on your device, you can access the Wushka website.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">The narration/audio isn't working on Wushka.</a>
+                <div class="hidden-content">The teacher at the school controls the settings on the students' Wushka accounts and they determine which students have access to narration. Please ask your teacher or the Wushka Support Team to check if the narration setting for your child is switched On or Off. If  the narration setting is switched to On and you are still having problems with the narration when using an iPad, we recommend using Google Chrome, not Safari, as your browser. Please also note that if you are using iOS13 on your iPad, you will need make sure you  are not in 'desktop mode', and if you are, you should switch to using 'mobile site'.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">The books my child has read are not being recorded as 'read' on Wushka.</a>
+                <div class="hidden-content">Please check that your child closes each book using the blue cross in the top right hand corner of the screen. Please note that if a child opens and closes a book without visiting each page in the book, it will not register as read. Parents can check how long a child has spent reading each book via My Page in the child's Wushka account. Under Reading Record, click the More button and this will display the time spent reading. This allows parents to assess whether the book has actually been read or just opened and skimmed through. If you have further questions on this issue, please contact our Wushka Support Team.</div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">Quizzes &amp; Narration</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">Does every book have narration? Does every book have a quiz?</a>
+                <div class="hidden-content">Every title on Wushka has a quiz and narration. The teacher controls the students' account settings and they decide which students have access to the quizzes and the narration.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can I change the speed of narration?</a>
+                <div class="hidden-content">The speed of narration increases as the reading level increases and reading fluency improves. For younger students, the narration will be at a much slower speed. The text is highlighted in sync with the narration, word by word for younger students, then gradually increasing to sentence by sentence and later paragraph by paragraph. You can't change the speed of the narration on Wushka. </div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can my child access the reader while they do the quiz?</a>
+                <div class="hidden-content">Students can't access the readers on Wushka whilst they are doing the quiz, but they can go back to the reader at the end of the quiz and then retake the quiz if they want. We suggest that a teacher/parent/caregiver supports younger students with the quizzes.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">How does my child find the correct answers for the quizzes?</a>
+                <div class="hidden-content">Children can access the correct quiz answers by clicking on My Page, scrolling down to the online quiz results graph, hovering over the graph and then clicking the More button. This shows the student all the questions, any incorrect answers they have given, and the correct answers.</div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-faq">
+            <button class="faqaccordion">
+              <h3 class="faqTitle">General Information for Parents</h3>
+            </button>
+            <div class="faqpanel">
+              <div class="faq-single">
+                <a class="subtitle">Is there a video for parents on how to use Wushka?</a>
+                <div class="hidden-content">Yes, you can find our video 'Getting Started with Wushka for Parents' on YouTube.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Is there a guide for parents on how to use Wushka?</a>
+                <div class="hidden-content">Yes, please find below a copy of the document '<a href="https://cdn1.wushka.com.au/Resources/tips-for-parents-wushka.pdf" target="_blank" download="" style="text-decoration:underline; color:#428bca;" rel="noopener noreferrer">Tips for Parents</a>.'</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">My child has completed all of the books in their reading box.</a>
+                <div class="hidden-content">The teacher at the school controls the settings on the students' Wushka accounts and they determine which reading boxes and reading levels each student has access to. Please contact your child's teacher to discuss this further.</div>
+              </div>
+              <div class="faq-single">
+                <a class="subtitle">Can I purchase a licence for myself to use with my children at home? </a>
+                <div class="hidden-content">Wushka does not offer individual licences for parents at this stage. It is available as a school-based licence only.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

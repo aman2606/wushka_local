@@ -1,0 +1,3 @@
+.lzaws-settings select.bucket{margin-bottom:5px;width:380px}
+#s3bucket-list {width: 60%; height: 100%; border: 1px solid lightgrey;}
+.s3bucket-list {width: 100%; height: 100%; overflow-y: scroll;}

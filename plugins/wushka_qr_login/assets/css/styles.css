@@ -1,0 +1,54 @@
+.boot_qrl .card {
+  max-width: 100%;
+}
+
+.select2-selection--single .select2-selection__rendered {
+  line-height: 38px !important;
+}
+
+.select2-container .select2-selection--single {
+  height: 38px !important;
+}
+
+/* .select2-container .select2-selection--multiple {
+    height: 38px !important;
+} */
+
+.select2-selection__arrow {
+  height: 38px !important;
+}
+
+.boot_qrl label {
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.boot_qrl .input-text-wrap {
+  padding-top: 10px;
+}
+
+.select2-selection--multiple .select2-search--inline {
+  height: 25px !important;
+}
+
+.form-control-file {
+  border: solid 1px #aaaaaa;
+  padding: 6px !important;
+}
+
+div#postbox-container-1 {
+  margin-right: 10px;
+}
+
+.save-button {
+  border-radius: 0 !important;
+  padding: 0px 30px;
+  width: 105px;
+  margin-left: 8px !important;
+  margin-bottom: 20px !important;
+
+}
+.no-school{
+    width: 96%;
+    margin: 20px auto;
+}

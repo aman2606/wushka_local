@@ -1,0 +1,56 @@
+table.license {
+    padding-left: 10px;
+}
+
+table.license_top {
+    width: 100%;
+}
+
+table.license_top td {
+    width: 50%;
+}
+
+table.license td {
+    padding: 5px;
+}
+
+div.license_container {
+    background: white;
+    padding: 15px;
+    padding-left: 4%;
+}
+
+ol.license_bullet li {
+    padding: 5px;
+    font-size: medium;
+}
+
+.row_environment_name {
+    width: 96%;
+}
+
+.row_environment_url {
+    width: 100%;
+}
+
+.environment_table_header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.environment_selector {
+    float: right;
+    position: relative;
+    top: -4px;
+    border-radius: 3px;
+    background: #f6f7f7;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 3px 3px 3px 11px;
+}
+
+.envirenment_selector_dropbox {
+    width: 65px;
+    padding: 2px;
+}
