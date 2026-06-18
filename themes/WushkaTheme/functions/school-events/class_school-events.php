@@ -245,6 +245,18 @@ class School_Events {
         $a_params    = array();
         $a_condition = array();
 
+        $a_allowed_columns = ['ID', 'school_id', 'event_type', 'sub_type', 'action', 'date_created'];
+        $a_allowed_order_by = ['ID', 'school_id', 'event_type', 'sub_type', 'action', 'date_created'];
+        $a_allowed_order    = ['ASC', 'DESC'];
+
+        $s_order_by = in_array($this->_a_query_args['order_by'], $a_allowed_order_by, true)
+            ? $this->_a_query_args['order_by']
+            : 'ID';
+
+        $s_order = in_array(strtoupper($this->_a_query_args['order']), $a_allowed_order, true)
+            ? strtoupper($this->_a_query_args['order'])
+            : 'ASC';
+
         error_log('Query Args = ' . print_r($this->_a_query_args, TRUE));
 
         foreach( $this->_a_query_args as $k => $x ) {
@@ -273,6 +285,9 @@ class School_Events {
                     $a_params[]    = $s_start;
                     $a_params[]    = $s_end;
                 } else {
+                    if( ! in_array($k, $a_allowed_columns, true) ) {
+                        continue;
+                    }
                     if( is_array($x) ) {
                         $a_x2 = [];
                         foreach( $x as $k2 => $x2 ) {
@@ -292,7 +307,7 @@ class School_Events {
         if( ! empty($a_condition) ) {
             $s_query .= 'WHERE ' . implode(' AND ', $a_condition) . ' ';
         }
-        $s_query .= 'ORDER BY ' . $this->_a_query_args['order_by'] . ' ' . $this->_a_query_args['order'];
+        $s_query .= 'ORDER BY ' . $s_order_by . ' ' . $s_order;
         //Store FULL Query
         $this->_s_full_query  = $s_query;
         $this->_a_full_params = $a_params;
