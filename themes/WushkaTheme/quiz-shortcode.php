@@ -57,6 +57,16 @@ if (!empty($post_ID)) {
 if (current_user_can('student') || current_user_can('administrator') || current_user_can('school') || current_user_can('teacher')) {
     $s_quiz = $current_user->quizzes;
 
+    if (current_user_can('student') && $s_quiz == 'no') {
+        if (!empty($post_ID)) {
+            $s_link = 'ebook/' . get_post_field('post_name', $post_ID);
+            wp_redirect(home_url('/') . $s_link);
+        } else {
+            wp_redirect(home_url());
+        }
+        exit();
+    }
+
     if (current_user_can('student')) {
 
         $bookId =  get_post_meta($post_ID, 'esiss_resource_id', true);
