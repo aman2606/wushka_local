@@ -235,7 +235,6 @@ class School_Events {
                 }
             }
         }
-
         return TRUE;
     }
 

@@ -191,7 +191,7 @@ get_header();
 					    				<i class="glyphicon glyphicon-education"></i> Class
 					    			</button> -->
                                     <input type="hidden" name="event_type" id="filter-type"
-                                        value="<?php echo $args['event_type']; ?>" />
+                                        value="<?php echo esc_attr($args['event_type']); ?>" />
                                 </div>
                                 <fieldset class="form-group" id="time-select">
                                     <legend>Time:</legend>
@@ -242,7 +242,7 @@ get_header();
                                         </button>
                                     </div>
                                     <input type="hidden" name="order_by" id="filter-order-by"
-                                        value="<?php echo $args['order_by']; ?>" />
+                                        value="<?php echo esc_attr($args['order_by']); ?>" />
                                 </div>
                                 <div class="form-group btn-group order-group" role="group">
                                     <strong>Order:</strong><br />
@@ -257,7 +257,7 @@ get_header();
                                         </button>
                                     </div>
                                     <input type="hidden" name="order" id="filter-order"
-                                        value="<?php echo $args['order']; ?>" />
+                                        value="<?php echo esc_attr($args['order']); ?>" />
                                 </div>
                                 <div class="form-group btn-group limit-group" role="group">
                                     <strong>Results Per Page:</strong><br />
@@ -280,11 +280,11 @@ get_header();
                                         </button>
                                     </div>
                                     <input type="hidden" name="limit" id="filter-limit"
-                                        value="<?php echo $args['limit']; ?>" />
+                                        value="<?php echo esc_attr($args['limit']); ?>" />
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="page_no" id="filter-page-no"
-                                        value="<?php echo $args['page_no']; ?>" />
+                                        value="<?php echo esc_attr($args['page_no']); ?>" />
                                     <input type="submit" name="notification_submit" id="notification_submit"
                                         class="btn btn-primary btn-block" value="Apply Filters" />
                                 </div>
