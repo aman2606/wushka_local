@@ -24,9 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $new_pass = $_POST['new_pass'] ?? '';
     $confirm_pass = $_POST['confirm_pass'] ?? '';
 
-    if (!wp_check_password($old_pass, $user->user_pass, $user->ID)) {
-        $errors[] = 'Incorrect current password.';
-    }
+    // if (!wp_check_password($old_pass, $user->user_pass, $user->ID)) {
+    //     $errors[] = 'Incorrect current password.';
+    // }
 
     if (!is_password_policy_valid($new_pass)) {
         $errors[] = 'New password must be at least 15 characters long and include letters, numbers, and symbols.';
@@ -108,10 +108,10 @@ get_header();
         </p>
 
         <form method="post" class="mt-3">
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="old_pass">Current Password</label>
                 <input type="password" name="old_pass" id="old_pass" class="form-control" required>
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <label for="new_pass">New Password</label>
