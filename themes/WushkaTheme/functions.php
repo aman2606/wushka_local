@@ -6668,6 +6668,11 @@ function user_must_change_password_redirect()
         return;
     }
 
+    // Skip redirect when an admin has switched into this account via the User Switching plugin.
+    if (function_exists('current_user_switched') && current_user_switched()) {
+        return;
+    }
+
     $user_id = get_current_user_id();
     $user = wp_get_current_user();
     $allowed_roles = passwordPolicyAllowedRoles();
