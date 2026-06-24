@@ -285,6 +285,7 @@ $phase_ids   = array();
 
 $a_shelves = isset($current_user->prepared_shelves) ? $current_user->prepared_shelves : [];
 
+
 error_log('prepared shelves: ' . print_r($a_shelves, true));
 foreach ($level_terms as $idx => $o_term) {
     if (is_user_logged_in()) {

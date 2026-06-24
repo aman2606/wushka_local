@@ -46,6 +46,8 @@ $isQRDisabled = isQRDisabled();
     var o_access = <?php echo json_encode($a_results['data']['access']); ?>;
     var o_settings = <?php echo json_encode($a_results['data']['settings']); ?>;
     var o_classes = <?php echo json_encode($a_results['data']['classes']); ?>;
+    var o_sound_clusters = <?php echo json_encode($a_results['data']['sound_clusters']); ?>;
+    var o_phase_access   = <?php echo json_encode($a_results['data']['phase_access']); ?>;
 
     function deleteStudentFromOtherClass(id_hash, classId) {
 
@@ -1488,6 +1490,32 @@ if ($arhiveStudentList) { ?>
                     update_user_property(id, meta, value);
                 }
             });
+            //6a. Edit Sound Cluster Field
+            $('.sound_cluster').editable({
+                type: 'select',
+                emptytext: 'Not Set',
+                mode: 'inline',
+                source: o_sound_clusters,
+                success: function(response, value) {
+                    var id   = $(this).closest('tr').attr('id').replace('user-', '').trim();
+                    var meta = $(this).attr('class').split(' ')[0];
+                    edit_user_data(id, meta, value);
+                    update_user_property(id, meta, o_sound_clusters[value] || 'Not Set');
+                }
+            });
+            //6b. Edit Phase Access Field
+            $('.phase_access').editable({
+                type: 'select',
+                emptytext: 'Not Set',
+                mode: 'inline',
+                source: o_phase_access,
+                success: function(response, value) {
+                    var id   = $(this).closest('tr').attr('id').replace('user-', '').trim();
+                    var meta = $(this).attr('class').split(' ')[0];
+                    edit_user_data(id, meta, value);
+                    update_user_property(id, meta, o_phase_access[value] || 'Not Set');
+                }
+            });
             //6. Edit Reading Group Field
             $('.my_reading_group').editable({
                 type: 'select',
@@ -2018,6 +2046,9 @@ if ($arhiveStudentList) { ?>
         function get_table_header(b_archive) {
             var a_head = [];
             a_head.push('<thead>');
+            a_head.push('<tr class="class-view-table-category">');
+            a_head.push(get_category_row(b_archive).join(''));
+            a_head.push('</tr>');
             a_head.push('<tr class="class-view-table-heading">');
             a_head.push(get_header_rows(b_archive).join(''));
             a_head.push('</tr>');
@@ -2029,6 +2060,9 @@ if ($arhiveStudentList) { ?>
         function get_table_footer(b_archive) {
             var a_foot = [];
             a_foot.push('<tfoot>');
+            a_foot.push('<tr class="class-view-table-category table-footer">');
+            a_foot.push(get_category_row(b_archive).join(''));
+            a_foot.push('</tr>');
             a_foot.push('<tr class="class-view-table-heading table-footer">');
             a_foot.push(get_header_rows(b_archive).join(''));
             a_foot.push('</tr>');
@@ -2039,15 +2073,22 @@ if ($arhiveStudentList) { ?>
 
         function get_header_rows(b_archive) {
             var a_rows = [];
+            // General
             a_rows.push('<th class="class-view-col-0">First Name</th>');
             a_rows.push('<th class="class-view-col-1">Surname</th>');
             a_rows.push('<th class="class-view-col-2">Username</th>');
             a_rows.push('<th class="class-view-col-2">Email</th>');
             a_rows.push('<th class="class-view-col-3">Password</th>');
-            a_rows.push('<th class="class-view-col-4">Reading Level</th>');
-            a_rows.push('<th class="class-view-col-5">Levels Access</th>');
+            // Decodable Library
+            a_rows.push('<th class="class-view-col-dec">Sound Cluster</th>');
+            a_rows.push('<th class="class-view-col-dec">Phase Access</th>');
+            // Reading Group (shared)
             a_rows.push('<th class="class-view-col-6">Reading Group</th>');
             a_rows.push('<th class="class-view-col-7">Reading Group Permissions</th>');
+            // Levelled Library
+            a_rows.push('<th class="class-view-col-4">Reading Level</th>');
+            a_rows.push('<th class="class-view-col-5">Levels Access</th>');
+            // No category
             a_rows.push('<th class="class-view-col-8">Allow Narration</th>');
             a_rows.push('<th class="class-view-col-9">Allow Book Read During Quiz</th>');
             a_rows.push('<th class="class-view-col-10">Quizzes</th>');
@@ -2057,8 +2098,23 @@ if ($arhiveStudentList) { ?>
             if(!isQRDisabled){
                 a_rows.push('<th class="class-view-col-12">Regenerate QR</th>');
             }
-            
 
+            return a_rows;
+        }
+
+        function get_category_row(b_archive) {
+            var a_rows = [];
+            a_rows.push('<th colspan="5" class="col-category col-category-general">General</th>');
+            a_rows.push('<th colspan="2" class="col-category col-category-decodable">Decodable Library</th>');
+            a_rows.push('<th colspan="2" class="col-category"></th>');
+            a_rows.push('<th colspan="2" class="col-category col-category-levelled">Levelled Library</th>');
+            a_rows.push('<th class="col-category"></th>');
+            a_rows.push('<th class="col-category"></th>');
+            a_rows.push('<th class="col-category"></th>');
+            a_rows.push('<th class="col-category"></th>');
+            a_rows.push('<th class="col-category"></th>');
+            if (b_archive) { a_rows.push('<th class="col-category"></th>'); }
+            if (!isQRDisabled) { a_rows.push('<th class="col-category"></th>'); }
             return a_rows;
         }
 
@@ -2086,13 +2142,10 @@ if ($arhiveStudentList) { ?>
             a_row.push('<td><span class="username">' + o_user.username + '</span></td>');
             a_row.push('<td><span class="email">' + o_user.email + '</span></td>');
             a_row.push('<td><button class="user_pass">' + o_user.user_pass + '</button></td>');
-            a_row.push('<td data-order="' + o_user.reading_level.slug + '">');
-            a_row.push('<button class="reading_level" data-value="' + o_user.reading_level.slug + '">');
-            a_row.push(o_user.reading_level.name);
-            a_row.push('</button>');
-            a_row.push('</td>');
-            a_row.push('<td><button class="allowed_shelves" data-value="' + o_user.allowed_shelves + '">' + o_user
-                .allowed_shelves + '</button></td>');
+            // Decodable Library
+            a_row.push('<td><button class="sound_cluster" data-value="' + (o_user.sound_cluster || '') + '">' + (o_user.sound_cluster || 'Not Set') + '</button></td>');
+            a_row.push('<td><button class="phase_access" data-value="' + (o_user.phase_access || '') + '">' + (o_user.phase_access || 'Not Set') + '</button></td>');
+            // Reading Group
             a_row.push('<td>');
             a_row.push('<button class="my_reading_group" data-value="' + o_user.my_reading_group.ID + '">');
             a_row.push(o_user.my_reading_group.value);
@@ -2104,6 +2157,14 @@ if ($arhiveStudentList) { ?>
             a_row.push(o_user.rg_setting.name);
             a_row.push('</button>');
             a_row.push('</td>');
+            // Levelled Library
+            a_row.push('<td data-order="' + o_user.reading_level.slug + '">');
+            a_row.push('<button class="reading_level" data-value="' + o_user.reading_level.slug + '">');
+            a_row.push(o_user.reading_level.name);
+            a_row.push('</button>');
+            a_row.push('</td>');
+            a_row.push('<td><button class="allowed_shelves" data-value="' + o_user.allowed_shelves + '">' + o_user
+                .allowed_shelves + '</button></td>');
             a_row.push('<td><button class="narration yesorno" aria-label="Narration: ' + o_user.narration +
                 '" data-value="' + o_user.narration + '">' + o_user
                 .narration + '</button></td>');
@@ -2284,12 +2345,12 @@ if ($arhiveStudentList) { ?>
                     $('<span>').addClass('user_pass').append(o_user.user_pass)
                 )
             ).append(
-                $('<td>').attr('data-order', '').append(
-                    $('<span>').attr('data-value', '').addClass('reading_level').append(o_user.reading_level.name)
+                $('<td>').append(
+                    $('<span>').addClass('sound_cluster').attr('data-value', '').append('Not Set')
                 )
             ).append(
                 $('<td>').append(
-                    $('<span>').addClass('allowed_shelves').attr('value', 'all').append(o_user.allowed_shelves)
+                    $('<span>').addClass('phase_access').attr('data-value', '').append('Not Set')
                 )
             ).append(
                 $('<td>').append(
@@ -2298,6 +2359,14 @@ if ($arhiveStudentList) { ?>
             ).append(
                 $('<td>').append(
                     $('<span>').addClass('rg_setting').attr('value', 'on').append(o_user.rg_setting.name)
+                )
+            ).append(
+                $('<td>').attr('data-order', '').append(
+                    $('<span>').attr('data-value', '').addClass('reading_level').append(o_user.reading_level.name)
+                )
+            ).append(
+                $('<td>').append(
+                    $('<span>').addClass('allowed_shelves').attr('value', 'all').append(o_user.allowed_shelves)
                 )
             ).append(
                 $('<td>').append(

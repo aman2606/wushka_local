@@ -6,7 +6,8 @@
  * Date: 5/05/2016
  * Time: 4:59 PM
  */
-class Class_List {
+class Class_List
+{
 
     private $i_class;
     private $s_class;
@@ -15,7 +16,8 @@ class Class_List {
     private $o_user;
     private $b_test;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->i_class  = NULL;
         $this->s_class  = NULL;
         $this->a_school = array(
@@ -29,7 +31,7 @@ class Class_List {
             'data'    => array()
         );
 
-        if( ! isset($current_user) ) {
+        if (! isset($current_user)) {
             global $current_user;
         }
 
@@ -39,26 +41,27 @@ class Class_List {
         $this->b_test = TRUE;
 
         return TRUE;
-
     }
 
-    public function set_class( $i_class, $s_type ) {
-        if( isset($i_class) && ! empty($i_class) ) {
+    public function set_class($i_class, $s_type)
+    {
+        if (isset($i_class) && ! empty($i_class)) {
             $this->i_class = (int)$i_class;
         }
 
-        if( isset($s_type) && ! empty($s_type) ) {
+        if (isset($s_type) && ! empty($s_type)) {
             $this->s_class = $s_type;
         }
 
         return TRUE;
     }
 
-    public function get_class_data( $b_school = FALSE ) {
+    public function get_class_data($b_school = FALSE)
+    {
         $this->log('----- LOADING USER CLASS TABLES -----');
         $this->log('Started at: ' . date('H:i:s'));
         //Validate Current User
-        if( ! is_user_logged_in() || (! current_user_can('teacher') && ! current_user_can('school')) ) {
+        if (! is_user_logged_in() || (! current_user_can('teacher') && ! current_user_can('school'))) {
             $this->log('Error: Could not validate current user');
 
             return FALSE;
@@ -72,13 +75,13 @@ class Class_List {
         $this->a_school = $this->get_school();
 
         //Determine if loading Teacher or Program Coordinator Class Data
-        if( $b_school && current_user_can('school') ) {
+        if ($b_school && current_user_can('school')) {
             $a_classes = $this->get_school_classes($this->a_school['i_term']);
         } else {
             $a_classes = $this->get_teacher_classes($this->o_user->ID);
         }
 
-        if( ! isset($a_classes) || empty($a_classes) ) {
+        if (! isset($a_classes) || empty($a_classes)) {
             $this->log('Error: Failed to retrieve any class data for user #' . $this->o_user->ID);
 
             return FALSE;
@@ -118,7 +121,9 @@ class Class_List {
         $this->a_results['data']['levels']   = $a_levels;
         $this->a_results['data']['decodables']   = $a_decodables;
         $this->a_results['data']['access']   = $a_access;
-        $this->a_results['data']['settings'] = $this->get_permission_types();
+        $this->a_results['data']['settings']      = $this->get_permission_types();
+        $this->a_results['data']['sound_clusters'] = $this->get_sound_clusters();
+        $this->a_results['data']['phase_access']   = $this->get_phase_access();
 
         $this->log('Built at: ' . date('H:i:s'));
         $this->log('----- CLASSES BUILT -----');
@@ -126,23 +131,24 @@ class Class_List {
         return TRUE;
     }
 
-    private function validate_parameters( $i_id = NULL, $s_type = NULL ) {
+    private function validate_parameters($i_id = NULL, $s_type = NULL)
+    {
         //Validate Passed ID
-        if( ! isset($i_id) || empty($i_id) ) {
+        if (! isset($i_id) || empty($i_id)) {
             $this->log('Error: Cannot Validate NULL ID');
 
             return FALSE;
         }
 
         //Validate Passed Class Type
-        if( ! isset($s_type) || empty($s_type) ) {
+        if (! isset($s_type) || empty($s_type)) {
             $this->log('Error: Cannot Validate NULL type');
 
             return FALSE;
         }
 
         //Validate Current User
-        if( ! is_user_logged_in() || (! current_user_can('teacher') && ! current_user_can('school')) ) {
+        if (! is_user_logged_in() || (! current_user_can('teacher') && ! current_user_can('school'))) {
             $this->log('Error: Could not validate current user');
 
             return FALSE;
@@ -153,7 +159,7 @@ class Class_List {
             'class',
             'archive'
         );
-        if( ! in_array($s_type, $a_valid) ) {
+        if (! in_array($s_type, $a_valid)) {
             $this->log('Error: Invalid Class Type');
 
             return FALSE;
@@ -162,9 +168,10 @@ class Class_List {
         return TRUE;
     }
 
-    private function get_class( $i_class ) {
+    private function get_class($i_class)
+    {
         $o_class = wushka_get_class($i_class);
-        if( ! isset($o_class) || empty($o_class) ) {
+        if (! isset($o_class) || empty($o_class)) {
             $this->log('Error: Could Not Find Class of ID: ' . $i_class);
 
             return NULL;
@@ -173,8 +180,9 @@ class Class_List {
         return $o_class;
     }
 
-    private function get_school_classes( $i_term = NULL ) {
-        if( ! isset($i_term) || empty($i_term) ) {
+    private function get_school_classes($i_term = NULL)
+    {
+        if (! isset($i_term) || empty($i_term)) {
             $this->log('Error: Cannot get classes of NULL School');
 
             return NULL;
@@ -182,7 +190,7 @@ class Class_List {
 
         // $a_classes = wushka_get_classes($i_term, NULL, 'both', 'archived, id');
         $a_classes = wushka_get_classes($i_term, NULL, false, 'archived, id');
-        if( ! isset($a_classes) || empty($a_classes) ) {
+        if (! isset($a_classes) || empty($a_classes)) {
             $this->log('Error: Could Not Find Classes of School ID: ' . $i_term);
 
             return NULL;
@@ -193,10 +201,11 @@ class Class_List {
         return $a_classes;
     }
 
-    private function get_teacher_classes( $i_teacher ) {
+    private function get_teacher_classes($i_teacher)
+    {
         $a_classes = wushka_get_teacher_classes($i_teacher);
 
-        if( ! isset($a_classes) || empty($a_classes) ) {
+        if (! isset($a_classes) || empty($a_classes)) {
             $this->log('Error: Could Not Find Classes of Teacher ID: ' . $i_teacher);
 
             return NULL;
@@ -207,29 +216,31 @@ class Class_List {
         return $a_classes;
     }
 
-    private function get_class_ids( $a_class = array() ) {
-        if( ! isset($a_class) || empty($a_class) ) {
+    private function get_class_ids($a_class = array())
+    {
+        if (! isset($a_class) || empty($a_class)) {
             $this->log('Warning: Cannot Retrieve Class ids of empty classes array');
 
             return array();
         }
 
         $a_ids = array();
-        foreach( $a_class as $idx => $o_class ) {
+        foreach ($a_class as $idx => $o_class) {
             $a_ids[] = (int)$o_class->id;
         }
 
         return $a_ids;
     }
 
-    private function get_school() {
+    private function get_school()
+    {
         $a_school = array(
             'i_term' => NULL,
             'i_user' => NULL,
         );
 
         $a_terms = wp_get_object_terms($this->o_user->ID, 'school');
-        if( ! isset($a_terms) || empty($a_terms) ) {
+        if (! isset($a_terms) || empty($a_terms)) {
             $this->log('Error: Could not find school terms for user :' . $this->o_user->ID);
 
             return FALSE;
@@ -239,7 +250,7 @@ class Class_List {
 
         //Get School Term User
         $o_school = wushka_get_school_term_user($a_school['i_term']);
-        if( ! isset($o_school) && ! empty($o_school) ) {
+        if (! isset($o_school) && ! empty($o_school)) {
             $this->log('Warning: Could Not Retrieve School Type User of term id: ' . $a_school['i_term']);
         } else {
             $a_school['i_user'] = $o_school->ID;
@@ -248,16 +259,17 @@ class Class_List {
         return $a_school;
     }
 
-    private function get_class_students( $a_ids = array() ) {
-        if( ! isset($a_ids) || empty($a_ids) ) {
+    private function get_class_students($a_ids = array())
+    {
+        if (! isset($a_ids) || empty($a_ids)) {
             $this->log('Error: Cannot retrieve class users without class ids');
 
             return array();
         }
 
         $a_class_users = array();
-        foreach( $a_ids as $idx => $i_class ) {
-            $a_class_users[ $i_class ] = array(
+        foreach ($a_ids as $idx => $i_class) {
+            $a_class_users[$i_class] = array(
                 'active'   => array(),
                 'inactive' => array()
             );
@@ -282,22 +294,23 @@ class Class_List {
 
         $this->log('Found ' . count($a_results) . ' Students in ' . count($a_ids) . ' classes');
 
-        if( ! empty($a_results) ) {
-            foreach( $a_results as $idx => $o_user ) {
+        if (! empty($a_results)) {
+            foreach ($a_results as $idx => $o_user) {
                 $s_active = 'inactive';
-                if( isset($o_user->active) && ! empty($o_user->active) ) {
+                if (isset($o_user->active) && ! empty($o_user->active)) {
                     $s_active = 'active';
                 }
 
-                $a_class_users[ (int)$o_user->class ][ $s_active ][] = $o_user;
+                $a_class_users[(int)$o_user->class][$s_active][] = $o_user;
             }
         }
 
         return $a_class_users;
     }
 
-    private function get_json_students( $a_ids = array(), $a_groups = array() ) {
-        if( ! isset($a_ids) || empty($a_ids) ) {
+    private function get_json_students($a_ids = array(), $a_groups = array())
+    {
+        if (! isset($a_ids) || empty($a_ids)) {
             $this->log('Error: Cannot retrieve class users without class ids');
 
             return array();
@@ -331,8 +344,8 @@ class Class_List {
         //             'compare' => 'IN'
         //         ),
         //         1 => array(
-		// 			'key' => 'active',
-		// 			'value' => 1
+        // 			'key' => 'active',
+        // 			'value' => 1
         //         )
         //     )
         // );
@@ -342,10 +355,10 @@ class Class_List {
 
         $this->log('Found ' . count($a_results) . ' Students in ' . count($a_ids) . ' classes');
 
-        if( ! empty($a_results) ) {
-            foreach( $a_results as $idx => $o_user ) {
+        if (! empty($a_results)) {
+            foreach ($a_results as $idx => $o_user) {
                 $s_active = 'archive';
-                if( isset($o_user->active) && ! empty($o_user->active) ) {
+                if (isset($o_user->active) && ! empty($o_user->active)) {
                     $s_active = 'class';
                 }
 
@@ -354,10 +367,10 @@ class Class_List {
                     'value' => 'No Group'
                 );
 
-                if( isset($o_user->my_reading_group) ) {
-                    if( ! empty($a_groups) ) {
-                        foreach( $a_groups[ (int)$o_user->class ] as $id => $s_group ) {
-                            if( (int)$o_user->my_reading_group == (int)$id ) {
+                if (isset($o_user->my_reading_group)) {
+                    if (! empty($a_groups)) {
+                        foreach ($a_groups[(int)$o_user->class] as $id => $s_group) {
+                            if ((int)$o_user->my_reading_group == (int)$id) {
                                 $a_group['ID']    = $id;
                                 $a_group['value'] = $s_group;
                             }
@@ -374,14 +387,14 @@ class Class_List {
 
                 $a_setting['id']   = 'on';
                 $a_setting['name'] = 'On';
-                if( isset($o_user->rg_setting) ) {
+                if (isset($o_user->rg_setting)) {
                     $a_setting['id']   = trim(strtolower($o_user->rg_setting));
                     $a_setting['name'] = trim(ucwords($o_user->rg_setting));
                 }
 
-                $allow_book_view = ($o_user->allow_book_view)? $o_user->allow_book_view : 'No'; 
-                $quiz_narration = ($o_user->quiz_narration)? $o_user->quiz_narration : 'Yes'; 
-                $quiz_detail_results = ($o_user->quiz_detail_results)? $o_user->quiz_detail_results : 'Yes'; 
+                $allow_book_view = ($o_user->allow_book_view) ? $o_user->allow_book_view : 'No';
+                $quiz_narration = ($o_user->quiz_narration) ? $o_user->quiz_narration : 'Yes';
+                $quiz_detail_results = ($o_user->quiz_detail_results) ? $o_user->quiz_detail_results : 'Yes';
 
                 $a_user = array(
                     'id_hash'          => $o_user->id_hash,
@@ -398,10 +411,12 @@ class Class_List {
                     'allow_book_view'        => trim(ucwords($allow_book_view)),
                     'quizzes'          => trim(ucwords($o_user->quizzes)),
                     'quiz_narration'          => trim(ucwords($quiz_narration)),
-                    'quiz_detail_results'          => trim(ucwords($quiz_detail_results))
+                    'quiz_detail_results'          => trim(ucwords($quiz_detail_results)),
+                    'sound_cluster'    => isset($o_user->sound_cluster) ? trim($o_user->sound_cluster) : '',
+                    'phase_access'     => isset($o_user->phase_access)  ? trim($o_user->phase_access)  : ''
                 );
 
-                $a_class_users[ (int)$o_user->class ][ $s_active ][] = $a_user;
+                $a_class_users[(int)$o_user->class][$s_active][] = $a_user;
                 unset($a_user, $a_group, $a_level, $s_active);
             }
         }
@@ -410,16 +425,17 @@ class Class_List {
         return $a_class_users;
     }
 
-    private function get_active( $a_classes = array() ) {
-        if( empty($a_classes) ) {
+    private function get_active($a_classes = array())
+    {
+        if (empty($a_classes)) {
             return NULL;
         }
 
         $i_active = $a_classes[0];
 
-        if( isset($this->i_class) && ! empty($this->i_class) ) {
-            foreach( $a_classes as $idx => $i_class ) {
-                if( (int)$i_class == (int)$this->i_class ) {
+        if (isset($this->i_class) && ! empty($this->i_class)) {
+            foreach ($a_classes as $idx => $i_class) {
+                if ((int)$i_class == (int)$this->i_class) {
                     $i_active = $i_class;
                 }
             }
@@ -428,8 +444,9 @@ class Class_List {
         return $i_active;
     }
 
-    private function get_reading_groups( $a_ids = array() ) {
-        if( ! isset($a_ids) || empty($a_ids) ) {
+    private function get_reading_groups($a_ids = array())
+    {
+        if (! isset($a_ids) || empty($a_ids)) {
             $this->log('Warning: Need at least 1 class to retrieve reading groups');
 
             return array();
@@ -439,10 +456,10 @@ class Class_List {
         $a_params = array();
         $a_groups = array();
 
-        foreach( $a_ids as $idx => $i_class ) {
+        foreach ($a_ids as $idx => $i_class) {
             $a_params[]              = '%d';
-            $a_groups[ $i_class ]    = array();
-            $a_groups[ $i_class ][0] = 'No Group';
+            $a_groups[$i_class]    = array();
+            $a_groups[$i_class][0] = 'No Group';
         }
 
         $s_query   = 'SELECT * FROM ' . $wpdb->prefix . 'wushka_reading_groups WHERE class_id IN (' . implode(',', $a_params) . ');';
@@ -450,10 +467,10 @@ class Class_List {
             $wpdb->prepare($s_query, $a_ids)
         );
 
-        if( isset($a_results) && ! empty($a_results) ) {
-            foreach( $a_results as $idx => $o_group ) {
+        if (isset($a_results) && ! empty($a_results)) {
+            foreach ($a_results as $idx => $o_group) {
 
-                $a_groups[ (int)$o_group->class_id ][ (int)$o_group->ID ] = trim(ucwords($o_group->group_name));
+                $a_groups[(int)$o_group->class_id][(int)$o_group->ID] = trim(ucwords($o_group->group_name));
             }
         }
 
@@ -461,8 +478,9 @@ class Class_List {
 
         return $a_groups;
     }
-    
-    private function get_levels() {
+
+    private function get_levels()
+    {
         $a_args = array(
             'orderby' => 'slug',
             'order'   => 'ASC'
@@ -472,9 +490,9 @@ class Class_List {
         $a_levels     = array();
         $a_levels[''] = '';
         $count = 0;
-        foreach( $a_terms as $idx => $o_term ) {
-            if( ucwords($o_term->name) != 'Reading Level' ) {
-                $a_levels[ $o_term->slug ] = $o_term->name;
+        foreach ($a_terms as $idx => $o_term) {
+            if (ucwords($o_term->name) != 'Reading Level') {
+                $a_levels[$o_term->slug] = $o_term->name;
             }
             $count++;
         }
@@ -482,8 +500,9 @@ class Class_List {
         return $a_levels;
     }
 
-    
-    private function get_decodable_levels() {
+
+    private function get_decodable_levels()
+    {
         $a_args = array(
             'orderby' => 'slug',
             'order'   => 'ASC'
@@ -492,12 +511,12 @@ class Class_List {
         $a_levels     = array();
         $a_levels[''] = '';
         $count = 0;
-        foreach( $a_terms as $idx => $o_term ) {
-            if( ucwords($o_term->name) != 'Reading Level' ) {
-                if($count >= 8){
+        foreach ($a_terms as $idx => $o_term) {
+            if (ucwords($o_term->name) != 'Reading Level') {
+                if ($count >= 8) {
                     break;
                 }
-                $a_levels[ $o_term->slug ] = $o_term->name;
+                $a_levels[$o_term->slug] = $o_term->name;
             }
             $count++;
         }
@@ -505,7 +524,8 @@ class Class_List {
         return $a_levels;
     }
 
-    private function get_access_types() {
+    private function get_access_types()
+    {
         $a_types                                    = array();
         $a_types['']                                = "";
         $a_types['Reading Group Only']              = "Reading Group Only";
@@ -519,7 +539,8 @@ class Class_List {
         return $a_types;
     }
 
-    private function get_permission_types() {
+    private function get_permission_types()
+    {
         $a_types           = array();
         $a_types['on']     = 'On';
         $a_types['school'] = 'School';
@@ -529,33 +550,142 @@ class Class_List {
         return $a_types;
     }
 
-    private function compile_classes( $a_classes, $a_class_users, $a_class_groups, $i_active ) {
+    private function get_sound_clusters()
+    {
+
+        $soundsArray              = array();
+        $soundsArray[0]          = 'Not Set';
+
+        global $wpdb;
+
+        $sql = "
+    SELECT
+        t.term_id AS phase_id,
+        t.name    AS phase,
+        t.slug    AS phase_slug,
+        GROUP_CONCAT(pm.meta_value SEPARATOR ' | ') AS esiss_sounds
+    FROM {$wpdb->terms} t
+    INNER JOIN {$wpdb->term_taxonomy} tt
+        ON t.term_id = tt.term_id
+       AND tt.taxonomy = 'phonics-phase'
+    INNER JOIN {$wpdb->term_relationships} tr
+        ON tr.term_taxonomy_id = tt.term_taxonomy_id
+    INNER JOIN {$wpdb->posts} p
+        ON p.ID = tr.object_id
+       AND p.post_type = 'ebook'
+       AND p.post_status = 'publish'
+    INNER JOIN {$wpdb->postmeta} pm
+        ON pm.post_id = p.ID
+       AND pm.meta_key = 'esiss_sounds'
+    GROUP BY t.term_id, t.name, t.slug
+    ORDER BY t.slug
+";
+
+        $results = $wpdb->get_results($sql);
+
+        // echo "<pre>";
+        // print_r($results);
+        // exit;
+
+        foreach ($results as $key => $row) {
+
+
+            // Split the combined string into individual sounds
+            $sounds = array_map('trim', explode(',', $row->esiss_sounds));
+
+            // Remove blanks and duplicates while preserving first-seen order
+            $sounds = array_filter($sounds, 'strlen');
+            $sounds = array_values(array_unique($sounds));
+
+            $row->esiss_sounds = implode(', ', $sounds);
+
+            if (preg_match('/Phase\s+\d+/i', $row->phase, $matches)) {
+                $phase = $matches[0];   // "Phase 6"
+            } else {
+                $phase = null;
+            }
+
+            if ($key > 1) {
+
+                $tempArray  = explode("|", $row->esiss_sounds);
+
+                if (!empty($tempArray)) {
+                    foreach ($tempArray as $sound) {
+
+                        if (!empty($sound)) {
+                            $soundsArray[] = trim($phase . ' - ' . $sound);
+                        }
+                    }
+                }
+            }
+        }
+
+        // echo "<pre>";
+        // print_r($soundsArray);
+        // exit;
+        $soundsArray = array_unique($soundsArray);
+
+        $seen = [];
+        $unique = [];
+
+        foreach ($soundsArray as $value) {
+            // split on commas OR spaces, trim, drop empties
+            $parts = preg_split('/[\s,]+/', trim($value), -1, PREG_SPLIT_NO_EMPTY);
+
+            $key = implode(',', $parts);   // canonical: "s,a,p,t" (no sorting)
+
+            if (!isset($seen[$key])) {
+                $seen[$key] = true;
+                $unique[] = $value;        // keep original formatting
+            }
+        }
+
+        return $unique;
+    }
+
+    private function get_phase_access()
+    {
+        $a_phases            = array();
+        $a_phases['']        = 'Not Set';
+        $a_phases['sound-cluster-only'] = 'Sound cluster only';
+        $a_phases['sound-cluster-one-below'] = 'Sound cluster + one below';
+        $a_phases['sound-cluster-all-below-in-phase'] = 'Sound cluster + all below in phase';
+        $a_phases['sound-cluster-all-below'] = 'Sound cluster + all below';
+        $a_phases['whole-phase'] = 'Whole phase';
+        $a_phases['all-phases'] = 'All phases';
+
+
+        return $a_phases;
+    }
+
+    private function compile_classes($a_classes, $a_class_users, $a_class_groups, $i_active)
+    {
 
         $a_compiled = array();
 
-        foreach( $a_classes as $idx => $o_class ) {
+        foreach ($a_classes as $idx => $o_class) {
             $i_class = (int)$o_class->id;
 
             //Store Class Object
-            $a_compiled[ $i_class ]['class'] = $o_class;
+            $a_compiled[$i_class]['class'] = $o_class;
 
             //Set Active Flag
-            $a_compiled[ $i_class ]['active'] = $i_active == $i_class ? TRUE : FALSE;
-            $a_compiled[ $i_class ]['deleted'] = $o_class->archived == '1' ? TRUE : FALSE;
+            $a_compiled[$i_class]['active'] = $i_active == $i_class ? TRUE : FALSE;
+            $a_compiled[$i_class]['deleted'] = $o_class->archived == '1' ? TRUE : FALSE;
 
             //Get Class Users
             $a_users = array();
-            if( array_key_exists($i_class, $a_class_users) && ! empty($a_class_users[ $i_class ]) ) {
-                $a_users = $a_class_users[ $i_class ];
+            if (array_key_exists($i_class, $a_class_users) && ! empty($a_class_users[$i_class])) {
+                $a_users = $a_class_users[$i_class];
             }
-            $a_compiled[ $i_class ]['users'] = $a_users;
+            $a_compiled[$i_class]['users'] = $a_users;
 
             //Get Class Groups
             $a_groups = array();
-            if( array_key_exists($i_class, $a_class_groups) && ! empty($a_class_groups[ $i_class ]) ) {
-                $a_groups = $a_class_groups[ $i_class ];
+            if (array_key_exists($i_class, $a_class_groups) && ! empty($a_class_groups[$i_class])) {
+                $a_groups = $a_class_groups[$i_class];
             }
-            $a_compiled[ $i_class ]['groups'] = $a_groups;
+            $a_compiled[$i_class]['groups'] = $a_groups;
 
             unset($i_class, $a_users, $a_groups);
         }
@@ -565,43 +695,45 @@ class Class_List {
         return $a_compiled;
     }
 
-    private function build_menu( $a_classes, $b_school = FALSE ) {
-        if( ! isset($a_classes) || empty($a_classes) ) {
+    private function build_menu($a_classes, $b_school = FALSE)
+    {
+        if (! isset($a_classes) || empty($a_classes)) {
             $this->log('Error: Cannot Build Class Menu for null classes');
 
             return FALSE;
         }
 
         $a_menus = array();
-        foreach( $a_classes as $i_id => $a_class ) {
+        foreach ($a_classes as $i_id => $a_class) {
             $a_menu   = array();
             $s_active = $a_class['active'] ? 'active' : NULL;
             $s_deleted = $a_class['deleted'] ? 'deleted' : 'active';
-            $s_attr   = 'aria-label="Classes: '. trim($a_class['class']->name) .'" role="tab" data-toggle="tab"';
-            
-            if( !empty($a_class['class']->name) ){
-                if ( $b_school ) {
-                    $s_classes = 'list-group-item class-list class-switch '.$s_active;
-                    $a_menu[] = '<a href="#' . $i_id . '-class" data-active="'.$s_deleted.'" data-class="' . $i_id . '" class="'.$s_classes.'" '.$s_attr.' >';
+            $s_attr   = 'aria-label="Classes: ' . trim($a_class['class']->name) . '" role="tab" data-toggle="tab"';
+
+            if (!empty($a_class['class']->name)) {
+                if ($b_school) {
+                    $s_classes = 'list-group-item class-list class-switch ' . $s_active;
+                    $a_menu[] = '<a href="#' . $i_id . '-class" data-active="' . $s_deleted . '" data-class="' . $i_id . '" class="' . $s_classes . '" ' . $s_attr . ' >';
                     $a_menu[] = trim($a_class['class']->name);
                     $a_menu[] = '</a>';
                 } else {
                     $a_menu[] = '<li role="presentation" class="class-list class-switch ' . $s_active . '">';
-                    $a_menu[] = '<a href="#' . $i_id . '-class" data-class="' . $i_id . '" '.$s_attr.' >';
+                    $a_menu[] = '<a href="#' . $i_id . '-class" data-class="' . $i_id . '" ' . $s_attr . ' >';
                     $a_menu[] = trim($a_class['class']->name);
                     $a_menu[] = '</a>';
                     $a_menu[] = '</li>';
                 }
                 $a_menus[] = implode('', $a_menu);
                 unset($a_menu, $s_active);
-            }             
+            }
         }
 
         return $a_menus;
     }
 
-    private function build_html( $a_classes ) {
-        if( ! isset($a_classes) || empty($a_classes) ) {
+    private function build_html($a_classes)
+    {
+        if (! isset($a_classes) || empty($a_classes)) {
             $this->log('Error: Cannot Build HTML for null classes');
 
             return FALSE;
@@ -616,7 +748,7 @@ class Class_List {
 
         //Active Classes
         $this->log('Build Active Tables');
-        foreach( $a_classes as $i_id => $a_class ) {
+        foreach ($a_classes as $i_id => $a_class) {
             $a_table  = array();
             $s_active = $a_class['active'] && $this->s_class == 'class' ? 'in active' : NULL;
 
@@ -636,7 +768,7 @@ class Class_List {
         }
         $this->log('Build Archived Tables');
         //Archived Classes
-        foreach( $a_classes as $i_id => $a_class ) {
+        foreach ($a_classes as $i_id => $a_class) {
             $a_table = array();
             $s_active = $a_class['active'] && $this->s_class == 'archive' ? 'in active' : NULL;
 
@@ -664,7 +796,8 @@ class Class_List {
         return $a_tables;
     }
 
-    private function get_table_header( $b_archive = FALSE ) {
+    private function get_table_header($b_archive = FALSE)
+    {
         $a_head   = array();
         $a_head[] = '<thead>';
         $a_head[] = '<tr class="class-view-table-heading">';
@@ -675,7 +808,8 @@ class Class_List {
         return $a_head;
     }
 
-    private function get_table_footer( $b_archive = FALSE ) {
+    private function get_table_footer($b_archive = FALSE)
+    {
         $a_foot   = array();
         $a_foot[] = '<tfoot>';
         $a_foot[] = '<tr class="class-view-table-heading">';
@@ -686,7 +820,8 @@ class Class_List {
         return $a_foot;
     }
 
-    private function get_header_rows( $b_archive = FALSE ) {
+    private function get_header_rows($b_archive = FALSE)
+    {
         $a_rows   = array();
         $a_rows[] = '<th class="class-view-col-0">First Name</th>';
         $a_rows[] = '<th class="class-view-col-1">Surname</th>';
@@ -702,8 +837,9 @@ class Class_List {
         return $a_rows;
     }
 
-    private function get_class_rows( $a_class = array(), $b_archived = FALSE ) {
-        if( ! isset($a_class) || empty($a_class) ) {
+    private function get_class_rows($a_class = array(), $b_archived = FALSE)
+    {
+        if (! isset($a_class) || empty($a_class)) {
             $this->log('Error: Cannot create class rows of null class');
 
             return NULL;
@@ -711,8 +847,8 @@ class Class_List {
 
         $a_users = ! $b_archived ? $a_class['users']['active'] : $a_class['users']['inactive'];
         $a_rows  = array();
-        if( ! empty($a_users) ) {
-            foreach( $a_users as $idx => $o_user ) {
+        if (! empty($a_users)) {
+            foreach ($a_users as $idx => $o_user) {
                 $a_row   = array();
                 $a_row[] = '<tr class="class-view-table-data row-odd" id="user-' . $o_user->id_hash . '">';
                 $a_row[] = implode('', $this->build_user_row($o_user, $a_class['groups'], $b_archived));
@@ -726,8 +862,9 @@ class Class_List {
         return $a_rows;
     }
 
-    private function build_user_row( $o_user = NULL, $a_groups = array(), $b_archived = FALSE ) {
-        if( ! isset($o_user) || empty($o_user) ) {
+    private function build_user_row($o_user = NULL, $a_groups = array(), $b_archived = FALSE)
+    {
+        if (! isset($o_user) || empty($o_user)) {
             return array();
         }
 
@@ -736,9 +873,9 @@ class Class_List {
             'value' => 'No Group'
         );
 
-        if( isset($o_user->my_reading_group) ) {
-            foreach( $a_groups as $id => $s_group ) {
-                if( (int)$o_user->my_reading_group == (int)$id ) {
+        if (isset($o_user->my_reading_group)) {
+            foreach ($a_groups as $id => $s_group) {
+                if ((int)$o_user->my_reading_group == (int)$id) {
                     $a_group['ID']    = $id;
                     $a_group['value'] = $s_group;
                 }
@@ -766,7 +903,7 @@ class Class_List {
         $a_row[] = '</td>';
         $a_row[] = '<td><span class="narration yesorno" data-value="' . $o_user->narration . '">' . $o_user->narration . '</span></td>';
         $a_row[] = '<td><span class="quizzes" data-value="' . $o_user->quizzes . '">' . ucwords($o_user->quizzes) . '</span></td>';
-        if( $b_archived ) {
+        if ($b_archived) {
             $a_row[] = '<td><button class="btn btn-default btn-student-unarchive" type="button">Unarchive</button></td>';
         }
 
@@ -784,9 +921,10 @@ class Class_List {
      *
      * @return true          - Return true on function completion
      **/
-    private function log( $s_text = NULL ) {
-        if( $this->b_test ) {
-            if( isset($s_text) && ! empty($s_text) ) {
+    private function log($s_text = NULL)
+    {
+        if ($this->b_test) {
+            if (isset($s_text) && ! empty($s_text)) {
                 error_log($s_text);
                 $this->a_results['message'] .= '<br/>-' . $s_text;
             }
@@ -804,7 +942,8 @@ class Class_List {
      *               - string   'message': Text Response
      *               - array    'data' : Any data to be returned on function completion (HTML, JSON etc)
      **/
-    public function get_results() {
+    public function get_results()
+    {
         return $this->a_results;
     }
 }
