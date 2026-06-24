@@ -151,6 +151,14 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
             }
             echo json_encode($validate, 400);
             break;
+        case 'sound_cluster':
+            $result = wushka_set_student_sound_cluster($id, $meta_value);
+            echo json_encode($result);
+            break;
+        case 'phase_access':
+            $result = wushka_set_student_phase_access($id, $meta_value);
+            echo json_encode($result);
+            break;
         default:
             wushka_update_user_meta($id, $meta_key, $meta_value);
             echo json_encode($meta_key . ' ' . $meta_value);
@@ -789,4 +797,111 @@ function wushka_set_student_prep_levels( $i_user ) {
 
     return TRUE;
 }
+
+function wushka_set_student_prep_decodable_shelves( $i_user ) {
+    $s_cluster     = get_user_meta($i_user, 'sound_cluster', TRUE);
+    $s_phase_access = get_user_meta($i_user, 'phase_access', TRUE);
+    $all_clusters  = wushka_get_ordered_sound_clusters();
+    $a_prep_new    = array();
+
+    
+
+    if ( empty($s_cluster) || $s_cluster === 'Not Set' || empty($s_phase_access) ) {
+        update_user_meta($i_user, 'prepared_decodable_shelves', $a_prep_new);
+        return TRUE;
+    }
+
+    // Find the student's cluster position in the master ordered list (skip index 0 = 'Not Set')
+    $cluster_index = null;
+    foreach ( $all_clusters as $idx => $cluster ) {
+        if ( $cluster === $s_cluster ) {
+            $cluster_index = $idx;
+            break;
+        }
+    }
+
+    if ( $cluster_index === null ) {
+        update_user_meta($i_user, 'prepared_decodable_shelves', $a_prep_new);
+        return TRUE;
+    }
+
+    // Extract phase prefix from student's cluster, e.g. "Phase 3" from "Phase 3 - j"
+    $student_phase = '';
+    if ( preg_match('/^(Phase\s+\d+)/i', $s_cluster, $matches) ) {
+        $student_phase = $matches[1];
+    }
+
+    switch ( $s_phase_access ) {
+        case 'sound-cluster-only':
+            $a_prep_new[] = $s_cluster;
+            break;
+
+        case 'sound-cluster-one-below':
+            $a_prep_new[] = $s_cluster;
+            if ( $cluster_index > 1 ) {
+                $a_prep_new[] = $all_clusters[$cluster_index - 1];
+            }
+            break;
+
+        case 'sound-cluster-all-below-in-phase':
+            foreach ( $all_clusters as $idx => $cluster ) {
+                if ( $idx === 0 ) continue;
+                if ( $idx > $cluster_index ) break;
+                if ( strpos($cluster, $student_phase) === 0 ) {
+                    $a_prep_new[] = $cluster;
+                }
+            }
+            break;
+
+        case 'sound-cluster-all-below':
+            foreach ( $all_clusters as $idx => $cluster ) {
+                if ( $idx === 0 ) continue;
+                if ( $idx > $cluster_index ) break;
+                $a_prep_new[] = $cluster;
+            }
+            break;
+
+        case 'whole-phase':
+            foreach ( $all_clusters as $idx => $cluster ) {
+                if ( $idx === 0 ) continue;
+                if ( !empty($student_phase) && strpos($cluster, $student_phase) === 0 ) {
+                    $a_prep_new[] = $cluster;
+                }
+            }
+            break;
+
+        case 'all-phases':
+            foreach ( $all_clusters as $idx => $cluster ) {
+                if ( $idx === 0 ) continue;
+                $a_prep_new[] = $cluster;
+            }
+            break;
+    }
+
+    error_log('New Prepared Decodable Shelves:');
+    error_log(print_r($a_prep_new, TRUE));
+
+    update_user_meta($i_user, 'prepared_decodable_shelves', $a_prep_new);
+
+    return TRUE;
+}
+
+function wushka_set_student_sound_cluster( $i_hash, $s_cluster ) {
+    $o_user = get_user_by_hash($i_hash);
+    if ( $o_user ) {
+        update_user_meta($o_user->ID, 'sound_cluster', $s_cluster);
+        wushka_set_student_prep_decodable_shelves($o_user->ID);
+    }
+    return $s_cluster;
+}
+
+function wushka_set_student_phase_access( $i_hash, $s_access ) {
+    $o_user = get_user_by_hash($i_hash);
+    if ( $o_user ) {
+        update_user_meta($o_user->ID, 'phase_access', $s_access);
+        wushka_set_student_prep_decodable_shelves($o_user->ID);
+    }
+    return $s_access;
+}
+
 /*----- EOF ----- */

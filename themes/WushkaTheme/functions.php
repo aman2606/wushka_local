@@ -5300,9 +5300,80 @@ function hasDecodableAccessOnly()
     return $access;
 }
 
+function wushka_get_ordered_sound_clusters() {
+    global $wpdb;
+
+    $soundsArray    = array();
+    $soundsArray[0] = 'Not Set';
+
+    $sql = "
+        SELECT
+            t.term_id AS phase_id,
+            t.name    AS phase,
+            t.slug    AS phase_slug,
+            GROUP_CONCAT(pm.meta_value SEPARATOR ' | ') AS esiss_sounds
+        FROM {$wpdb->terms} t
+        INNER JOIN {$wpdb->term_taxonomy} tt
+            ON t.term_id = tt.term_id
+           AND tt.taxonomy = 'phonics-phase'
+        INNER JOIN {$wpdb->term_relationships} tr
+            ON tr.term_taxonomy_id = tt.term_taxonomy_id
+        INNER JOIN {$wpdb->posts} p
+            ON p.ID = tr.object_id
+           AND p.post_type = 'ebook'
+           AND p.post_status = 'publish'
+        INNER JOIN {$wpdb->postmeta} pm
+            ON pm.post_id = p.ID
+           AND pm.meta_key = 'esiss_sounds'
+        GROUP BY t.term_id, t.name, t.slug
+        ORDER BY t.slug
+    ";
+
+    $results = $wpdb->get_results($sql);
+
+    foreach ($results as $key => $row) {
+        $sounds = array_map('trim', explode(',', $row->esiss_sounds));
+        $sounds = array_filter($sounds, 'strlen');
+        $sounds = array_values(array_unique($sounds));
+        $row->esiss_sounds = implode(', ', $sounds);
+
+        if (preg_match('/Phase\s+\d+/i', $row->phase, $matches)) {
+            $phase = $matches[0];
+        } else {
+            $phase = null;
+        }
+
+        if ($key > 1) {
+            $tempArray = explode("|", $row->esiss_sounds);
+            if (!empty($tempArray)) {
+                foreach ($tempArray as $sound) {
+                    if (!empty($sound)) {
+                        $soundsArray[] = trim($phase . ' - ' . $sound);
+                    }
+                }
+            }
+        }
+    }
+
+    $soundsArray = array_unique($soundsArray);
+
+    $seen   = [];
+    $unique = [];
+    foreach ($soundsArray as $value) {
+        $parts = preg_split('/[\s,]+/', trim($value), -1, PREG_SPLIT_NO_EMPTY);
+        $key   = implode(',', $parts);
+        if (!isset($seen[$key])) {
+            $seen[$key] = true;
+            $unique[]   = $value;
+        }
+    }
+
+    return $unique;
+}
+
 /*########################################################
 *
-*       Remove Jquery and Migrate added by wordpress     # 
+*       Remove Jquery and Migrate added by wordpress     #
 *
 ##########################################################*/
 
