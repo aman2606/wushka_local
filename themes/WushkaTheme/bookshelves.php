@@ -185,14 +185,9 @@ if (is_user_logged_in()) {
         }
     }
 
-    $prepared_shelves           = get_user_meta($current_user->ID, 'prepared_shelves', TRUE);
-    $my_level                   = get_user_meta($current_user->ID, 'allowed_shelves', TRUE);
+    $prepared_shelves = get_user_meta($current_user->ID, 'prepared_shelves', TRUE);
+    $my_level         = get_user_meta($current_user->ID, 'allowed_shelves', TRUE);
     $prepared_decodable_shelves = get_user_meta($current_user->ID, 'prepared_decodable_shelves', TRUE);
-
-
-    // echo "<pre>";
-    // print_r($current_user);exit;
-
 
     // echo "<pre>";
     // print_r($current_user->prepared_shelves);
@@ -292,6 +287,7 @@ $phase_ids   = array();
 $a_shelves = isset($current_user->prepared_shelves) ? $current_user->prepared_shelves : [];
 
 
+
 error_log('prepared shelves: ' . print_r($a_shelves, true));
 foreach ($level_terms as $idx => $o_term) {
     if (is_user_logged_in()) {
@@ -307,21 +303,7 @@ foreach ($level_terms as $idx => $o_term) {
     }
 }
 foreach ($phase_terms as $idx => $o_term) {
-    if (is_user_logged_in() && current_user_can('student') && !empty($prepared_decodable_shelves)) {
-        $phase_prefix = $o_term->name;
-        $has_cluster  = false;
-        foreach ((array) $prepared_decodable_shelves as $cluster) {
-            if (strpos($cluster, $phase_prefix) === 0) {
-                $has_cluster = true;
-                break;
-            }
-        }
-        if ($has_cluster) {
-            $phase_ids[] = $o_term->term_id;
-        }
-    } else {
-        $phase_ids[] = $o_term->term_id;
-    }
+    $phase_ids[] = $o_term->term_id;
 }
 
 // echo "<pre>";
@@ -374,29 +356,27 @@ if (! empty($level_ids)) {
         $p_args['meta_key'] = 'esiss_resource_id';
         $p_args['orderby'] = 'meta_valu_num';
         $p_args['order'] = 'ASC';
-        $p_args['tax_query']['relation'] = 'AND';
-        $p_args['tax_query'][] = array(
-            'taxonomy' => 'reading-level',
-            'field' => 'term_id',
-            'terms' => $level_ids,
-            'operator' => 'IN'
-        );
+
+        if (current_user_can('student') && !empty($prepared_decodable_shelves)) {
+            $sound_meta_query = ['relation' => 'OR'];
+            foreach ($prepared_decodable_shelves as $shelf) {
+                $sounds_part = preg_replace('/^Phase\s+\d+\s*-\s*/i', '', $shelf);
+                $parts = preg_split('/[\s,]+/', trim($sounds_part), -1, PREG_SPLIT_NO_EMPTY);
+                $parts = array_map('strtolower', $parts);
+                $sound_meta_query[] = ['key' => 'esiss_sounds', 'value' => implode(',', $parts),  'compare' => '='];
+                $sound_meta_query[] = ['key' => 'esiss_sounds', 'value' => implode(', ', $parts), 'compare' => '='];
+                $sound_meta_query[] = ['key' => 'esiss_sounds', 'value' => implode(' ', $parts),  'compare' => '='];
+            }
+            $p_args['meta_query'] = $sound_meta_query;
+        }
     }
 
     // echo "<pre>";
     // print_r($p_args);exit;
     error_log('taxonomy query params ' . print_r($p_args, true));
     $a_posts = get_posts($p_args);
-}
-// For decodable library: filter individual books to those within allowed sound clusters
-if ($library_taxonomy == 'phonics-phase' && is_user_logged_in() && current_user_can('student') && !empty($prepared_decodable_shelves)) {
-    $a_posts = array_values(array_filter($a_posts, function($post) use ($prepared_decodable_shelves) {
-        $book_phases = get_the_terms($post->ID, 'phonics-phase');
-        $phase_name  = (!empty($book_phases) && !is_wp_error($book_phases)) ? $book_phases[0]->name : '';
-        $book_sound  = get_post_meta($post->ID, 'esiss_sounds', true);
-        $cluster_key = trim($phase_name . ' - ' . $book_sound);
-        return in_array($cluster_key, (array) $prepared_decodable_shelves);
-    }));
+
+
 }
 error_log('finished performing post taxonomy query: ' . count($a_posts));
 //Create Taxonomy Query (line 352, 370 class manage class list)

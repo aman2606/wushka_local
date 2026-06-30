@@ -554,7 +554,7 @@ class Class_List
     {
 
         $soundsArray              = array();
-        $soundsArray[0]          = 'Not Set';
+        $soundsArray[0]          = '';
 
         global $wpdb;
 
@@ -640,7 +640,12 @@ class Class_List
             }
         }
 
+        //  echo "<pre>";
+        // print_r($unique);exit;
+
         return $unique;
+
+       
     }
 
     private function get_phase_access()

@@ -177,19 +177,6 @@ if (! is_user_logged_in()) {
         exit();
     }
 
-    if ($decodable && current_user_can('student')) {
-        $prepared_decodable = get_user_meta($current_user->ID, 'prepared_decodable_shelves', TRUE);
-        if (!empty($prepared_decodable)) {
-            $book_phase  = (!is_wp_error($decodable) && !empty($decodable)) ? $decodable[0]->name : '';
-            $book_sound  = get_post_meta($i_id, 'esiss_sounds', true);
-            $cluster_key = trim($book_phase . ' - ' . $book_sound);
-            if (!in_array($cluster_key, (array) $prepared_decodable)) {
-                wp_redirect('/403');
-                exit();
-            }
-        }
-    }
-
     if (!$decodable && !hasLevelledAccess()) {
 
         wp_redirect('/404');

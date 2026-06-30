@@ -1,6 +1,6 @@
 <?php
 //Include Wordpress Config
-include $_SERVER['DOCUMENT_ROOT'] . '/wp-config.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/wushka_local/wp-config.php';
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
@@ -62,6 +62,8 @@ class Manage_Reading_Group_Ajax {
 	private $a_bookmarks;
 
 	private $phases;
+
+	private $_s_sound = NULL;
 
 	public function __construct() {
 		//Declare Return Data Array
@@ -498,6 +500,10 @@ class Manage_Reading_Group_Ajax {
 			$this->_i_group = $a_params['group_id'];
 			$this->_i_level = $a_params['level_id'];
 			$this->_i_paged = $a_params['level_page'];
+			$s_sound = json_decode( stripcslashes( filter_input( INPUT_POST, 'sound_filter' ) ), true );
+			if ( ! empty( $s_sound ) ) {
+				$this->_s_sound = sanitize_text_field( $s_sound );
+			}
 			return TRUE;
 		}
 
@@ -1154,6 +1160,15 @@ class Manage_Reading_Group_Ajax {
 					'taxonomy' => 'phonics-phase',
 					'terms' => $this->phases,
 					'operator' => 'NOT IN'
+			);
+		}
+		if ( ! empty( $this->_s_sound ) ) {
+			$a_args['meta_query'] = array(
+				array(
+					'key'     => 'esiss_sounds',
+					'value'   => $this->_s_sound,
+					'compare' => '='
+				)
 			);
 		}
 		// error_log('load_level ' . print_r($a_args, true));

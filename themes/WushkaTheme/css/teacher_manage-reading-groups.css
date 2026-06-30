@@ -1061,3 +1061,23 @@ border-bottom-color: rgba(0, 0, 0, 0);
 	padding: 0;
 	vertical-align: bottom;
 }
+
+/* ----------- PHONICS ACCORDION ---------- */
+.phonics-accordion .phonics-phase-header {
+	font-weight: bold;
+	cursor: pointer;
+}
+.phonics-accordion .phonics-sounds-list .phonics-sound-item {
+	padding-left: 20px;
+	font-size: 0.9em;
+}
+.phonics-phase-sub {
+	display: block;
+	overflow: hidden;
+}
+
+/* ----------- PHONICS SOUND LOADING SPINNER ---------- */
+.level-content-loading {
+	text-align: center;
+	padding: 40px 0;
+}

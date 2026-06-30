@@ -19,7 +19,7 @@ jQuery(document).ready(function ($) {
         state: true
     };
     var reading_group = {id: null, name: null, el: null, new_id: null, new_name: null, new_el: null, empty: null};
-    var reading_level = {id: null, name: null, el: null, new_id: null, new_name: null, new_el: null, page: null};
+    var reading_level = {id: null, name: null, el: null, new_id: null, new_name: null, new_el: null, page: null, sound: null};
     var window_contents = {
         type: null,
         heading: null,
@@ -77,10 +77,23 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    //Level Menu Click
-    level_menu_wrap.on('click', 'a', function () {
-        var e_this = $(this);
-        load_level_new(e_this);
+    //Level Menu Click — phonics phase header: toggle sounds accordion
+    level_menu_wrap.on('click', 'a.phonics-phase-header', function (e) {
+        e.preventDefault();
+        $(this).closest('.phonics-phase-wrap').find('.phonics-sounds-list').slideToggle(200);
+        $(this).find('.phonics-chevron').toggleClass('glyphicon-chevron-right glyphicon-chevron-down');
+    });
+
+    //Level Menu Click — phonics sound item: load books filtered by sound
+    level_menu_wrap.on('click', 'a.phonics-sound-item', function (e) {
+        e.preventDefault();
+        load_sound_new($(this));
+    });
+
+    //Level Menu Click — levelled books items: existing behavior, clear any sound filter
+    level_menu_wrap.on('click', 'a:not(.phonics-phase-header):not(.phonics-sound-item)', function () {
+        reading_level.sound = null;
+        load_level_new($(this));
     });
 
 
@@ -224,6 +237,32 @@ jQuery(document).ready(function ($) {
         reading_level.page = 1;
         reading_level.new_el.addClass('loading');
 
+        load_level();
+    }
+
+    function load_sound_new(e_sound) {
+        if (e_sound.hasClass('loading')) return false;
+
+        reset_reading_level();
+        store_current_group();
+        store_current_level();
+
+        var phase_id  = e_sound.data('level-id');
+        var sound_val = e_sound.data('sound');
+        if (!phase_id || !sound_val) return false;
+
+        if (reading_level.id == phase_id && reading_level.sound == sound_val) return false;
+
+        reading_level.id     = phase_id;
+        reading_level.sound  = sound_val;
+        reading_level.page   = 1;
+        reading_level.new_el = e_sound;
+        e_sound.addClass('loading');
+        level_content_wrap.empty().append(
+            '<div class="level-content-loading">' +
+            '<img src="' + thm_tmp_fnc_pth + '/img/wushka-load-4.GIF" width="60" height="60" alt="Loading..." />' +
+            '</div>'
+        );
         load_level();
     }
 
@@ -505,11 +544,17 @@ jQuery(document).ready(function ($) {
             reading_level.name = null;
         } else {
             reading_level.el = current_item;
-            reading_level.id = reading_level.el.attr('id').replace('reading-level-', '').trim();
-            reading_level.name = reading_level.el.text().trim();
+            if (current_item.hasClass('phonics-sound-item')) {
+                reading_level.id    = current_item.data('level-id');
+                reading_level.sound = current_item.data('sound');
+            } else {
+                reading_level.id    = current_item.attr('id').replace('reading-level-', '').trim();
+                reading_level.sound = null;
+            }
+            reading_level.name = current_item.text().trim();
         }
 
-        if (reading_level.id == null || reading_level.id.length <= 0) {
+        if (reading_level.id == null || reading_level.id.toString().length <= 0) {
             console.log('Error: Could Not Determine Current Level');
             return false;
         }
@@ -802,7 +847,9 @@ jQuery(document).ready(function ($) {
             name: null,
             new_el: null,
             new_id: null,
-            new_name: null
+            new_name: null,
+            page: null,
+            sound: null
         };
     }
 
@@ -1000,7 +1047,8 @@ jQuery(document).ready(function ($) {
                     'ajax_function': JSON.stringify('load_level'),
                     'group_id': JSON.stringify(reading_group.id),
                     'level_id': JSON.stringify(reading_level.id),
-                    'level_page': JSON.stringify(reading_level.page)
+                    'level_page': JSON.stringify(reading_level.page),
+                    'sound_filter': JSON.stringify(reading_level.sound)
                 },
                 error: function () {
                     toggle_menu_classes('level', false);

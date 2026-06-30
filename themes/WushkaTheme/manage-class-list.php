@@ -2104,10 +2104,10 @@ if ($arhiveStudentList) { ?>
 
         function get_category_row(b_archive) {
             var a_rows = [];
-            a_rows.push('<th colspan="5" class="col-category col-category-general">General</th>');
-            a_rows.push('<th colspan="2" class="col-category col-category-decodable">Decodable Library</th>');
+            a_rows.push('<th colspan="5" class="col-category col-category-general text-center">General</th>');
+            a_rows.push('<th colspan="2" class="col-category col-category-decodable text-center">Decodable Library</th>');
             a_rows.push('<th colspan="2" class="col-category"></th>');
-            a_rows.push('<th colspan="2" class="col-category col-category-levelled">Levelled Library</th>');
+            a_rows.push('<th colspan="2" class="col-category col-category-levelled text-center">Levelled Library</th>');
             a_rows.push('<th class="col-category"></th>');
             a_rows.push('<th class="col-category"></th>');
             a_rows.push('<th class="col-category"></th>');
