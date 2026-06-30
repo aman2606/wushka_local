@@ -1060,8 +1060,8 @@ jQuery(document).ready(function ($) {
                         load_level_success(ajax_return);
                         return true;
                     } else {
-                        if (ajax_return.msg !== null) {
-                            toggle_menu_classes('level', false);
+                        toggle_menu_classes('level', false);
+                        if (ajax_return && ajax_return.msg) {
                             reading_ajax_failure(ajax_return.msg);
                         }
                         return false;

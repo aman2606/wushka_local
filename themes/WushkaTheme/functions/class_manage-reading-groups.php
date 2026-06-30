@@ -203,9 +203,9 @@ class Manage_Reading_Groups
     private function get_phase_sounds_map()
     {
         global $wpdb;
-        $map = [];
         $sql = "
-            SELECT t.term_id, GROUP_CONCAT(pm.meta_value SEPARATOR ' | ') AS esiss_sounds
+            SELECT t.term_id, t.name, t.slug, tt.term_taxonomy_id,
+                   GROUP_CONCAT(pm.meta_value SEPARATOR ' | ') AS esiss_sounds
             FROM {$wpdb->terms} t
             INNER JOIN {$wpdb->term_taxonomy} tt ON t.term_id = tt.term_id AND tt.taxonomy = 'phonics-phase'
             INNER JOIN {$wpdb->term_relationships} tr ON tr.term_taxonomy_id = tt.term_taxonomy_id
@@ -213,12 +213,44 @@ class Manage_Reading_Groups
             INNER JOIN {$wpdb->postmeta} pm ON pm.post_id = p.ID AND pm.meta_key = 'esiss_sounds'
             GROUP BY t.term_id ORDER BY t.slug
         ";
+
+        $grouped        = [];
+        $seen_per_phase = [];
+
         foreach ($wpdb->get_results($sql) as $row) {
-            $sounds = array_map('trim', explode('|', $row->esiss_sounds));
-            $sounds = array_values(array_unique(array_filter($sounds, 'strlen')));
-            $map[$row->term_id] = $sounds;
+            // Extract "Phase X" — same regex as get_sound_clusters()
+            if (preg_match('/Phase\s+\d+/i', $row->name, $matches)) {
+                $phase_key = $matches[0];
+            } else {
+                $phase_key = $row->name;
+            }
+
+            if (!isset($grouped[$phase_key])) {
+                $grouped[$phase_key]        = ['first_ttid' => (int) $row->term_taxonomy_id, 'sounds' => []];
+                $seen_per_phase[$phase_key] = [];
+            }
+
+            $sounds = array_filter(array_map('trim', explode('|', $row->esiss_sounds)), 'strlen');
+
+            foreach ($sounds as $sound) {
+                // Canonical-key uniqueness — same approach as get_sound_clusters()
+                $parts = preg_split('/[\s,]+/', trim($sound), -1, PREG_SPLIT_NO_EMPTY);
+                $canon = implode(',', $parts);
+
+                if (!isset($seen_per_phase[$phase_key][$canon])) {
+                    $seen_per_phase[$phase_key][$canon]  = true;
+                    $grouped[$phase_key]['sounds'][]     = [
+                        'sound' => $sound,
+                        'ttid'  => (int) $row->term_taxonomy_id,
+                    ];
+                }
+            }
         }
-        return $map;
+
+        // echo "<pre>";
+        // print_r($grouped);
+
+        return $grouped;
     }
 
     private function store_students($i_group = NULL)
@@ -423,54 +455,41 @@ class Manage_Reading_Groups
 
     private function build_phonics_level_menu_items()
     {
-        $sounds_map = $this->get_phase_sounds_map();
+        $sounds_map   = $this->get_phase_sounds_map();
         $a_level_menu = [];
 
         $a_level_menu[] = '<div class="list-group level-menu-list phonics-accordion">';
 
-        foreach ($this->_a_phases as $o_phase) {
-            $phase_name = str_replace('Levels ', '', $o_phase->name);
-            $term_id    = $o_phase->term_id;
-            $ttid       = $o_phase->term_taxonomy_id;
-            $sounds     = isset($sounds_map[$term_id]) ? $sounds_map[$term_id] : [];
+
+        foreach ($sounds_map as $phase_key => $phase_data) {
+            $sounds     = $phase_data['sounds'];
+            $first_ttid = $phase_data['first_ttid'];
 
             if (empty($sounds)) continue;
 
-            $a_name    = explode(' ', $phase_name);
+            $a_name    = explode(' ', $phase_key);
             $main_text = ucwords($a_name[0]) . (isset($a_name[1]) ? '&nbsp;' . ucwords($a_name[1]) : '');
-            $sub_parts = array_slice($a_name, 2);
-            $sub_text  = implode(' ', $sub_parts);
 
-            if ($sub_text !== '') {
-                $inner = $main_text
-                       . '<span class="phonics-phase-sub">'
-                       . '<span class="glyphicon glyphicon-chevron-right pull-right phonics-chevron"></span>'
-                       . '<small>' . esc_html($sub_text) . '</small>'
-                       . '</span>';
-            } else {
-                $inner = $main_text
-                       . '<span class="glyphicon glyphicon-chevron-right pull-right phonics-chevron"></span>';
-            }
+            $inner = $main_text
+                   . '<span class="glyphicon glyphicon-chevron-right pull-right phonics-chevron"></span>';
 
             $a_level_menu[] = '<div class="phonics-phase-wrap">';
             $a_level_menu[] = '<a href="#" class="list-group-item phonics-phase-header"'
-                . ' data-phase-id="' . esc_attr($ttid) . '"'
-                . ' title="' . esc_attr($o_phase->name) . '">';
+                . ' data-phase-id="' . esc_attr($first_ttid) . '"'
+                . ' title="' . esc_attr($phase_key) . '">';
             $a_level_menu[] = $inner;
             $a_level_menu[] = '</a>';
 
-            if (!empty($sounds)) {
-                $a_level_menu[] = '<div class="phonics-sounds-list" style="display:none">';
-                foreach ($sounds as $i => $sound) {
-                    $a_level_menu[] = '<a href="#" class="list-group-item level-menu-item phonics-sound-item"'
-                        . ' id="phonics-sound-' . esc_attr($term_id) . '-' . $i . '"'
-                        . ' data-level-id="' . esc_attr($ttid) . '"'
-                        . ' data-sound="' . esc_attr($sound) . '">'
-                        . esc_html($sound)
-                        . '</a>';
-                }
-                $a_level_menu[] = '</div>';
+            $a_level_menu[] = '<div class="phonics-sounds-list" style="display:none">';
+            foreach ($sounds as $i => $sound_data) {
+                $a_level_menu[] = '<a href="#" class="list-group-item level-menu-item phonics-sound-item"'
+                    . ' id="phonics-sound-' . esc_attr($first_ttid) . '-' . $i . '"'
+                    . ' data-level-id="' . esc_attr($sound_data['ttid']) . '"'
+                    . ' data-sound="' . esc_attr($sound_data['sound']) . '">'
+                    . esc_html($sound_data['sound'])
+                    . '</a>';
             }
+            $a_level_menu[] = '</div>';
 
             $a_level_menu[] = '</div>';
         }

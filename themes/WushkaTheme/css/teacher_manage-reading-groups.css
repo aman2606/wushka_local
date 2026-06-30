@@ -1081,3 +1081,13 @@ border-bottom-color: rgba(0, 0, 0, 0);
 	text-align: center;
 	padding: 40px 0;
 }
+.phonics-sound-item.loading {
+	background-image: url('../img/wushka-load-4.GIF');
+	background-repeat: no-repeat;
+	background-position: right 8px center;
+	background-size: 18px 18px;
+	padding-right: 34px !important;
+	opacity: 0.75;
+	cursor: wait;
+	pointer-events: none;
+}

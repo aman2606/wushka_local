@@ -1503,6 +1503,37 @@ if ($arhiveStudentList) { ?>
                     update_user_property(id, meta, o_sound_clusters[value] || 'Not Set');
                 }
             });
+
+            // Normalize a sound string: strip "Phase X - " prefix, keep only letters/digits (lowercase)
+            function normalizeSounds(str) {
+                return (str || '').replace(/^Phase\s+\d+\s*-\s*/i, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+            }
+
+            // Inject a live search input above the select when the sound_cluster editable opens
+            $(document).on('shown', '.sound_cluster', function(e, editable) {
+                var $select = editable.input.$input;
+                if ($select.prev('.sound-search-input').length) return;
+
+                var $filter = $('<input>', {
+                    type: 'text',
+                    placeholder: 'Search sounds…',
+                    'class': 'form-control sound-search-input',
+                    style: 'margin-bottom:5px'
+                });
+
+                $filter.insertBefore($select);
+                $filter.focus();
+
+                $filter.on('input', function() {
+                    var query = normalizeSounds($(this).val());
+                    $select.find('option').each(function() {
+                        var normalized = normalizeSounds($(this).text());
+                        // Order-sensitive: normalized option must contain the query as a substring
+                        $(this).prop('hidden', query && normalized.indexOf(query) === -1);
+                    });
+                });
+            });
+
             //6b. Edit Phase Access Field
             $('.phase_access').editable({
                 type: 'select',

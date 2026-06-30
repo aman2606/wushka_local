@@ -1163,13 +1163,37 @@ class Manage_Reading_Group_Ajax {
 			);
 		}
 		if ( ! empty( $this->_s_sound ) ) {
-			$a_args['meta_query'] = array(
-				array(
-					'key'     => 'esiss_sounds',
-					'value'   => $this->_s_sound,
-					'compare' => '='
-				)
-			);
+			// Broaden tax_query to all sibling phases with the same parent (e.g. all "Phase 2 *")
+			if ( $library_taxonomy === 'phonics-phase' ) {
+				$current_term = get_term_by( 'term_taxonomy_id', $this->_i_level, 'phonics-phase' );
+				if ( $current_term ) {
+					$parts       = explode( ' ', $current_term->name );
+					$prefix      = isset( $parts[1] ) ? $parts[0] . ' ' . $parts[1] : $parts[0];
+					$all_phases  = get_terms( array( 'taxonomy' => 'phonics-phase', 'hide_empty' => false ) );
+					$sibling_ids = array();
+					foreach ( $all_phases as $t ) {
+						if ( strpos( $t->name, $prefix ) === 0 ) {
+							$sibling_ids[] = $t->term_id;
+						}
+					}
+					if ( ! empty( $sibling_ids ) ) {
+						$a_args['tax_query'][0]['terms'] = $sibling_ids;
+					}
+				}
+			}
+
+			// REGEXP sound filter — same phonemes in order, any separator
+			$phonemes = preg_split( '/[\s,]+/', trim( $this->_s_sound ), -1, PREG_SPLIT_NO_EMPTY );
+			if ( ! empty( $phonemes ) ) {
+				$pattern = '^' . implode( '[, ]*', array_map( 'preg_quote', $phonemes ) ) . '$';
+				$a_args['meta_query'] = array(
+					array( 'key' => 'esiss_sounds', 'value' => $pattern, 'compare' => 'REGEXP' )
+				);
+			} else {
+				$a_args['meta_query'] = array(
+					array( 'key' => 'esiss_sounds', 'value' => $this->_s_sound, 'compare' => '=' )
+				);
+			}
 		}
 		// error_log('load_level ' . print_r($a_args, true));
 

@@ -605,16 +605,13 @@ class Class_List
                 $phase = null;
             }
 
-            if ($key > 1) {
+            $tempArray = explode("|", $row->esiss_sounds);
 
-                $tempArray  = explode("|", $row->esiss_sounds);
+            if (!empty($tempArray)) {
+                foreach ($tempArray as $sound) {
 
-                if (!empty($tempArray)) {
-                    foreach ($tempArray as $sound) {
-
-                        if (!empty($sound)) {
-                            $soundsArray[] = trim($phase . ' - ' . $sound);
-                        }
+                    if (!empty($sound)) {
+                        $soundsArray[] = trim($phase . ' - ' . $sound);
                     }
                 }
             }

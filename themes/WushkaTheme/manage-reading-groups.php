@@ -32,6 +32,7 @@ $a_menu = $a_class_data['menu'];
 get_header();
 $c_manage_reading_groups = new Manage_Reading_Groups( $current_user );
 
+
 //$c_collection = new Teacher_Collection($current_user->ID);
 //$c_collection = new Wushka_Bookmarks($current_user->ID);
 
