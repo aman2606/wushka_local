@@ -2,7 +2,7 @@
 
 
 // Comment out the autoload php as we suspect the composer libraries specified in composer.json are not required anymore
-require 'vendor/autoload.php';
+//require 'vendor/autoload.php';
 
 global $wushka_theme_db_version;
 $wushka_theme_db_version = "1.0";
@@ -6138,6 +6138,7 @@ function wushka_cta_button_text()
 *   Include Custom Post Type
 *
 ==================================================================*/
+require_once('functions/custom-post-type/support-material.php');
 require_once('functions/custom-post-type/notices.php');
 require_once('functions/custom-post-type/educational-resources.php');
 require_once('functions/custom-post-type/product-releases.php');
