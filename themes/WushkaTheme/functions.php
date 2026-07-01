@@ -6138,6 +6138,7 @@ function wushka_cta_button_text()
 *   Include Custom Post Type
 *
 ==================================================================*/
+require_once('functions/custom-post-type/support-material.php');
 require_once('functions/custom-post-type/notices.php');
 require_once('functions/custom-post-type/educational-resources.php');
 require_once('functions/custom-post-type/product-releases.php');
