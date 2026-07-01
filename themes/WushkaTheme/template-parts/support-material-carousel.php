@@ -333,13 +333,19 @@ if ( ! empty( $daily_slideshow_slides ) ) {
                                                         <div class="action-buttons">
                                                             <?php if ( $card->primary_link && $card->primary_link !== '#' ) : ?>
                                                                 <a href="<?php echo esc_url( $card->primary_link ); ?>" target="_blank" class="primary-button">
-                                                                    <span <?php echo $panel_heading_back ?? ''; ?>><?php echo esc_html( $card->primary_text ?: 'Lesson Plan' ); ?></span>
+                                                                    <span <?php echo $panel_heading_back ?? ''; ?>>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95 95"><path fill="#fff" d="M17.5 13.3c-.3.6-.4 16.5-.3 35.2l.3 34 29.4.3c22.9.2 29.6-.1 30.3-1 .9-1.5 1.1-65.8.2-68.2-.5-1.4-4.1-1.6-30-1.6-22.7 0-29.6.3-29.9 1.3m48.2 18.3c.3.9.2 2.4-.4 3.3-.9 1.4-3.4 1.6-17.8 1.6s-16.9-.2-17.8-1.6c-.6-.9-.7-2.4-.4-3.3.6-1.4 2.9-1.6 18.2-1.6s17.6.2 18.2 1.6m-.2 15.9v3h-18c-16.5 0-18-.1-18.3-1.8-.9-4.6-.3-4.8 18.5-4.5l17.8.3zm-.7 11.7c1.8 1.8 1.4 4.6-.7 5.8-2.6 1.3-30.6 1.3-33.2 0-2.1-1.2-2.5-4-.7-5.8 1.7-1.7 32.9-1.7 34.6 0"/></svg>
+                                                                        <?php echo esc_html( $card->primary_text ?: 'Lesson Plan' ); ?>
+                                                                    </span>
                                                                 </a>
                                                             <?php endif; ?>
 
                                                             <?php if ( $card->secondary_link && $card->secondary_link !== '#' ) : ?>
                                                                 <a href="<?php echo esc_url( $card->secondary_link ); ?>" target="_blank" class="secondary-button">
-                                                                    <span <?php echo $panel_heading_back ?? ''; ?>><?php echo esc_html( $card->secondary_text ?: 'Slideshow' ); ?></span>
+                                                                    <span <?php echo $panel_heading_back ?? ''; ?>>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95 95"><g fill="#fff" stroke-width="0"><path d="M29.1 14c-5.6 1.2-11 5.4-13.6 10.6-1.6 3.3-2 6.4-2.3 19.5-.5 20.4.6 25.9 6.2 31.5 5.2 5.3 10.2 6.4 28.1 6.4s22.9-1.1 28.1-6.4c5.3-5.2 6.4-10.2 6.4-28.1 0-16.2-1.2-22.5-5.1-27-5.3-6-8.5-6.9-26.9-7.1-9.1-.2-18.5.1-20.9.6m39 9.3c4.9 3.3 5.4 5.6 5.4 24.6 0 25.5-.6 26.1-26 26.1-24.4 0-25.7-1.1-26.3-21.7-.6-18.2.2-23.5 3.9-27.2s5-3.9 24.4-3.7c13.4.1 16.4.4 18.6 1.9"/><path d="M35 31c-1.2.7-1.6 3.9-1.8 15.9-.4 15.7.3 19.1 3.8 19.1 2.5 0 28-14.8 28.7-16.7.3-.8-.3-2.3-1.3-3.3-1.8-1.8-26.2-16-27.4-16-.3 0-1.2.5-2 1"/></g></svg>
+                                                                        <?php echo esc_html( $card->secondary_text ?: 'Slideshow' ); ?>
+                                                                    </span>
                                                                 </a>
                                                             <?php endif; ?>
                                                         </div>

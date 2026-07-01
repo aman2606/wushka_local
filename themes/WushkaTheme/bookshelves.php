@@ -704,6 +704,22 @@ foreach ($a_terms as $idx => $o_term) {
         font-size: 14px;
         color: #ffffff;
     }
+    .shelf-wrapper.daily-slideshow .wk-panel-shelf.collapse {
+        height: auto !important;
+    }
+    .shelf-wrapper.daily-slideshow .wk-panel-shelf.collapse .accordion-shelf-book,
+    .shelf-wrapper.planning-and-assessment .wk-panel-shelf.collapse .accordion-shelf-book {
+        margin: 15px 0;
+    }
+    .shelf-wrapper.daily-slideshow .action-buttons a span {
+        display: inline-flex !important;
+        justify-content: center;
+        align-items: center;
+        gap: 3px;
+    }
+    .shelf-wrapper.daily-slideshow .action-buttons a span svg {
+        width: 18px;
+    }
 </style>
 
 
