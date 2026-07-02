@@ -221,6 +221,7 @@ jQuery(document).ready(function ($) {
             console.log('Could Not Store Current Level Data: abort action');
             return false;
         }
+        reading_level.sound = null;
 
         if (store_clicked_level(this_item) === false) {
             console.log('Could Not Store New Level Data: abort action');
@@ -242,6 +243,7 @@ jQuery(document).ready(function ($) {
 
     function load_sound_new(e_sound) {
         if (e_sound.hasClass('loading')) return false;
+        if ($('.phonics-sound-item.loading').length > 0) return false;
 
         reset_reading_level();
         store_current_group();
@@ -257,7 +259,9 @@ jQuery(document).ready(function ($) {
         reading_level.sound  = sound_val;
         reading_level.page   = 1;
         reading_level.new_el = e_sound;
-        e_sound.addClass('loading');
+        e_sound.addClass('loading').append(
+            '<img class="phonics-btn-loader" src="' + thm_tmp_fnc_pth + '/img/wushka-load-4.GIF" alt="" style="float:right;margin-top:3px;width:20px;height:20px;">'
+        );
         level_content_wrap.empty().append(
             '<div class="level-content-loading">' +
             '<img src="' + thm_tmp_fnc_pth + '/img/wushka-load-4.GIF" width="60" height="60" alt="Loading..." />' +
@@ -879,7 +883,7 @@ jQuery(document).ready(function ($) {
             if (reading_level.el !== null) {
                 reading_level.el.removeClass('active');
             }
-            reading_level.new_el.removeClass('loading');
+            reading_level.new_el.removeClass('loading').find('.phonics-btn-loader').remove();
 
             if (b_success === true) {
                 reading_level.new_el.addClass('active');

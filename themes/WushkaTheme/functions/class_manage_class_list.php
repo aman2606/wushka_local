@@ -584,20 +584,20 @@ class Class_List
         $results = $wpdb->get_results($sql);
 
         // echo "<pre>";
+        // print_r($results);exit;
+
+        // echo "<pre>";
         // print_r($results);
         // exit;
 
         foreach ($results as $key => $row) {
 
+            // if($key ==2){
+            //     echo "<pre>";
+            //     print_r($row);exit;
+            // }
 
-            // Split the combined string into individual sounds
-            $sounds = array_map('trim', explode(',', $row->esiss_sounds));
 
-            // Remove blanks and duplicates while preserving first-seen order
-            $sounds = array_filter($sounds, 'strlen');
-            $sounds = array_values(array_unique($sounds));
-
-            $row->esiss_sounds = implode(', ', $sounds);
 
             if (preg_match('/Phase\s+\d+/i', $row->phase, $matches)) {
                 $phase = $matches[0];   // "Phase 6"
@@ -610,16 +610,13 @@ class Class_List
             if (!empty($tempArray)) {
                 foreach ($tempArray as $sound) {
 
-                    if (!empty($sound)) {
+                    if (!empty(trim($sound))) {
                         $soundsArray[] = trim($phase . ' - ' . $sound);
                     }
                 }
             }
         }
 
-        // echo "<pre>";
-        // print_r($soundsArray);
-        // exit;
         $soundsArray = array_unique($soundsArray);
 
         $seen = [];
@@ -636,9 +633,6 @@ class Class_List
                 $unique[] = $value;        // keep original formatting
             }
         }
-
-        //  echo "<pre>";
-        // print_r($unique);exit;
 
         return $unique;
 
