@@ -1506,7 +1506,7 @@ if ($arhiveStudentList) { ?>
 
             // Normalize a sound string: strip "Phase X - " prefix, keep only letters/digits (lowercase)
             function normalizeSounds(str) {
-                return (str || '').replace(/^Phase\s+\d+\s*-\s*/i, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                return (str || '').replace(/^Phase\s+\d+(?:\.\d+)?\s*-\s*/i, '').toLowerCase().replace(/[^a-z0-9]/g, '');
             }
 
             // Inject a live search input above the select when the sound_cluster editable opens

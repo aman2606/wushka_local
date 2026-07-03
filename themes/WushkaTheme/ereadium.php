@@ -107,6 +107,7 @@ if (! is_user_logged_in()) {
     $narration = "Yes";
     $quiz      = 'compulsory';
     $a_shelves = [];
+    $decodable =  get_the_terms($i_id, 'phonics-phase');
     if (current_user_can('student')) {
         $narration = get_user_meta($current_user->ID, 'narration', TRUE);
         $quiz      = isset($current_user->quizzes) ? strtolower($current_user->quizzes) : 'compulsory';
@@ -163,13 +164,13 @@ if (! is_user_logged_in()) {
         }
 
 
-        if (!$allowReading && (!in_array($i_id, $a_books))) {
+        if (!$allowReading && (!in_array($i_id, $a_books)) && !$decodable) {
             wp_redirect('/403');
             exit();
         }
     }
 
-    $decodable =  get_the_terms($i_id, 'phonics-phase');
+    
 
     if ($decodable && !hasDecodableAccess()) {
         //die("You don't have access to decodable Libraries Books !");

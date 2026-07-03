@@ -827,7 +827,7 @@ function wushka_set_student_prep_decodable_shelves( $i_user ) {
 
     // Extract phase prefix from student's cluster, e.g. "Phase 3" from "Phase 3 - j"
     $student_phase = '';
-    if ( preg_match('/^(Phase\s+\d+)/i', $s_cluster, $matches) ) {
+    if ( preg_match('/^(Phase\s+\d+(?:\.\d+)?)/i', $s_cluster, $matches) ) {
         $student_phase = $matches[1];
     }
 

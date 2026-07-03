@@ -219,7 +219,7 @@ class Manage_Reading_Groups
 
         foreach ($wpdb->get_results($sql) as $row) {
             // Extract "Phase X" — same regex as get_sound_clusters()
-            if (preg_match('/Phase\s+\d+/i', $row->name, $matches)) {
+            if (preg_match('/Phase\s+\d+(?:\.\d+)?/i', $row->name, $matches)) {
                 $phase_key = $matches[0];
             } else {
                 $phase_key = $row->name;

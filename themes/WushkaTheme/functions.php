@@ -5332,27 +5332,25 @@ function wushka_get_ordered_sound_clusters() {
     $results = $wpdb->get_results($sql);
 
     foreach ($results as $key => $row) {
-        $sounds = array_map('trim', explode(',', $row->esiss_sounds));
-        $sounds = array_filter($sounds, 'strlen');
-        $sounds = array_values(array_unique($sounds));
-        $row->esiss_sounds = implode(', ', $sounds);
+        // $sounds = array_map('trim', explode(',', $row->esiss_sounds));
+        // $sounds = array_filter($sounds, 'strlen');
+        // $sounds = array_values(array_unique($sounds));
+        // $row->esiss_sounds = implode(', ', $sounds);
 
-        if (preg_match('/Phase\s+\d+/i', $row->phase, $matches)) {
+        if (preg_match('/Phase\s+\d+(?:\.\d+)?/i', $row->phase, $matches)) {
             $phase = $matches[0];
         } else {
             $phase = null;
         }
 
-        if ($key > 1) {
             $tempArray = explode("|", $row->esiss_sounds);
             if (!empty($tempArray)) {
                 foreach ($tempArray as $sound) {
-                    if (!empty($sound)) {
+                    if (!empty(trim($sound))) {
                         $soundsArray[] = trim($phase . ' - ' . $sound);
                     }
                 }
             }
-        }
     }
 
     $soundsArray = array_unique($soundsArray);

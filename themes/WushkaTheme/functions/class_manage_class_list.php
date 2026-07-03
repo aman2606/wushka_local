@@ -599,7 +599,7 @@ class Class_List
 
 
 
-            if (preg_match('/Phase\s+\d+/i', $row->phase, $matches)) {
+            if (preg_match('/Phase\s+\d+(?:\.\d+)?/i', $row->phase, $matches)) {
                 $phase = $matches[0];   // "Phase 6"
             } else {
                 $phase = null;

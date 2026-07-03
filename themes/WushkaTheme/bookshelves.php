@@ -357,24 +357,58 @@ if (! empty($level_ids)) {
         $p_args['orderby'] = 'meta_valu_num';
         $p_args['order'] = 'ASC';
 
+
         if (current_user_can('student') && !empty($prepared_decodable_shelves)) {
-            $sound_meta_query = ['relation' => 'OR'];
+            $all_phases = get_terms(['taxonomy' => 'phonics-phase', 'hide_empty' => false]);
+            $seen_ids   = [];
+
             foreach ($prepared_decodable_shelves as $shelf) {
-                $sounds_part = preg_replace('/^Phase\s+\d+\s*-\s*/i', '', $shelf);
-                $parts = preg_split('/[\s,]+/', trim($sounds_part), -1, PREG_SPLIT_NO_EMPTY);
-                $parts = array_map('strtolower', $parts);
-                $sound_meta_query[] = ['key' => 'esiss_sounds', 'value' => implode(',', $parts),  'compare' => '='];
-                $sound_meta_query[] = ['key' => 'esiss_sounds', 'value' => implode(', ', $parts), 'compare' => '='];
-                $sound_meta_query[] = ['key' => 'esiss_sounds', 'value' => implode(' ', $parts),  'compare' => '='];
+                // Extract phase number prefix e.g. "Phase 2"
+                preg_match('/^(Phase\s+\d+(?:\.\d+)?)/i', $shelf, $phase_match);
+                $prefix = isset($phase_match[1]) ? $phase_match[1] : null;
+
+                // Narrow to all sibling phases sharing the same prefix (mirrors ajax_manage-reading-groups.php:1170-1181)
+                $sibling_ids = [];
+                if ($prefix) {
+                    foreach ($all_phases as $t) {
+                        if (stripos($t->name, $prefix) === 0) {
+                            $sibling_ids[] = $t->term_id;
+                        }
+                    }
+                }
+
+                // Build REGEXP for the sound part of this shelf
+                $sounds_part = preg_replace('/^Phase\s+\d+(?:\.\d+)?\s*-\s*/i', '', $shelf);
+                $phonemes    = preg_split('/[\s,]+/', trim($sounds_part), -1, PREG_SPLIT_NO_EMPTY);
+                $phonemes    = array_map('strtolower', $phonemes);
+                if (empty($phonemes)) continue;
+
+                $pattern    = '^' . implode('[, ]*', array_map('preg_quote', $phonemes)) . '$';
+                $shelf_args = $p_args;
+                if (!empty($sibling_ids)) {
+                    $shelf_args['tax_query'][0]['terms'] = $sibling_ids;
+                }
+                $shelf_args['meta_query'] = [
+                    ['key' => 'esiss_sounds', 'value' => $pattern, 'compare' => 'REGEXP']
+                ];
+
+                foreach (get_posts($shelf_args) as $post) {
+                    if (!isset($seen_ids[$post->ID])) {
+                        $seen_ids[$post->ID] = true;
+                        $a_posts[] = $post;
+                    }
+                }
             }
-            $p_args['meta_query'] = $sound_meta_query;
+            $per_shelf_done = true;
         }
     }
 
     // echo "<pre>";
     // print_r($p_args);exit;
     error_log('taxonomy query params ' . print_r($p_args, true));
-    $a_posts = get_posts($p_args);
+    if (empty($per_shelf_done)) {
+        $a_posts = get_posts($p_args);
+    }
 
 
 }
