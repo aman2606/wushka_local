@@ -210,6 +210,7 @@ jQuery(document).ready(function ($) {
             return false;
         }
 
+        $('.phonics-sound-item.loading').removeClass('loading').find('.phonics-btn-loader').remove();
         reset_reading_level();
 
         if (store_current_group() === false) {
