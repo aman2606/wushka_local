@@ -17,6 +17,27 @@ if (!is_user_logged_in() || (!current_user_can('teacher') && !current_user_can('
     #archive-student-confirm-modal th {
         padding: 8px;
     }
+    .top-scroll-container {
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: 18px;
+        margin-bottom: 4px;
+    }
+    .top-scroll-inner { height: 1px; }
+    .top-dt-info {
+        padding: 4px 0 8px 0;
+        font-size: 0.85em;
+        color: #555;
+        font-style: italic;
+    }
+    .panel-class-lists .table-responsive {
+        overflow-x: auto;
+    }
+    .panel-class-lists .dataTables_wrapper {
+        width: -webkit-max-content;
+        width: max-content;
+        min-width: 100%;
+    }
 </style>
 <?php
 include_once 'functions/class_manage_class_list.php';
@@ -2064,6 +2085,7 @@ if ($arhiveStudentList) { ?>
                 o_content.empty().append(a_table.join(''));
                 //Run table formatting
                 initiate_datatables();
+                setup_top_scroll();
                 $('table[role=grid]').removeAttr('role').attr('role', 'presentation');
                 if (!b_archived) {
                     initiate_editable_fields();
@@ -2259,6 +2281,54 @@ if ($arhiveStudentList) { ?>
 
             //Set table length for class page
             $('table.class-table').DataTable(a_tableArgs);
+        }
+
+        function setup_top_scroll() {
+            $(window).off('resize.topscroll');
+
+            var $wrapper = $('.tab-pane.active .table-responsive');
+            if (!$wrapper.length) return;
+
+            $wrapper.siblings('.top-scroll-container, .top-dt-info').remove();
+
+            // Info line at top — scoped to this wrapper to avoid picking up modal DataTable info
+            var $dtInfo = $wrapper.find('.dataTables_info');
+            $wrapper.before('<div class="top-dt-info">' + ($dtInfo.length ? $dtInfo.text() : '') + '</div>');
+
+            // Mirror scroll bar
+            var $topScroll = $('<div class="top-scroll-container"><div class="top-scroll-inner"></div></div>');
+            $wrapper.before($topScroll);
+
+            var $dtWrapper = $wrapper.find('.dataTables_wrapper');
+
+            function syncWidth() {
+                var $table = $wrapper.find('table');
+                var w = $table.length ? $table[0].offsetWidth : $wrapper[0].scrollWidth;
+                $topScroll.find('.top-scroll-inner').css('width', w + 'px');
+                if ($dtWrapper.length && w > $wrapper[0].clientWidth) {
+                    $dtWrapper.css('min-width', w + 'px');
+                }
+            }
+            syncWidth();
+            setTimeout(syncWidth, 500);
+
+            var resizeTimer;
+            $(window).on('resize.topscroll', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(syncWidth, 150);
+            });
+
+            var syncing = false;
+            $topScroll.on('scroll', function() {
+                if (syncing) return; syncing = true;
+                $wrapper.scrollLeft($topScroll.scrollLeft());
+                syncing = false;
+            });
+            $wrapper.on('scroll', function() {
+                if (syncing) return; syncing = true;
+                $topScroll.scrollLeft($wrapper.scrollLeft());
+                syncing = false;
+            });
         }
 
         //Checks if Current Class is Empty, Toggles Notice Popup
