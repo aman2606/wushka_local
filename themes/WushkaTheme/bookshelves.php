@@ -186,6 +186,7 @@ if (is_user_logged_in()) {
     }
 
     $prepared_shelves = get_user_meta($current_user->ID, 'prepared_shelves', TRUE);
+
     $my_level         = get_user_meta($current_user->ID, 'allowed_shelves', TRUE);
     $prepared_decodable_shelves = get_user_meta($current_user->ID, 'prepared_decodable_shelves', TRUE);
 
@@ -323,10 +324,8 @@ if ($library_taxonomy == 'reading-level') {
 // print_r($a_ids);
 // exit;
 
-// echo "<pre>";
-// print_r($level_ids);exit;
 $a_posts = array();
-if (! empty($level_ids)) {
+//if (! empty($level_ids)) {
     $p_args  = array(
         'post_type'      => 'ebook',
         'post_status'    => 'publish',
@@ -403,15 +402,15 @@ if (! empty($level_ids)) {
         }
     }
 
-    // echo "<pre>";
-    // print_r($p_args);exit;
+
     error_log('taxonomy query params ' . print_r($p_args, true));
     if (empty($per_shelf_done)) {
         $a_posts = get_posts($p_args);
     }
 
 
-}
+//}
+
 error_log('finished performing post taxonomy query: ' . count($a_posts));
 //Create Taxonomy Query (line 352, 370 class manage class list)
 $a_term_books = [];

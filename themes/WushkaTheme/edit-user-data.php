@@ -806,7 +806,7 @@ function wushka_set_student_prep_decodable_shelves( $i_user ) {
 
     
 
-    if ( empty($s_cluster) || $s_cluster === 'Not Set' || empty($s_phase_access) ) {
+    if ( empty($s_cluster) || $s_cluster === 'Not Set' || empty($s_phase_access) ||  $s_cluster=='all-phases') {
         update_user_meta($i_user, 'prepared_decodable_shelves', $a_prep_new);
         return TRUE;
     }
@@ -870,12 +870,12 @@ function wushka_set_student_prep_decodable_shelves( $i_user ) {
             }
             break;
 
-        case 'all-phases':
-            foreach ( $all_clusters as $idx => $cluster ) {
-                if ( $idx === 0 ) continue;
-                $a_prep_new[] = $cluster;
-            }
-            break;
+        // case 'all-phases':
+        //     foreach ( $all_clusters as $idx => $cluster ) {
+        //         if ( $idx === 0 ) continue;
+        //         $a_prep_new[] = $cluster;
+        //     }
+        //     break;
     }
 
     error_log('New Prepared Decodable Shelves:');
