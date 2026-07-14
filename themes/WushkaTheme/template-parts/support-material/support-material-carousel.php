@@ -94,7 +94,11 @@ $label_color            = 'style="color: ' . esc_attr($phonics_color) . ';"';
                                                 $asset_data          = get_field( 'support_material_assets', $pa->ID );
                                                 $img_src             = $asset_data['icon']                ?? '';
                                                 $primary_button_text = $asset_data['primary_button_text'] ?? '';
+                                                $phase_number        = $asset_data['phase_number'] ?? '';
                                                 $primary_button_link = $asset_data['primary_button_link'] ?? '#';
+                                                $is_flipable         = $asset_data['is_flipable_file'] ?? false;
+                                                $iframe_url          = $asset_data['iframe_url'] ?? '';
+                                                $final_iframe_url    = $is_flipable ? $iframe_url : $primary_button_link;
                                                 $item_id             = $o_term->slug . '-pa-' . $pa_global_idx++;
                                             ?>
                                             <div data-support="<?php echo esc_attr( strtolower( str_replace( ' ', '-', $pa->post_title ) ) ); ?>"
@@ -108,20 +112,29 @@ $label_color            = 'style="color: ' . esc_attr($phonics_color) . ';"';
                                                 <div class="item-detail link-<?php echo esc_attr( $pa->ID ); ?>">
                                                     <span class="sr-only"><?php echo esc_html( $pa->post_title ); ?></span>
                                                     <div class="bookshelf-item-wrapper">
-                                                    	<input type="hidden" class="img-source" value="<?php echo esc_url( $img_src ); ?>">
-                                                        <img class="img-responsive img-rounded"
-                                                         alt="<?php echo esc_attr( $pa->post_title ); ?>"
-                                                         data-value="<?php echo esc_url( $img_src ); ?>"
-                                                         src="<?php echo esc_url( $img_src ); ?>"
-                                                         loading="lazy"
-                                                         style="width:200px; height:284px;">
+                                                        <div class="assessment-icon">
+                                                        	<input type="hidden" class="img-source" value="<?php echo esc_url( $img_src ); ?>">
+
+                                                            <?php if(!empty($img_src)): ?>
+                                                                <img class="img-responsive img-rounded"
+                                                                 alt="<?php echo esc_attr( $pa->post_title ); ?>"
+                                                                 data-value="<?php echo esc_url( $img_src ); ?>"
+                                                                 src="<?php echo esc_url( $img_src ); ?>"
+                                                                 loading="lazy"
+                                                                 style="width:200px; height:284px;">
+                                                            <?php endif; ?>
+
+                                                             <?php if( !empty($phase_number) ): ?>
+                                                                 <span class="phase-number"><?= $phase_number; ?></span>
+                                                             <?php endif; ?>
+                                                         </div>
 
                                                     	<div class="action-buttons">
-                                                        	<?php if ( $primary_button_link ) : ?>
-                                                        		<a href="<?php echo esc_url( $primary_button_link ); ?>" target="_blank">
-		                                                            <span <?= $panel_heading_back; ?>><?php echo esc_html( $primary_button_text ?: 'Assessment' ); ?></span>
-		                                                        </a>
-	                                                        <?php endif; ?>
+                                                            <?php if(!empty($final_iframe_url)): ?>
+                                                    		<a href="<?php echo get_permalink($pa->ID).'?sm_type=assessment'; ?>">
+	                                                            <span <?= $panel_heading_back; ?>><?php echo esc_html( $primary_button_text ?: 'Assessment' ); ?></span>
+	                                                        </a>
+                                                            <?php endif; ?>
                                                         </div>
                                                         
                                                     </div>
@@ -203,7 +216,7 @@ $label_color            = 'style="color: ' . esc_attr($phonics_color) . ';"';
 // pages of 6 for the carousel — exactly like before, just sourced
 // differently (week + its repeater days, instead of separate posts).
 // ---------------------------------------------------------------------------
-$ds_cards = [];
+/*$ds_cards = [];
 
 if ( ! empty( $daily_slideshow_slides ) ) {
     foreach ( $daily_slideshow_slides as $week_post ) {
@@ -216,10 +229,13 @@ if ( ! empty( $daily_slideshow_slides ) ) {
             continue;
         }
 
+        //echo "<pre>";
+
         // ---- The Week card itself --------------------------------------
         $ds_cards[] = (object) [
             'post_id'        => $week_post->ID,
             'post_title'     => $week_post->post_title,
+            'post_link'      => get_permalink( $week_post->ID ),
             'is_week'        => true,
             'label'          => $week_assets['week_or_day_label']    ?? $week_post->post_title,
             'icon_text'      => $week_assets['icon_text']             ?? '',
@@ -228,15 +244,18 @@ if ( ! empty( $daily_slideshow_slides ) ) {
             'primary_link'   => $week_assets['primary_button_link']  ?? '#',
             'secondary_text' => $week_assets['seconday_button_text'] ?? '',
             'secondary_link' => $week_assets['seconday_button_link'] ?? '#',
+            'index_id'       => $week_post->ID,
         ];
 
         // ---- Each Day, pulled from the repeater -------------------------
         $days = $week_assets['week_days'] ?? [];
         if ( ! empty( $days ) && is_array( $days ) ) {
             foreach ( $days as $day_idx => $day ) {
+                //print_r($day);
                 $ds_cards[] = (object) [
                     'post_id'        => $week_post->ID . '-day-' . $day_idx, // unique synthetic id
                     'post_title'     => $day['day_label'] ?? '',
+                    'post_link'      => get_permalink( $week_post->ID ),
                     'is_week'        => false,
                     'label'          => $day['day_label']                  ?? '',
                     'icon_text'      => $day['day_icon_text']              ?? '',
@@ -244,24 +263,29 @@ if ( ! empty( $daily_slideshow_slides ) ) {
                     'primary_text'   => $day['day_primary_button_text']    ?? '',
                     'primary_link'   => $day['day_primary_button_link']    ?? '#',
                     'secondary_text' => $day['day_secondary_button_text']  ?? '',
-                    'secondary_link' => $day['day_secodary_button_link']  ?? '#',
+                    'secondary_link' => $day['day_secodary_button_link']['id']  ?? '#',
+                    'index_id'       => $day_idx
                 ];
             }
         }
     }
-}
+}*/
 ?>
 
-<?php if ( ! empty( $ds_cards ) ) : ?>
+<?php if ( ! empty( $daily_slideshow_slides ) ) : ?>
 <?php
     $ds_carousel_id   = 'carousel-taxo-ds-' . $counter . '-' . $o_term->term_taxonomy_id;
     $ds_panel_classes = $panel_base . ' panel-daily-slideshow';
-    $ds_pages         = pa_chunk_posts( $ds_cards );   // pages of 6 cards each
+    $ds_pages         = pa_chunk_posts( $daily_slideshow_slides );   // pages of 6 cards each
     $ds_total_pages   = count( $ds_pages );
     $ds_global_idx    = 0;
 
     $week_icon_url = get_stylesheet_directory_uri() . '/img/support-material-images/lessonplans-icon-week.png';
     $day_icon_url  = get_stylesheet_directory_uri() . '/img/support-material-images/lessonplans-icon-day.png';
+
+    /*echo "<pre>";
+    print_r($daily_slideshow_slides);
+    echo "</pre>";*/
 ?>
 <div class="shelf-wrapper daily-slideshow">
     <div class="container-fluid">
@@ -300,6 +324,12 @@ if ( ! empty( $daily_slideshow_slides ) ) {
                                             <?php foreach ( $page_cards as $card ) :
                                                 $item_id  = $o_term->slug . '-ds-' . $ds_global_idx++;
                                                 $img_src  = $card->is_week ? $week_icon_url : $day_icon_url;
+                                                $type     = $card->is_week ? 'week' : 'day';
+
+                                                $primary_button_link = $card->primary_link ?? '';
+                                                $is_flipable         = $card->is_flipable ?? false;
+                                                $iframe_url          = $card->iframe_url ?? '';
+                                                $final_iframe_url    = $is_flipable ? $iframe_url : $primary_button_link;
                                             ?>
                                             <div data-support="<?php echo esc_attr( strtolower( str_replace( ' ', '-', $card->post_title ) ) ); ?>"
                                                  class="thumb accordion-shelf-book col-xsp-12 col-xsl-6 col-xs-4 col-sm-2 text-center <?php echo $card->is_week ? 'a-week' : 'a-day'; ?>"
@@ -318,12 +348,14 @@ if ( ! empty( $daily_slideshow_slides ) ) {
 
                                                         <input type="hidden" class="img-source" value="<?php echo esc_url( $img_src ); ?>">
                                                         <div class="day-icon-box">
+                                                            <?php if( !empty($img_src) ): ?>
                                                             <img class="img-responsive img-rounded"
                                                                  alt="<?php echo esc_attr( $card->post_title ); ?>"
                                                                  data-value="<?php echo esc_url( $img_src ); ?>"
                                                                  src="<?php echo esc_url( $img_src ); ?>"
                                                                  loading="lazy"
                                                                  style="width:200px; height:284px;">
+                                                            <?php endif; ?>
                                                             <span class="day-week-icon-txt"><?php echo esc_html( $card->icon_text ); ?></span>
                                                             <?php if ( ! $card->is_week && $card->number !== null ) : ?>
                                                                 <span class="number"><?php echo esc_html( $card->number ); ?></span>
@@ -331,8 +363,8 @@ if ( ! empty( $daily_slideshow_slides ) ) {
                                                         </div>
 
                                                         <div class="action-buttons">
-                                                            <?php if ( $card->primary_link && $card->primary_link !== '#' ) : ?>
-                                                                <a href="<?php echo esc_url( $card->primary_link ); ?>" target="_blank" class="primary-button">
+                                                            <?php if ( !empty( $final_iframe_url ) ) : ?>
+                                                                <a href="<?php echo esc_url( $card->post_link ).'?sm_type=lesson_plan&type='.$type.'&id='.$card->index_id; ?>" class="primary-button">
                                                                     <span <?php echo $panel_heading_back ?? ''; ?>>
                                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95 95"><path fill="#fff" d="M17.5 13.3c-.3.6-.4 16.5-.3 35.2l.3 34 29.4.3c22.9.2 29.6-.1 30.3-1 .9-1.5 1.1-65.8.2-68.2-.5-1.4-4.1-1.6-30-1.6-22.7 0-29.6.3-29.9 1.3m48.2 18.3c.3.9.2 2.4-.4 3.3-.9 1.4-3.4 1.6-17.8 1.6s-16.9-.2-17.8-1.6c-.6-.9-.7-2.4-.4-3.3.6-1.4 2.9-1.6 18.2-1.6s17.6.2 18.2 1.6m-.2 15.9v3h-18c-16.5 0-18-.1-18.3-1.8-.9-4.6-.3-4.8 18.5-4.5l17.8.3zm-.7 11.7c1.8 1.8 1.4 4.6-.7 5.8-2.6 1.3-30.6 1.3-33.2 0-2.1-1.2-2.5-4-.7-5.8 1.7-1.7 32.9-1.7 34.6 0"/></svg>
                                                                         <?php echo esc_html( $card->primary_text ?: 'Lesson Plan' ); ?>
@@ -341,7 +373,7 @@ if ( ! empty( $daily_slideshow_slides ) ) {
                                                             <?php endif; ?>
 
                                                             <?php if ( $card->secondary_link && $card->secondary_link !== '#' ) : ?>
-                                                                <a href="<?php echo esc_url( $card->secondary_link ); ?>" target="_blank" class="secondary-button">
+                                                                <a href="<?php echo esc_url( $card->post_link ).'?sm_type=slideshow&id='.$card->secondary_link; ?>" class="secondary-button">
                                                                     <span <?php echo $panel_heading_back ?? ''; ?>>
                                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95 95"><g fill="#fff" stroke-width="0"><path d="M29.1 14c-5.6 1.2-11 5.4-13.6 10.6-1.6 3.3-2 6.4-2.3 19.5-.5 20.4.6 25.9 6.2 31.5 5.2 5.3 10.2 6.4 28.1 6.4s22.9-1.1 28.1-6.4c5.3-5.2 6.4-10.2 6.4-28.1 0-16.2-1.2-22.5-5.1-27-5.3-6-8.5-6.9-26.9-7.1-9.1-.2-18.5.1-20.9.6m39 9.3c4.9 3.3 5.4 5.6 5.4 24.6 0 25.5-.6 26.1-26 26.1-24.4 0-25.7-1.1-26.3-21.7-.6-18.2.2-23.5 3.9-27.2s5-3.9 24.4-3.7c13.4.1 16.4.4 18.6 1.9"/><path d="M35 31c-1.2.7-1.6 3.9-1.8 15.9-.4 15.7.3 19.1 3.8 19.1 2.5 0 28-14.8 28.7-16.7.3-.8-.3-2.3-1.3-3.3-1.8-1.8-26.2-16-27.4-16-.3 0-1.2.5-2 1"/></g></svg>
                                                                         <?php echo esc_html( $card->secondary_text ?: 'Slideshow' ); ?>

@@ -392,6 +392,7 @@ if ($library_taxonomy == 'reading-level') {
     $a_terms = $phase_terms;
 }
 
+// Support material: Pull posts
 $a_support_material_posts = get_posts(array(
     'post_type'      => 'support_material',  // adjust slug if different
     'posts_per_page' => -1,
@@ -421,15 +422,29 @@ foreach ($a_terms as $idx => $o_term) {
                 }
             }
         }
-
-        // ── 3. Filter Support Material posts by matching term ID + category ──
+         
+        // Support material: Make phase label from category name
+        $phase_label = '';
+        if ( preg_match( '/Phase\s+(\d+(?:\.\d+)?)/i', $o_term->name, $matches ) ) {
+            $phase_label = "Phase $matches[1]: ";
+        }
+        
+        // Support material: Filter Asessments and slideshows
         if (! empty($a_support_material_posts)) {
+
             foreach ($a_support_material_posts as $o_sm_post) {
 
-                // Get the ACF field value (term ID stored on this support material post)
+                if ( ! is_object( $o_sm_post ) || ! isset( $o_sm_post->ID ) ) {
+                    continue;
+                }
+
+                $week_assets = get_field( 'support_material_assets', $o_sm_post->ID );
+                if ( empty( $week_assets ) ) {
+                    continue;
+                }
+
                 $sm_term_id = get_field('books_cetegory', $o_sm_post->ID);
 
-                // Skip if ACF field is empty or doesn't match the current loop term
                 if (empty($sm_term_id) || (int)$sm_term_id !== (int)$o_term->term_id) {
                     continue;
                 }
@@ -438,17 +453,59 @@ foreach ($a_terms as $idx => $o_term) {
                 $a_sm_categories = wp_get_post_terms($o_sm_post->ID, 'sm_types', ['fields' => 'all']);
                 $a_sm_categories = is_wp_error($a_sm_categories) ? [] : $a_sm_categories;
                 $o_sm_post->category_slugs = wp_list_pluck($a_sm_categories, 'slug');
-                //$o_sm_post->category_names = wp_list_pluck($a_sm_categories, 'name');
                 $o_sm_post->terms = $a_sm_categories;
 
                 if (in_array('daily-slideshows-and-lesson-plans', $o_sm_post->category_slugs)) {
-                    $a_level['daily_slideshow'][] = $o_sm_post;
-                    $a_level['slideshows_assets_label'] = $o_sm_post->terms[0]->name;
+                    
+                    //Week Posts
+                    $a_level['daily_slideshow'][] = (object) [
+                        'post_id'        => $o_sm_post->ID,
+                        'post_title'     => $o_sm_post->post_title,
+                        'post_link'      => get_permalink( $o_sm_post->ID ),
+                        'is_week'        => true,
+                        'label'          => $week_assets['week_or_day_label']    ?? $o_sm_post->post_title,
+                        'icon_text'      => $week_assets['icon_text']             ?? '',
+                        'number'         => null,
+                        'primary_text'   => $week_assets['primary_button_text']  ?? '',
+                        'primary_link'   => $week_assets['primary_button_link']  ?? '',
+                        'secondary_text' => $week_assets['seconday_button_text'] ?? '',
+                        'secondary_link' => $week_assets['seconday_button_link'] ?? '',
+                        'index_id'       => $o_sm_post->ID,
+                        'is_flipable'    => $week_assets['is_flipable_file'] ?? false,
+                        'iframe_url'     => $week_assets['iframe_url'] ?? '',
+
+                    ];
+
+                    // ---- Each Day, pulled from the repeater -------------------------
+                    $days = $week_assets['week_days'] ?? [];
+                    if ( ! empty( $days ) && is_array( $days ) ) {
+                        foreach ( $days as $day_idx => $day ) {
+                            //print_r($day);
+                            $a_level['daily_slideshow'][] = (object) [
+                                'post_id'                 => $o_sm_post->ID . '-day-' . $day_idx, // unique synthetic id
+                                'post_title'              => $day['day_label'] ?? '',
+                                'post_link'               => get_permalink( $o_sm_post->ID ),
+                                'is_week'                 => false,
+                                'label'                   => $day['day_label']                  ?? '',
+                                'icon_text'               => $day['day_icon_text']              ?? '',
+                                'number'                  => $day['day_number']                 ?? null,
+                                'primary_text'            => $day['day_primary_button_text']    ?? '',
+                                'primary_link'            => $day['day_primary_button_link']    ?? '',
+                                'secondary_text'          => $day['day_secondary_button_text']  ?? '',
+                                'secondary_link'          => $day['day_secodary_button_link']['id']  ?? '',
+                                'index_id'                => $day_idx,
+                                'is_flipable'             => $day['day_is_flipable_file'] ?? false,
+                                'iframe_url'              => $day['day_iframe_url'] ?? '',
+                            ];
+                        }
+                    }
+
+                    $a_level['slideshows_assets_label'] = $phase_label . $o_sm_post->terms[0]->name;
                 }
 
                 if (in_array('planning-and-assessments', $o_sm_post->category_slugs)) {
                     $a_level['planning_assessments'][] = $o_sm_post;
-                    $a_level['planning_assets_label'] = $o_sm_post->terms[0]->name;
+                    $a_level['planning_assets_label']  = $phase_label . $o_sm_post->terms[0]->name;
                 }
             }
         }
@@ -457,6 +514,7 @@ foreach ($a_terms as $idx => $o_term) {
         unset($a_level);
     }
 }
+
 ?>
 <!-- End of Student reading analytics -->
 <style>
@@ -690,19 +748,23 @@ foreach ($a_terms as $idx => $o_term) {
     .shelf-wrapper.daily-slideshow span.day-week-icon-txt {
         position: absolute;
         top: 34px;
+        left: 50%;
+        transform: translateX(calc(-50% + 2px));
         font-size: 18px;
         font-weight: 700;
+        white-space: nowrap;
     }
     .shelf-wrapper.daily-slideshow div.a-week span.day-week-icon-txt {
         top: 45px !important;
-        left: 31px;
     }
     .shelf-wrapper.daily-slideshow .day-icon-box span.number {
-        position: absolute;
-        left: 11px;
-        bottom: 11px;
-        font-size: 14px;
         color: #ffffff;
+        position: absolute;
+        bottom: 12px;
+        left: 15px;
+        transform: translateX(calc(-50% + 2px));
+        font-size: 12px;
+        white-space: nowrap;
     }
     .shelf-wrapper.daily-slideshow .wk-panel-shelf.collapse {
         height: auto !important;
@@ -718,7 +780,17 @@ foreach ($a_terms as $idx => $o_term) {
         gap: 3px;
     }
     .shelf-wrapper.daily-slideshow .action-buttons a span svg {
-        width: 18px;
+        width: 16px;
+    }
+    .shelf-wrapper.planning-and-assessment span.phase-number {
+        position: absolute;
+        top: 56px;
+        left: 49%;
+        transform: translateX(calc(-50% + 2px));
+        font-size: 18px;
+        font-weight: 700;
+        white-space: nowrap;
+        color: #ffffff;
     }
 </style>
 
@@ -970,26 +1042,6 @@ if (is_user_logged_in()) { ?>
         $o_term = $a_level['term'];
         $posts  = $a_level['books'];
 
-        //Support Materials
-        $daily_slideshow  = $a_level['daily_slideshow'];
-        $planning_assessments  = $a_level['planning_assessments'];
-        $sh_asset_label = $a_level['slideshows_assets_label'];
-        $plng_asset_label = $a_level['planning_assets_label'];
-
-        get_template_part('template-parts/support-material-carousel', null, [
-            'o_term'               => $o_term,
-            'daily_slideshow'      => $daily_slideshow,
-            'planning_assessments' => $planning_assessments,
-            'ebooks'               => $posts, 
-            'counter'              => $content_count,
-            'sh_asset_label'       => $sh_asset_label,
-            'plng_asset_label'       => $plng_asset_label,
-            //'previous_carousel'    => $_SESSION['carousel-support-taxo-' . $o_term->term_taxonomy_id] ?? 0,
-            //'current_user'         => $current_user,
-        ]);
-
-        //include __DIR__ . '/template-parts/shelf-support-carousel.php';
-
         $main_content = "";
         if (! is_user_logged_in() || !current_user_can('student')) {
             if ($content_count == 1) {
@@ -1009,6 +1061,24 @@ if (is_user_logged_in()) { ?>
             $no_indicators     = ceil(count($posts) / 6);
             $total_books       = count($posts);
             $previous_carousel = isset($_SESSION['carousel-taxo-' . $o_term->term_taxonomy_id]) ? $_SESSION['carousel-taxo-' . $o_term->term_taxonomy_id] : 0;
+
+            // Support material: Carousel template call
+            $daily_slideshow       = $a_level['daily_slideshow'];
+            $planning_assessments  = $a_level['planning_assessments'];
+            $sh_asset_label        = $a_level['slideshows_assets_label'];
+            $plng_asset_label      = $a_level['planning_assets_label'];
+
+            get_template_part('template-parts/support-material/support-material-carousel', null, [
+                'o_term'                 => $o_term,
+                'daily_slideshow'        => $daily_slideshow,
+                'planning_assessments'   => $planning_assessments,
+                'ebooks'                 => $posts, 
+                'counter'                => $content_count,
+                'sh_asset_label'         => $sh_asset_label,
+                'plng_asset_label'       => $plng_asset_label,
+                //'previous_carousel'    => $_SESSION['carousel-support-taxo-' . $o_term->term_taxonomy_id] ?? 0,
+                //'current_user'         => $current_user,
+            ]);
     ?>
             <div class="shelf-wrapper<?php echo $blocked ?>" <?= $main_content; ?>>
                 <div class="container-fluid">
