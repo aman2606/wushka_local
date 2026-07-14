@@ -18,8 +18,8 @@ $raw_filename    = pathinfo( $file_url, PATHINFO_FILENAME );
 $simplified_name = ucwords( str_replace( array( '-', '_' ), ' ', $raw_filename ) );
 
 // Build the Office Online embed URL from the ACTUAL requested file (previously hardcoded).
-//$embed_src = 'https://view.officeapps.live.com/op/embed.aspx?src=' . rawurlencode( $file_url );
-$embed_src = 'https://view.officeapps.live.com/op/embed.aspx?src=https://cdn1.wushka.com.au/public/2026/07/01174637/Phase-2-Lesson-1.pptx';
+$embed_src = 'https://view.officeapps.live.com/op/embed.aspx?src=' . rawurlencode( $file_url );
+//$embed_src = 'https://view.officeapps.live.com/op/embed.aspx?src=https://cdn1.wushka.com.au/public/2026/07/01174637/Phase-2-Lesson-1.pptx';
 ?>
 
 <style>
