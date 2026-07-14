@@ -209,68 +209,6 @@ $label_color            = 'style="color: ' . esc_attr($phonics_color) . ';"';
 // SHELF 2 — Daily Slideshow
 // ===========================================================================
 ?>
-<?php
-// ---------------------------------------------------------------------------
-// Build a flat list of "card" objects: one for the Week itself, then one
-// for every day in its repeater. This flat list is what gets chunked into
-// pages of 6 for the carousel — exactly like before, just sourced
-// differently (week + its repeater days, instead of separate posts).
-// ---------------------------------------------------------------------------
-/*$ds_cards = [];
-
-if ( ! empty( $daily_slideshow_slides ) ) {
-    foreach ( $daily_slideshow_slides as $week_post ) {
-        if ( ! is_object( $week_post ) || ! isset( $week_post->ID ) ) {
-            continue;
-        }
-
-        $week_assets = get_field( 'support_material_assets', $week_post->ID );
-        if ( empty( $week_assets ) ) {
-            continue;
-        }
-
-        //echo "<pre>";
-
-        // ---- The Week card itself --------------------------------------
-        $ds_cards[] = (object) [
-            'post_id'        => $week_post->ID,
-            'post_title'     => $week_post->post_title,
-            'post_link'      => get_permalink( $week_post->ID ),
-            'is_week'        => true,
-            'label'          => $week_assets['week_or_day_label']    ?? $week_post->post_title,
-            'icon_text'      => $week_assets['icon_text']             ?? '',
-            'number'         => null,
-            'primary_text'   => $week_assets['primary_button_text']  ?? '',
-            'primary_link'   => $week_assets['primary_button_link']  ?? '#',
-            'secondary_text' => $week_assets['seconday_button_text'] ?? '',
-            'secondary_link' => $week_assets['seconday_button_link'] ?? '#',
-            'index_id'       => $week_post->ID,
-        ];
-
-        // ---- Each Day, pulled from the repeater -------------------------
-        $days = $week_assets['week_days'] ?? [];
-        if ( ! empty( $days ) && is_array( $days ) ) {
-            foreach ( $days as $day_idx => $day ) {
-                //print_r($day);
-                $ds_cards[] = (object) [
-                    'post_id'        => $week_post->ID . '-day-' . $day_idx, // unique synthetic id
-                    'post_title'     => $day['day_label'] ?? '',
-                    'post_link'      => get_permalink( $week_post->ID ),
-                    'is_week'        => false,
-                    'label'          => $day['day_label']                  ?? '',
-                    'icon_text'      => $day['day_icon_text']              ?? '',
-                    'number'         => $day['day_number']                 ?? null,
-                    'primary_text'   => $day['day_primary_button_text']    ?? '',
-                    'primary_link'   => $day['day_primary_button_link']    ?? '#',
-                    'secondary_text' => $day['day_secondary_button_text']  ?? '',
-                    'secondary_link' => $day['day_secodary_button_link']['id']  ?? '#',
-                    'index_id'       => $day_idx
-                ];
-            }
-        }
-    }
-}*/
-?>
 
 <?php if ( ! empty( $daily_slideshow_slides ) ) : ?>
 <?php
