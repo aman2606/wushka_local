@@ -802,11 +802,13 @@ foreach ($a_terms as $idx => $o_term) {
         color: #ffffff;
     }
 
-    .shelf-wrapper.daily-slideshow .login-required-link {
+    .shelf-wrapper.daily-slideshow .login-required-link, 
+    .shelf-wrapper.planning-and-assessment .login-required-link {
         position: relative;
         cursor: not-allowed;
     }
-    .shelf-wrapper.daily-slideshow .login-required-link:hover::after {
+    .shelf-wrapper.daily-slideshow .login-required-link:hover::after, 
+    .shelf-wrapper.planning-and-assessment .login-required-link:hover::after {
         content: attr(data-tooltip);
         position: absolute;
         bottom: 125%;
