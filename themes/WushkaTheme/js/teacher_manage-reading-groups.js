@@ -20,6 +20,8 @@ jQuery(document).ready(function ($) {
     };
     var reading_group = {id: null, name: null, el: null, new_id: null, new_name: null, new_el: null, empty: null};
     var reading_level = {id: null, name: null, el: null, new_id: null, new_name: null, new_el: null, page: null, sound: null};
+    var selected_book_ids = [];
+    var selected_group_book_ids = [];
     var window_contents = {
         type: null,
         heading: null,
@@ -117,6 +119,73 @@ jQuery(document).ready(function ($) {
     $(document).on('click', '.book-item button[data-id="book-delete"]', delete_group_book);
     $(document).on('click', '.book-item button[data-id="book-archive"]', archive_book);
     $(document).on('click', '.book-item button[data-id="book-view"]', view_book_details);
+
+    $(document).on('change', '#select-all-books', function () {
+        var checked = $(this).prop('checked');
+        level_content_wrap.find('.book-bulk-select').prop('checked', checked);
+        update_bulk_assign_btn();
+    });
+
+    $(document).on('change', '.book-bulk-select', function () {
+        var total   = level_content_wrap.find('.book-bulk-select').length;
+        var checked = level_content_wrap.find('.book-bulk-select:checked').length;
+        $('#select-all-books').prop('indeterminate', checked > 0 && checked < total)
+                             .prop('checked', checked === total);
+        update_bulk_assign_btn();
+    });
+
+    $(document).on('click', '.btn-assign-selected', function (e) {
+        e.preventDefault();
+        if (store_current_group() === false || reading_group.id == 'new') return false;
+        if (store_current_class() === false) return false;
+
+        var ids = [];
+        level_content_wrap.find('.book-bulk-select:checked').each(function () {
+            ids.push($(this).val());
+        });
+        if (ids.length === 0) return false;
+
+        selected_book_ids = ids;
+        var $assignBtn = $(this);
+        $assignBtn.prop('disabled', true)
+                  .html('Assigning... <img class="btn-loader-gif" src="' + thm_tmp_fnc_pth + '/img/wushka-load-4.GIF" style="width:16px;height:16px;vertical-align:middle;display:inline-block;">');
+        load_level_reload();
+        $.ajax(ajax_data('add_group_books_bulk'));
+    });
+
+    $(document).on('change', '#select-all-group-books', function () {
+        var checked = $(this).prop('checked');
+        group_content_wrap.find('.group-book-bulk-select').prop('checked', checked);
+        update_bulk_remove_btn();
+    });
+
+    $(document).on('change', '.group-book-bulk-select', function () {
+        var total   = group_content_wrap.find('.group-book-bulk-select').length;
+        var checked = group_content_wrap.find('.group-book-bulk-select:checked').length;
+        $('#select-all-group-books')
+            .prop('indeterminate', checked > 0 && checked < total)
+            .prop('checked', checked === total);
+        update_bulk_remove_btn();
+    });
+
+    $(document).on('click', '.btn-remove-selected', function (e) {
+        e.preventDefault();
+        if (store_current_group() === false || reading_group.id == 'new') return false;
+        if (store_current_class() === false) return false;
+
+        var ids = [];
+        group_content_wrap.find('.group-book-bulk-select:checked').each(function () {
+            ids.push($(this).val());
+        });
+        if (ids.length === 0) return false;
+
+        selected_group_book_ids = ids;
+        var $removeBtn = $(this);
+        $removeBtn.prop('disabled', true)
+                  .html('Removing... <img class="btn-loader-gif" src="' + thm_tmp_fnc_pth + '/img/wushka-load-4.GIF" style="width:16px;height:16px;vertical-align:middle;display:inline-block;">');
+        load_level_reload();
+        $.ajax(ajax_data('delete_group_books_bulk'));
+    });
 
     $(document).on('click', '.group-wrap.student-wrap .btn-assign', button_window_view_students);
 
@@ -449,6 +518,9 @@ jQuery(document).ready(function ($) {
 
         //Store Thumbnail img for reading-group update
         console.log('----- Add Book to Reading Group -----');
+        this_btn.addClass('loading').prop('disabled', true);
+        this_btn.find('.glyphicon').hide();
+        this_btn.append('<img class="btn-loader-gif" src="' + thm_tmp_fnc_pth + '/img/wushka-load-4.GIF" style="width:16px;height:16px;vertical-align:middle;display:inline-block;">');
         load_level_reload();
         $.ajax(ajax_data('add_group_book'));
     }
@@ -483,7 +555,9 @@ jQuery(document).ready(function ($) {
         console.log('Book ID: ' + book_item.id);
         console.log('Group ID: ' + reading_group.id);
 
-        this_btn.addClass('deleting');
+        this_btn.addClass('deleting').prop('disabled', true);
+        this_btn.find('.glyphicon').hide();
+        this_btn.append('<img class="btn-loader-gif" src="' + thm_tmp_fnc_pth + '/img/wushka-load-4.GIF" style="width:16px;height:16px;vertical-align:middle;display:inline-block;">');
         load_level_reload();
         $.ajax(ajax_data('delete_group_book'));
     }
@@ -1213,6 +1287,42 @@ jQuery(document).ready(function ($) {
                     }
 
                     return false;
+                },
+                complete: function () {
+                    var $btn = book_item.elem ? book_item.elem.find('button[data-id="book-add"]') : null;
+                    if ($btn && $btn.length) {
+                        $btn.removeClass('loading').prop('disabled', false);
+                        $btn.find('.btn-loader-gif').remove();
+                        $btn.find('.glyphicon').show();
+                    }
+                }
+            };
+
+        } else if (function_type == 'add_group_books_bulk') {
+            return {
+                url: thm_tmp_fnc_pth + '/functions/ajax_manage-reading-groups.php',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'hash_id':       JSON.stringify(o_teacher.id_hash),
+                    'hash_nonce':    JSON.stringify(o_teacher.wp_hash),
+                    'ajax_function': JSON.stringify(function_type),
+                    'book_ids':      JSON.stringify(selected_book_ids),
+                    'group_id':      JSON.stringify(reading_group.id),
+                },
+                error: function () {
+                    reading_ajax_failure('Ajax Did Not Run, Error Method Popped.');
+                },
+                success: function (ajax_return) {
+                    if (validate_ajax_return(ajax_return) !== false) {
+                        add_group_books_bulk_success(ajax_return);
+                    }
+                    return false;
+                },
+                complete: function () {
+                    level_content_wrap.find('.btn-assign-selected')
+                        .prop('disabled', false)
+                        .html('Assign Selected <span class="selected-count">(0)</span>');
                 }
             };
 
@@ -1242,9 +1352,40 @@ jQuery(document).ready(function ($) {
                     return false;
                 },
                 complete: function () {
-                    if ($('.group-wrap.books-wrap').hasClass('deleting')) {
-                        $('.group-wrap.books-wrap').addClass('deleting');
+                    var $btn = book_item.elem ? book_item.elem.find('button[data-id="book-delete"]') : null;
+                    if ($btn && $btn.length) {
+                        $btn.removeClass('deleting').prop('disabled', false);
+                        $btn.find('.btn-loader-gif').remove();
+                        $btn.find('.glyphicon').show();
                     }
+                }
+            };
+
+        } else if (function_type == 'delete_group_books_bulk') {
+            return {
+                url:      thm_tmp_fnc_pth + '/functions/ajax_manage-reading-groups.php',
+                type:     'post',
+                dataType: 'json',
+                data: {
+                    'hash_id':       JSON.stringify(o_teacher.id_hash),
+                    'hash_nonce':    JSON.stringify(o_teacher.wp_hash),
+                    'ajax_function': JSON.stringify(function_type),
+                    'book_ids':      JSON.stringify(selected_group_book_ids),
+                    'group_id':      JSON.stringify(reading_group.id),
+                },
+                error: function () {
+                    reading_ajax_failure('Ajax Did Not Run, Error Method Popped.');
+                },
+                success: function (ajax_return) {
+                    if (validate_ajax_return(ajax_return) !== false) {
+                        delete_group_books_bulk_success(ajax_return);
+                    }
+                    return false;
+                },
+                complete: function () {
+                    group_content_wrap.find('.btn-remove-selected')
+                        .prop('disabled', false)
+                        .html('Remove Selected <span class="selected-count">(0)</span>');
                 }
             };
 
@@ -1469,6 +1610,32 @@ jQuery(document).ready(function ($) {
         });
     }
 
+    function add_group_books_bulk_success(ajax_return) {
+        group_content_wrap.fadeTo(200, 0, function () {
+            if (group_content_wrap.find('.empty-group-item').length > 0) {
+                group_content_wrap.find('.empty-group-item').remove();
+            }
+            $.each(ajax_return.data, function (i, html) {
+                group_content_wrap.find('.group-wrap.books-wrap').prepend(html);
+            });
+            group_content_wrap.fadeTo(200, 1);
+        });
+    }
+
+    function update_bulk_assign_btn() {
+        var count = level_content_wrap.find('.book-bulk-select:checked').length;
+        var btn   = level_content_wrap.find('.btn-assign-selected');
+        btn.prop('disabled', count === 0);
+        btn.find('.selected-count').text('(' + count + ')');
+    }
+
+    function update_bulk_remove_btn() {
+        var count = group_content_wrap.find('.group-book-bulk-select:checked').length;
+        group_content_wrap.find('.btn-remove-selected')
+            .find('.selected-count').text('(' + count + ')').end()
+            .prop('disabled', count === 0);
+    }
+
     function add_group_book_failure(ajax_return) {
         if (ajax_return.error == 52) {
             $('#duplicate-book-modal').modal('show');
@@ -1480,6 +1647,20 @@ jQuery(document).ready(function ($) {
             $(document).find('.group-content-item#book-' + ajax_return.data).remove();
             check_empty_reading_group();
         });
+    }
+
+    function delete_group_books_bulk_success(ajax_return) {
+        var ids   = ajax_return.data;
+        var total = ids.length;
+        var done  = 0;
+        $.each(ids, function (i, id) {
+            $(document).find('.group-content-item#book-' + id).fadeTo(200, 0, function () {
+                $(this).remove();
+                done++;
+                if (done === total) { check_empty_reading_group(); }
+            });
+        });
+        if (total === 0) { check_empty_reading_group(); }
     }
 
     function delete_group_book_failure(ajax_return) {

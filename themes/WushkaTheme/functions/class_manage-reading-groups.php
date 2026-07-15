@@ -66,7 +66,7 @@ class Manage_Reading_Groups
         $script_vars .= '</script>';
 
         echo $script_vars;
-        //        echo '<link rel="stylesheet" type="text/css" href="' . $s_template_path . '/css/teacher_manage-reading-groups.css">';
+        echo '<link rel="stylesheet" type="text/css" href="' . $s_template_path . '/css/teacher_manage-reading-groups.css?ver=' . filemtime(get_template_directory() . '/css/teacher_manage-reading-groups.css') . '">';
         echo '<script src="' . $s_template_path . '/js/teacher_manage-reading-groups.js?ver=' . get_bloginfo('version') . '"></script>';
     }
 
@@ -720,6 +720,15 @@ class Manage_Reading_Groups
         $a_group[] = '<div class="panel-heading"><i class="glyphicon glyphicon-log-book"></i> Group Readers</div>';
         $a_group[] = '<div class="panel-body">';
         $a_group[] = '<div class="list-group group-content-list">';
+        $a_group[] = '<div class="level-bulk-toolbar group-bulk-toolbar">';
+        $a_group[] = '<label class="bulk-select-all-label" for="select-all-group-books">';
+        $a_group[] = '<input type="checkbox" id="select-all-group-books">';
+        $a_group[] = 'Select All';
+        $a_group[] = '</label>';
+        $a_group[] = '<button type="button" class="btn btn-sm btn-danger btn-remove-selected" disabled>';
+        $a_group[] = 'Remove Selected <span class="selected-count">(0)</span>';
+        $a_group[] = '</button>';
+        $a_group[] = '</div>';
         $a_group[] = '<div class="group-wrap books-wrap" data-id="books-page-' . $this->_i_i_paged . '">';
         $a_group[] = implode('', $a_books);
         $a_group[] = '</div>';
@@ -871,11 +880,14 @@ class Manage_Reading_Groups
         //$a_book[] = '<a href="#" class="list-group-item group-content-item book-item col-xs-6" id="book-' . $o_book->ID . '">';   //Replaced with div to validate html (↓)
         $a_book[] = '<div class="list-group-item group-content-item book-item col-xs-6" id="book-' . $o_book->ID . '">';
         $a_book[] = '<input type="hidden" class="book-value resource" id="resource-' . $o_book->esiss_resource_id . '" />';
+        $a_book[] = '<div class="book-cover-area">';
+        $a_book[] = '<input type="checkbox" class="group-book-bulk-select" value="' . $o_book->ID . '">';
         $a_book[] = '<img class="post-image img-responsive" src="' . $o_book->post_image . '" alt=""/>';
         $a_book[] = '<div class="book-cover" title="' . $o_book->post_title . '">';
         $a_book[] = implode('', $this->single_book_archive_button());
         $a_book[] = implode('', $this->single_book_remove_button());
         $a_book[] = implode('', $this->single_book_details_button());
+        $a_book[] = '</div>';
         $a_book[] = '</div>';
         $a_book[] = '<div class="info-wrap">';
         $a_book[] = '<div class="book-level ' . $s_level_slug . '" title="' . $s_level_name . '"></div>';

@@ -589,6 +589,21 @@ class Manage_Reading_Group_Ajax {
 		return FALSE;
 	}
 
+	/* ------------- Current Function: Bulk add books to Reading Group ------------- */
+	private function validate_function_add_group_books_bulk() {
+		$i_id    = json_decode( stripcslashes( filter_input( INPUT_POST, 'group_id' ) ), true );
+		$a_books = json_decode( stripcslashes( filter_input( INPUT_POST, 'book_ids'  ) ), true );
+
+		if ( $this->validate( array($i_id) ) === TRUE && is_array($a_books) && ! empty($a_books) ) {
+			$this->_i_group    = $i_id;
+			$this->_x_book_ids = array_map( 'intval', $a_books );
+			return TRUE;
+		}
+
+		error_log( 'Bulk Add Books to Group - Missing Parameters' );
+		return FALSE;
+	}
+
 	/* ------------- Current Function: Delete book from Reading Group ------------- */
 	private function validate_function_delete_group_book() {
 		//Store Group ID
@@ -603,6 +618,20 @@ class Manage_Reading_Group_Ajax {
 		}
 
 		error_log( 'Delete Book from Group - Missing Parameters' );
+		return FALSE;
+	}
+
+	private function validate_function_delete_group_books_bulk() {
+		$i_id    = json_decode( stripcslashes( filter_input( INPUT_POST, 'group_id' ) ), true);
+		$a_books = json_decode( stripcslashes( filter_input( INPUT_POST, 'book_ids' ) ), true);
+
+		if ( ($this->validate(array($i_id, $a_books))) === TRUE && is_array($a_books) ) {
+			$this->_i_group    = $i_id;
+			$this->_x_book_ids = $a_books;
+			return TRUE;
+		}
+
+		error_log( 'Delete Books Bulk from Group - Missing Parameters' );
 		return FALSE;
 	}
 
@@ -848,12 +877,15 @@ class Manage_Reading_Group_Ajax {
 
         $a_book[] = '<div class="list-group-item group-content-item book-item col-xsp-12 col-xs-6" id="book-' . $o_book->ID . '">';
         $a_book[] = '<input type="hidden" class="book-value resource" id="resource-' . $o_book->esiss_resource_id . '" />';
+        $a_book[] = '<div class="book-cover-area">';
+        $a_book[] = '<input type="checkbox" class="group-book-bulk-select" value="' . $o_book->ID . '">';
         $a_book[] = '<img class="post-image img-responsive" src="' . $o_book->post_image . '" alt=""/>';
         $a_book[] = '<div class="book-cover" title="' . $o_book->post_title . '">';
         	$a_book[] = implode('', $this->single_book_archive_button());
         	$a_book[] = implode('', $this->single_book_remove_button());
 			$a_book[] = implode('', $this->single_book_details_button());
 		$a_book[] = '</div>';
+        $a_book[] = '</div>';
         $a_book[] = '<div class="info-wrap">';
           	$a_book[] = '<div class="book-level ' . $s_level_slug . '" title="' . $s_level_name . '"></div>';
            	$a_book[] = '<div class="book-genre" title="'.$s_fic_title.'">'.$s_fiction.'</div>';
@@ -1050,6 +1082,10 @@ class Manage_Reading_Group_Ajax {
 	private function build_reading_level_content() {
 		$a_components = $this->build_reading_level_html();
 
+        $a_level[] = '<div class="level-bulk-toolbar">';
+        $a_level[] = '<label class="bulk-select-all-label"><input type="checkbox" id="select-all-books"> Select All</label>';
+        $a_level[] = '<button type="button" class="btn btn-small btn-assign-selected" disabled>Assign Selected <span class="selected-count">(0)</span></button>';
+        $a_level[] = '</div>';
     	$a_level[] = '<div class="level-wrap books-wrap" data-id="books-page-1" data-paged="' . $this->_i_paged . '">';
         	$a_level[] = implode('', $a_components['books']);
         $a_level[] = '</div>';
@@ -1310,6 +1346,8 @@ class Manage_Reading_Group_Ajax {
 
    		$a_item[] = '<div class="level-content-item book-item col-xsp-12 col-xs-6 col-md-4" id="book-' . $o_book->ID . '"'.$s_value.' >';
         $a_item[] = '<input type="hidden" class="book-value resource" id="resource-' .$o_book->esiss_resource_id. '" />';
+        $a_item[] = '<div class="book-cover-area">';
+        $a_item[] = '<input type="checkbox" class="book-bulk-select" value="' . $o_book->ID . '">';
         $a_item[] = '<img class="post-image img-responsive" src="' .$o_book->post_image. '" alt="" />';
         $a_item[] = '<div class="book-cover">';
         if ( $b_archive === TRUE ) {
@@ -1325,6 +1363,7 @@ class Manage_Reading_Group_Ajax {
 
 
        	$a_item[] = '<button type="button" data-id="book-view" class="btn btn-small btn-view-book" data-toggle="modal" data-target="#reading-group-modal" title="View additional details about this book"><span class="glyphicon glyphicon-search"></span></button>';
+        $a_item[] = '</div>';
         $a_item[] = '</div>';
         $a_item[] = '</div>';
 
@@ -1642,6 +1681,65 @@ class Manage_Reading_Group_Ajax {
 		return FALSE;
 	}
 
+	/* ---------------------------------------------------------------------
+	 *
+	*				PERFORM FUNCTION: BULK ADD BOOKS TO READING GROUP
+	*
+	* ---------------------------------------------------------------------
+	*/
+	private function perform_function_add_group_books_bulk() {
+		if ( ! isset($this->_i_group) || empty($this->_x_book_ids) ) {
+			$this->_a_return['error'] = 50;
+			return FALSE;
+		}
+
+		$a_existing = $this->_c_rg->get_books($this->_i_group);
+		if ( $a_existing === FALSE ) {
+			$a_existing = array();
+		}
+
+		$a_html = array();
+
+		foreach ( $this->_x_book_ids as $i_book_id ) {
+			$o_edit_book = NULL;
+			foreach ( $a_existing as $o_book ) {
+				if ( (int) $o_book->post_id === $i_book_id ) {
+					$o_edit_book = $o_book;
+					break;
+				}
+			}
+
+			$i_new = NULL;
+			if ( isset($o_edit_book) ) {
+				if ( (int) $o_edit_book->active === 0 ) {
+					$this->_c_rg->edit_book( $o_edit_book->ID, 'active', '1' );
+				}
+				$i_new = $o_edit_book->post_id;
+			} else {
+				if ( $this->_c_rg->create_book( $this->_i_group, $i_book_id ) !== FALSE ) {
+					$i_new = $i_book_id;
+				} else {
+					error_log( 'Bulk Add: Could Not Create Book ROW for ID ' . $i_book_id );
+					continue;
+				}
+			}
+
+			$o_new = get_post($i_new);
+			if ( $o_new ) {
+				$a_html[] = implode( '', $this->group_content_item($o_new) );
+			}
+		}
+
+		if ( $this->generate_errors() === TRUE ) {
+			$this->store_levels();
+			$this->_a_return['data'] = $a_html;
+			return TRUE;
+		}
+
+		$this->_a_return['error'] = 51;
+		return FALSE;
+	}
+
     private function single_book_details_button() {
 		$a_item[] = '<button type="button" class="btn btn-small" data-id="book-view" data-toggle="modal" data-target="#reading-group-modal" title=" View additional details about this book">';
 		$a_item[] = '<i class="glyphicon glyphicon-search"></i>';
@@ -1702,6 +1800,34 @@ class Manage_Reading_Group_Ajax {
 
 		$this->_a_return['error'] = 56;
 		return FALSE;
+	}
+
+	private function perform_function_delete_group_books_bulk() {
+		if ( ! isset( $this->_x_book_ids, $this->_i_group ) ) {
+			$this->_a_return['error'] = 55;
+			return FALSE;
+		}
+
+		$a_group = $this->_c_rg->get_books( $this->_i_group );
+		if ( $a_group === FALSE ) {
+			$this->_a_return['error'] = 56;
+			return FALSE;
+		}
+
+		$a_deleted = array();
+		foreach ( $this->_x_book_ids as $i_book_id ) {
+			foreach ( $a_group as $o_book ) {
+				if ( (int)$o_book->post_id == (int)$i_book_id ) {
+					if ( $this->_c_rg->delete_book( $o_book->ID ) !== FALSE ) {
+						$a_deleted[] = (int)$i_book_id;
+					}
+					break;
+				}
+			}
+		}
+
+		$this->_a_return['data'] = $a_deleted;
+		return TRUE;
 	}
 
 	private function get_teacher_reading_groups() {
