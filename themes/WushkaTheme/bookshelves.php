@@ -501,11 +501,13 @@ foreach ($a_terms as $idx => $o_term) {
                     }
 
                     $a_level['slideshows_assets_label'] = $phase_label . $o_sm_post->terms[0]->name;
+                    $a_level['phase_label'] = $phase_label ?? '';
                 }
 
                 if (in_array('planning-and-assessments', $o_sm_post->category_slugs)) {
                     $a_level['planning_assessments'][] = $o_sm_post;
                     $a_level['planning_assets_label']  = $phase_label . $o_sm_post->terms[0]->name;
+                    $a_level['phase_label'] = $phase_label ?? '';
                 }
             }
         }
@@ -701,7 +703,9 @@ foreach ($a_terms as $idx => $o_term) {
         position: relative;
     }
 
+
     /*Support Material style start here*/
+
     .shelf-wrapper.planning-and-assessment img.img-responsive.img-rounded, .shelf-wrapper.daily-slideshow img.img-responsive.img-rounded {
         box-shadow: none;
         width: 100px !important;
@@ -718,6 +722,9 @@ foreach ($a_terms as $idx => $o_term) {
     }
     .shelf-wrapper.planning-and-assessment .action-buttons, .shelf-wrapper.daily-slideshow .action-buttons {
         margin-top: 15px;
+    }
+    .shelf-wrapper.daily-slideshow div.a-week .action-buttons {
+        margin-top: 0 !important;
     }
     .shelf-wrapper.planning-and-assessment .panel-body.ebook__panel-body, .shelf-wrapper.daily-slideshow .panel-body.ebook__panel-body{
         padding: 40px 15px;
@@ -739,7 +746,8 @@ foreach ($a_terms as $idx => $o_term) {
         object-fit: contain;
     }
     .shelf-wrapper.daily-slideshow .bookshelf-item-wrapper > h6 {
-        font-size: 18px;
+        font-size: 16px;
+        font-weight: 700;
     }
 
     .shelf-wrapper.daily-slideshow .day-icon-box {
@@ -778,20 +786,92 @@ foreach ($a_terms as $idx => $o_term) {
         justify-content: center;
         align-items: center;
         gap: 3px;
+        width: 100%;
     }
     .shelf-wrapper.daily-slideshow .action-buttons a span svg {
         width: 16px;
     }
     .shelf-wrapper.planning-and-assessment span.phase-number {
         position: absolute;
-        top: 56px;
+        top: 59px;
         left: 49%;
         transform: translateX(calc(-50% + 2px));
-        font-size: 18px;
+        font-size: 14px;
         font-weight: 700;
         white-space: nowrap;
         color: #ffffff;
     }
+
+    .shelf-wrapper.daily-slideshow .login-required-link {
+        position: relative;
+        cursor: not-allowed;
+    }
+    .shelf-wrapper.daily-slideshow .login-required-link:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 125%;
+        left: 0;
+        background: #222;
+        color: #fff;
+        padding: 4px 8px;
+        font-size: 12px;
+        white-space: nowrap;
+        border-radius: 4px;
+        z-index: 9999;
+    }
+
+    /*Day Icon Style*/
+
+    .shelf-wrapper.daily-slideshow .icon-wrapper {
+        position: relative;
+        width: 100px;
+        height: 80px;
+        margin: 10px auto;
+      }
+
+    .shelf-wrapper.daily-slideshow .icon-square {
+        width: 100%;
+        height: 100%;
+        border: 4px solid #f7941d;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    .shelf-wrapper.daily-slideshow .icon-letter {
+        font-size: 16px;
+        font-weight: 700;
+        color: #000000;
+        line-height: 1;
+        user-select: none;
+    }
+
+    .shelf-wrapper.daily-slideshow .icon-badge {
+        position: absolute;
+        bottom: -6px;
+        left: -5px;
+        min-width: 28px;
+        height: 28px;
+        padding: 0 6px;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    @media screen and (max-width: 768px) {
+        .shelf-wrapper.planning-and-assessment .item-detail, .shelf-wrapper.daily-slideshow .item-detail{
+            margin-bottom: 20px;
+        }
+    }
+
+    
 </style>
 
 
@@ -1067,6 +1147,7 @@ if (is_user_logged_in()) { ?>
             $planning_assessments  = $a_level['planning_assessments'];
             $sh_asset_label        = $a_level['slideshows_assets_label'];
             $plng_asset_label      = $a_level['planning_assets_label'];
+            $phase_label           = $a_level['phase_label'];
 
             $display_sm = filter_input(INPUT_GET, 'sm_active', FILTER_VALIDATE_BOOLEAN);
             
@@ -1079,6 +1160,7 @@ if (is_user_logged_in()) { ?>
                     'counter'                => $content_count,
                     'sh_asset_label'         => $sh_asset_label,
                     'plng_asset_label'       => $plng_asset_label,
+                    'phase_label'            => $phase_label,
                     //'previous_carousel'    => $_SESSION['carousel-support-taxo-' . $o_term->term_taxonomy_id] ?? 0,
                     //'current_user'         => $current_user,
                 ]);
