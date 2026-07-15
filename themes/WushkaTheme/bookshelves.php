@@ -822,6 +822,11 @@ foreach ($a_terms as $idx => $o_term) {
         z-index: 9999;
     }
 
+    .shelf-wrapper.daily-slideshow .wk-panel-shelf.collapse .panel-body .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
     /*Day Icon Style*/
 
     .shelf-wrapper.daily-slideshow .icon-wrapper {

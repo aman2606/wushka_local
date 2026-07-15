@@ -293,20 +293,6 @@ $label_color            = 'style="color: ' . esc_attr($phonics_color) . ';"';
                                                                 </svg>
                                                                 
                                                             </div>
-                                                            <div class="day-icon-box" style="display: none;">
-                                                                <?php if( !empty($img_src) ): ?>
-                                                                <img class="img-responsive img-rounded"
-                                                                     alt="<?php echo esc_attr( $card->post_title ); ?>"
-                                                                     data-value="<?php echo esc_url( $img_src ); ?>"
-                                                                     src="<?php echo esc_url( $img_src ); ?>"
-                                                                     loading="lazy"
-                                                                     style="width:200px; height:284px;">
-                                                                <?php endif; ?>
-                                                                <span class="day-week-icon-txt"><?php echo esc_html( $card->icon_text ); ?></span>
-                                                                <?php if ( ! $card->is_week && $card->number !== null ) : ?>
-                                                                    <span class="number"><?php echo esc_html( $card->number ); ?></span>
-                                                                <?php endif; ?>
-                                                            </div>
                                                         <?php else: ?>
                                                             <div class="icon-wrapper">
                                                                 <div class="icon-square" <?= $day_week_border; ?>>
