@@ -4,7 +4,7 @@
  * Add new student data into
  */
 
-include $_SERVER['DOCUMENT_ROOT'] . '/wp-config.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/wushka_local/wp-config.php';
 
 // To get License limit
 $max_allowance = 200;

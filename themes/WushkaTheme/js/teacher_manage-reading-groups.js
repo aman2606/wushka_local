@@ -19,7 +19,9 @@ jQuery(document).ready(function ($) {
         state: true
     };
     var reading_group = {id: null, name: null, el: null, new_id: null, new_name: null, new_el: null, empty: null};
-    var reading_level = {id: null, name: null, el: null, new_id: null, new_name: null, new_el: null, page: null};
+    var reading_level = {id: null, name: null, el: null, new_id: null, new_name: null, new_el: null, page: null, sound: null};
+    var selected_book_ids = [];
+    var selected_group_book_ids = [];
     var window_contents = {
         type: null,
         heading: null,
@@ -77,10 +79,23 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    //Level Menu Click
-    level_menu_wrap.on('click', 'a', function () {
-        var e_this = $(this);
-        load_level_new(e_this);
+    //Level Menu Click — phonics phase header: toggle sounds accordion
+    level_menu_wrap.on('click', 'a.phonics-phase-header', function (e) {
+        e.preventDefault();
+        $(this).closest('.phonics-phase-wrap').find('.phonics-sounds-list').slideToggle(200);
+        $(this).find('.phonics-chevron').toggleClass('glyphicon-chevron-right glyphicon-chevron-down');
+    });
+
+    //Level Menu Click — phonics sound item: load books filtered by sound
+    level_menu_wrap.on('click', 'a.phonics-sound-item', function (e) {
+        e.preventDefault();
+        load_sound_new($(this));
+    });
+
+    //Level Menu Click — levelled books items: existing behavior, clear any sound filter
+    level_menu_wrap.on('click', 'a:not(.phonics-phase-header):not(.phonics-sound-item)', function () {
+        reading_level.sound = null;
+        load_level_new($(this));
     });
 
 
@@ -104,6 +119,73 @@ jQuery(document).ready(function ($) {
     $(document).on('click', '.book-item button[data-id="book-delete"]', delete_group_book);
     $(document).on('click', '.book-item button[data-id="book-archive"]', archive_book);
     $(document).on('click', '.book-item button[data-id="book-view"]', view_book_details);
+
+    $(document).on('change', '#select-all-books', function () {
+        var checked = $(this).prop('checked');
+        level_content_wrap.find('.book-bulk-select').prop('checked', checked);
+        update_bulk_assign_btn();
+    });
+
+    $(document).on('change', '.book-bulk-select', function () {
+        var total   = level_content_wrap.find('.book-bulk-select').length;
+        var checked = level_content_wrap.find('.book-bulk-select:checked').length;
+        $('#select-all-books').prop('indeterminate', checked > 0 && checked < total)
+                             .prop('checked', checked === total);
+        update_bulk_assign_btn();
+    });
+
+    $(document).on('click', '.btn-assign-selected', function (e) {
+        e.preventDefault();
+        if (store_current_group() === false || reading_group.id == 'new') return false;
+        if (store_current_class() === false) return false;
+
+        var ids = [];
+        level_content_wrap.find('.book-bulk-select:checked').each(function () {
+            ids.push($(this).val());
+        });
+        if (ids.length === 0) return false;
+
+        selected_book_ids = ids;
+        var $assignBtn = $(this);
+        $assignBtn.prop('disabled', true)
+                  .html('Assigning... <img class="btn-loader-gif" src="' + thm_tmp_fnc_pth + '/img/wushka-load-4.GIF" style="width:16px;height:16px;vertical-align:middle;display:inline-block;">');
+        load_level_reload();
+        $.ajax(ajax_data('add_group_books_bulk'));
+    });
+
+    $(document).on('change', '#select-all-group-books', function () {
+        var checked = $(this).prop('checked');
+        group_content_wrap.find('.group-book-bulk-select').prop('checked', checked);
+        update_bulk_remove_btn();
+    });
+
+    $(document).on('change', '.group-book-bulk-select', function () {
+        var total   = group_content_wrap.find('.group-book-bulk-select').length;
+        var checked = group_content_wrap.find('.group-book-bulk-select:checked').length;
+        $('#select-all-group-books')
+            .prop('indeterminate', checked > 0 && checked < total)
+            .prop('checked', checked === total);
+        update_bulk_remove_btn();
+    });
+
+    $(document).on('click', '.btn-remove-selected', function (e) {
+        e.preventDefault();
+        if (store_current_group() === false || reading_group.id == 'new') return false;
+        if (store_current_class() === false) return false;
+
+        var ids = [];
+        group_content_wrap.find('.group-book-bulk-select:checked').each(function () {
+            ids.push($(this).val());
+        });
+        if (ids.length === 0) return false;
+
+        selected_group_book_ids = ids;
+        var $removeBtn = $(this);
+        $removeBtn.prop('disabled', true)
+                  .html('Removing... <img class="btn-loader-gif" src="' + thm_tmp_fnc_pth + '/img/wushka-load-4.GIF" style="width:16px;height:16px;vertical-align:middle;display:inline-block;">');
+        load_level_reload();
+        $.ajax(ajax_data('delete_group_books_bulk'));
+    });
 
     $(document).on('click', '.group-wrap.student-wrap .btn-assign', button_window_view_students);
 
@@ -197,6 +279,7 @@ jQuery(document).ready(function ($) {
             return false;
         }
 
+        $('.phonics-sound-item.loading').removeClass('loading').find('.phonics-btn-loader').remove();
         reset_reading_level();
 
         if (store_current_group() === false) {
@@ -208,6 +291,7 @@ jQuery(document).ready(function ($) {
             console.log('Could Not Store Current Level Data: abort action');
             return false;
         }
+        reading_level.sound = null;
 
         if (store_clicked_level(this_item) === false) {
             console.log('Could Not Store New Level Data: abort action');
@@ -224,6 +308,35 @@ jQuery(document).ready(function ($) {
         reading_level.page = 1;
         reading_level.new_el.addClass('loading');
 
+        load_level();
+    }
+
+    function load_sound_new(e_sound) {
+        if (e_sound.hasClass('loading')) return false;
+        if ($('.phonics-sound-item.loading').length > 0) return false;
+
+        reset_reading_level();
+        store_current_group();
+        store_current_level();
+
+        var phase_id  = e_sound.data('level-id');
+        var sound_val = e_sound.data('sound');
+        if (!phase_id || !sound_val) return false;
+
+        if (reading_level.id == phase_id && reading_level.sound == sound_val) return false;
+
+        reading_level.id     = phase_id;
+        reading_level.sound  = sound_val;
+        reading_level.page   = 1;
+        reading_level.new_el = e_sound;
+        e_sound.addClass('loading').append(
+            '<img class="phonics-btn-loader" src="' + thm_tmp_fnc_pth + '/img/wushka-load-4.GIF" alt="" style="float:right;margin-top:3px;width:20px;height:20px;">'
+        );
+        level_content_wrap.empty().append(
+            '<div class="level-content-loading">' +
+            '<img src="' + thm_tmp_fnc_pth + '/img/wushka-load-4.GIF" width="60" height="60" alt="Loading..." />' +
+            '</div>'
+        );
         load_level();
     }
 
@@ -405,6 +518,9 @@ jQuery(document).ready(function ($) {
 
         //Store Thumbnail img for reading-group update
         console.log('----- Add Book to Reading Group -----');
+        this_btn.addClass('loading').prop('disabled', true);
+        this_btn.find('.glyphicon').hide();
+        this_btn.append('<img class="btn-loader-gif" src="' + thm_tmp_fnc_pth + '/img/wushka-load-4.GIF" style="width:16px;height:16px;vertical-align:middle;display:inline-block;">');
         load_level_reload();
         $.ajax(ajax_data('add_group_book'));
     }
@@ -439,7 +555,9 @@ jQuery(document).ready(function ($) {
         console.log('Book ID: ' + book_item.id);
         console.log('Group ID: ' + reading_group.id);
 
-        this_btn.addClass('deleting');
+        this_btn.addClass('deleting').prop('disabled', true);
+        this_btn.find('.glyphicon').hide();
+        this_btn.append('<img class="btn-loader-gif" src="' + thm_tmp_fnc_pth + '/img/wushka-load-4.GIF" style="width:16px;height:16px;vertical-align:middle;display:inline-block;">');
         load_level_reload();
         $.ajax(ajax_data('delete_group_book'));
     }
@@ -505,11 +623,17 @@ jQuery(document).ready(function ($) {
             reading_level.name = null;
         } else {
             reading_level.el = current_item;
-            reading_level.id = reading_level.el.attr('id').replace('reading-level-', '').trim();
-            reading_level.name = reading_level.el.text().trim();
+            if (current_item.hasClass('phonics-sound-item')) {
+                reading_level.id    = current_item.data('level-id');
+                reading_level.sound = current_item.data('sound');
+            } else {
+                reading_level.id    = current_item.attr('id').replace('reading-level-', '').trim();
+                reading_level.sound = null;
+            }
+            reading_level.name = current_item.text().trim();
         }
 
-        if (reading_level.id == null || reading_level.id.length <= 0) {
+        if (reading_level.id == null || reading_level.id.toString().length <= 0) {
             console.log('Error: Could Not Determine Current Level');
             return false;
         }
@@ -802,7 +926,9 @@ jQuery(document).ready(function ($) {
             name: null,
             new_el: null,
             new_id: null,
-            new_name: null
+            new_name: null,
+            page: null,
+            sound: null
         };
     }
 
@@ -832,7 +958,7 @@ jQuery(document).ready(function ($) {
             if (reading_level.el !== null) {
                 reading_level.el.removeClass('active');
             }
-            reading_level.new_el.removeClass('loading');
+            reading_level.new_el.removeClass('loading').find('.phonics-btn-loader').remove();
 
             if (b_success === true) {
                 reading_level.new_el.addClass('active');
@@ -1000,7 +1126,8 @@ jQuery(document).ready(function ($) {
                     'ajax_function': JSON.stringify('load_level'),
                     'group_id': JSON.stringify(reading_group.id),
                     'level_id': JSON.stringify(reading_level.id),
-                    'level_page': JSON.stringify(reading_level.page)
+                    'level_page': JSON.stringify(reading_level.page),
+                    'sound_filter': JSON.stringify(reading_level.sound)
                 },
                 error: function () {
                     toggle_menu_classes('level', false);
@@ -1012,8 +1139,8 @@ jQuery(document).ready(function ($) {
                         load_level_success(ajax_return);
                         return true;
                     } else {
-                        if (ajax_return.msg !== null) {
-                            toggle_menu_classes('level', false);
+                        toggle_menu_classes('level', false);
+                        if (ajax_return && ajax_return.msg) {
                             reading_ajax_failure(ajax_return.msg);
                         }
                         return false;
@@ -1160,6 +1287,42 @@ jQuery(document).ready(function ($) {
                     }
 
                     return false;
+                },
+                complete: function () {
+                    var $btn = book_item.elem ? book_item.elem.find('button[data-id="book-add"]') : null;
+                    if ($btn && $btn.length) {
+                        $btn.removeClass('loading').prop('disabled', false);
+                        $btn.find('.btn-loader-gif').remove();
+                        $btn.find('.glyphicon').show();
+                    }
+                }
+            };
+
+        } else if (function_type == 'add_group_books_bulk') {
+            return {
+                url: thm_tmp_fnc_pth + '/functions/ajax_manage-reading-groups.php',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'hash_id':       JSON.stringify(o_teacher.id_hash),
+                    'hash_nonce':    JSON.stringify(o_teacher.wp_hash),
+                    'ajax_function': JSON.stringify(function_type),
+                    'book_ids':      JSON.stringify(selected_book_ids),
+                    'group_id':      JSON.stringify(reading_group.id),
+                },
+                error: function () {
+                    reading_ajax_failure('Ajax Did Not Run, Error Method Popped.');
+                },
+                success: function (ajax_return) {
+                    if (validate_ajax_return(ajax_return) !== false) {
+                        add_group_books_bulk_success(ajax_return);
+                    }
+                    return false;
+                },
+                complete: function () {
+                    level_content_wrap.find('.btn-assign-selected')
+                        .prop('disabled', false)
+                        .html('Assign Selected <span class="selected-count">(0)</span>');
                 }
             };
 
@@ -1189,9 +1352,40 @@ jQuery(document).ready(function ($) {
                     return false;
                 },
                 complete: function () {
-                    if ($('.group-wrap.books-wrap').hasClass('deleting')) {
-                        $('.group-wrap.books-wrap').addClass('deleting');
+                    var $btn = book_item.elem ? book_item.elem.find('button[data-id="book-delete"]') : null;
+                    if ($btn && $btn.length) {
+                        $btn.removeClass('deleting').prop('disabled', false);
+                        $btn.find('.btn-loader-gif').remove();
+                        $btn.find('.glyphicon').show();
                     }
+                }
+            };
+
+        } else if (function_type == 'delete_group_books_bulk') {
+            return {
+                url:      thm_tmp_fnc_pth + '/functions/ajax_manage-reading-groups.php',
+                type:     'post',
+                dataType: 'json',
+                data: {
+                    'hash_id':       JSON.stringify(o_teacher.id_hash),
+                    'hash_nonce':    JSON.stringify(o_teacher.wp_hash),
+                    'ajax_function': JSON.stringify(function_type),
+                    'book_ids':      JSON.stringify(selected_group_book_ids),
+                    'group_id':      JSON.stringify(reading_group.id),
+                },
+                error: function () {
+                    reading_ajax_failure('Ajax Did Not Run, Error Method Popped.');
+                },
+                success: function (ajax_return) {
+                    if (validate_ajax_return(ajax_return) !== false) {
+                        delete_group_books_bulk_success(ajax_return);
+                    }
+                    return false;
+                },
+                complete: function () {
+                    group_content_wrap.find('.btn-remove-selected')
+                        .prop('disabled', false)
+                        .html('Remove Selected <span class="selected-count">(0)</span>');
                 }
             };
 
@@ -1416,6 +1610,32 @@ jQuery(document).ready(function ($) {
         });
     }
 
+    function add_group_books_bulk_success(ajax_return) {
+        group_content_wrap.fadeTo(200, 0, function () {
+            if (group_content_wrap.find('.empty-group-item').length > 0) {
+                group_content_wrap.find('.empty-group-item').remove();
+            }
+            $.each(ajax_return.data, function (i, html) {
+                group_content_wrap.find('.group-wrap.books-wrap').prepend(html);
+            });
+            group_content_wrap.fadeTo(200, 1);
+        });
+    }
+
+    function update_bulk_assign_btn() {
+        var count = level_content_wrap.find('.book-bulk-select:checked').length;
+        var btn   = level_content_wrap.find('.btn-assign-selected');
+        btn.prop('disabled', count === 0);
+        btn.find('.selected-count').text('(' + count + ')');
+    }
+
+    function update_bulk_remove_btn() {
+        var count = group_content_wrap.find('.group-book-bulk-select:checked').length;
+        group_content_wrap.find('.btn-remove-selected')
+            .find('.selected-count').text('(' + count + ')').end()
+            .prop('disabled', count === 0);
+    }
+
     function add_group_book_failure(ajax_return) {
         if (ajax_return.error == 52) {
             $('#duplicate-book-modal').modal('show');
@@ -1427,6 +1647,20 @@ jQuery(document).ready(function ($) {
             $(document).find('.group-content-item#book-' + ajax_return.data).remove();
             check_empty_reading_group();
         });
+    }
+
+    function delete_group_books_bulk_success(ajax_return) {
+        var ids   = ajax_return.data;
+        var total = ids.length;
+        var done  = 0;
+        $.each(ids, function (i, id) {
+            $(document).find('.group-content-item#book-' + id).fadeTo(200, 0, function () {
+                $(this).remove();
+                done++;
+                if (done === total) { check_empty_reading_group(); }
+            });
+        });
+        if (total === 0) { check_empty_reading_group(); }
     }
 
     function delete_group_book_failure(ajax_return) {

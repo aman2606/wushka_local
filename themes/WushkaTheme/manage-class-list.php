@@ -17,6 +17,27 @@ if (!is_user_logged_in() || (!current_user_can('teacher') && !current_user_can('
     #archive-student-confirm-modal th {
         padding: 8px;
     }
+    .top-scroll-container {
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: 18px;
+        margin-bottom: 4px;
+    }
+    .top-scroll-inner { height: 1px; }
+    .top-dt-info {
+        padding: 4px 0 8px 0;
+        font-size: 0.85em;
+        color: #555;
+        font-style: italic;
+    }
+    .panel-class-lists .table-responsive {
+        overflow-x: auto;
+    }
+    .panel-class-lists .dataTables_wrapper {
+        width: -webkit-max-content;
+        width: max-content;
+        min-width: 100%;
+    }
 </style>
 <?php
 include_once 'functions/class_manage_class_list.php';
@@ -46,6 +67,8 @@ $isQRDisabled = isQRDisabled();
     var o_access = <?php echo json_encode($a_results['data']['access']); ?>;
     var o_settings = <?php echo json_encode($a_results['data']['settings']); ?>;
     var o_classes = <?php echo json_encode($a_results['data']['classes']); ?>;
+    var o_sound_clusters = <?php echo json_encode($a_results['data']['sound_clusters']); ?>;
+    var o_phase_access   = <?php echo json_encode($a_results['data']['phase_access']); ?>;
 
     function deleteStudentFromOtherClass(id_hash, classId) {
 
@@ -95,7 +118,7 @@ $isQRDisabled = isQRDisabled();
     </div>
 
     <div class="row">
-        <div class="col-lg-9 col-md-9">
+        <div class="col-lg-9 col-md-9" id="class-list-column">
             <div class="panel panel-default panel-class-lists">
                 <div class="panel-heading">
                     <i class="glyphicon glyphicon-group"></i><span id="panel-title">
@@ -171,8 +194,13 @@ $isQRDisabled = isQRDisabled();
             <div class="panel panel-default" id="add-new-child">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-lg-11 col-md-10 editable" data-class="class-name">
+                        <div class="col-xs-10 editable" data-class="class-name">
                             <i class="glyphicon glyphicon-user"></i> Add New Student
+                        </div>
+                        <div class="col-xs-2 text-right">
+                            <button id="toggle-student-drawer" class="btn btn-xs btn-default" title="Hide student form">
+                                <i class="glyphicon glyphicon-chevron-right"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1483,6 +1511,63 @@ if ($arhiveStudentList) { ?>
                     update_user_property(id, meta, value);
                 }
             });
+            //6a. Edit Sound Cluster Field
+            $('.sound_cluster').editable({
+                type: 'select',
+                emptytext: 'Not Set',
+                mode: 'inline',
+                source: o_sound_clusters,
+                success: function(response, value) {
+                    var id   = $(this).closest('tr').attr('id').replace('user-', '').trim();
+                    var meta = $(this).attr('class').split(' ')[0];
+                    edit_user_data(id, meta, value);
+                    update_user_property(id, meta, o_sound_clusters[value] || 'Not Set');
+                }
+            });
+
+            // Normalize a sound string: strip "Phase X - " prefix, keep only letters/digits (lowercase)
+            function normalizeSounds(str) {
+                return (str || '').replace(/^Phase\s+\d+(?:\.\d+)?\s*-\s*/i, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+            }
+
+            // Inject a live search input above the select when the sound_cluster editable opens
+            $(document).on('shown', '.sound_cluster', function(e, editable) {
+                var $select = editable.input.$input;
+                if ($select.prev('.sound-search-input').length) return;
+
+                var $filter = $('<input>', {
+                    type: 'text',
+                    placeholder: 'Search sounds…',
+                    'class': 'form-control sound-search-input',
+                    style: 'margin-bottom:5px'
+                });
+
+                $filter.insertBefore($select);
+                $filter.focus();
+
+                $filter.on('input', function() {
+                    var query = normalizeSounds($(this).val());
+                    $select.find('option').each(function() {
+                        var normalized = normalizeSounds($(this).text());
+                        // Order-sensitive: normalized option must contain the query as a substring
+                        $(this).prop('hidden', query && normalized.indexOf(query) === -1);
+                    });
+                });
+            });
+
+            //6b. Edit Phase Access Field
+            $('.phase_access').editable({
+                type: 'select',
+                emptytext: 'Not Set',
+                mode: 'inline',
+                source: o_phase_access,
+                success: function(response, value) {
+                    var id   = $(this).closest('tr').attr('id').replace('user-', '').trim();
+                    var meta = $(this).attr('class').split(' ')[0];
+                    edit_user_data(id, meta, value);
+                    update_user_property(id, meta, o_phase_access[value] || 'Not Set');
+                }
+            });
             //6. Edit Reading Group Field
             $('.my_reading_group').editable({
                 type: 'select',
@@ -2000,6 +2085,7 @@ if ($arhiveStudentList) { ?>
                 o_content.empty().append(a_table.join(''));
                 //Run table formatting
                 initiate_datatables();
+                setup_top_scroll();
                 $('table[role=grid]').removeAttr('role').attr('role', 'presentation');
                 if (!b_archived) {
                     initiate_editable_fields();
@@ -2013,6 +2099,9 @@ if ($arhiveStudentList) { ?>
         function get_table_header(b_archive) {
             var a_head = [];
             a_head.push('<thead>');
+            a_head.push('<tr class="class-view-table-category">');
+            a_head.push(get_category_row(b_archive).join(''));
+            a_head.push('</tr>');
             a_head.push('<tr class="class-view-table-heading">');
             a_head.push(get_header_rows(b_archive).join(''));
             a_head.push('</tr>');
@@ -2024,6 +2113,9 @@ if ($arhiveStudentList) { ?>
         function get_table_footer(b_archive) {
             var a_foot = [];
             a_foot.push('<tfoot>');
+            a_foot.push('<tr class="class-view-table-category table-footer">');
+            a_foot.push(get_category_row(b_archive).join(''));
+            a_foot.push('</tr>');
             a_foot.push('<tr class="class-view-table-heading table-footer">');
             a_foot.push(get_header_rows(b_archive).join(''));
             a_foot.push('</tr>');
@@ -2034,15 +2126,22 @@ if ($arhiveStudentList) { ?>
 
         function get_header_rows(b_archive) {
             var a_rows = [];
+            // General
             a_rows.push('<th class="class-view-col-0">First Name</th>');
             a_rows.push('<th class="class-view-col-1">Surname</th>');
             a_rows.push('<th class="class-view-col-2">Username</th>');
             a_rows.push('<th class="class-view-col-2">Email</th>');
             a_rows.push('<th class="class-view-col-3">Password</th>');
-            a_rows.push('<th class="class-view-col-4">Reading Level</th>');
-            a_rows.push('<th class="class-view-col-5">Levels Access</th>');
+            // Decodable Library
+            a_rows.push('<th class="class-view-col-dec">Sound Cluster</th>');
+            a_rows.push('<th class="class-view-col-dec">Phase Access</th>');
+            // Reading Group (shared)
             a_rows.push('<th class="class-view-col-6">Reading Group</th>');
             a_rows.push('<th class="class-view-col-7">Reading Group Permissions</th>');
+            // Levelled Library
+            a_rows.push('<th class="class-view-col-4">Reading Level</th>');
+            a_rows.push('<th class="class-view-col-5">Levels Access</th>');
+            // No category
             a_rows.push('<th class="class-view-col-8">Allow Narration</th>');
             a_rows.push('<th class="class-view-col-9">Allow Book Read During Quiz</th>');
             a_rows.push('<th class="class-view-col-10">Quizzes</th>');
@@ -2052,8 +2151,23 @@ if ($arhiveStudentList) { ?>
             if(!isQRDisabled){
                 a_rows.push('<th class="class-view-col-12">Regenerate QR</th>');
             }
-            
 
+            return a_rows;
+        }
+
+        function get_category_row(b_archive) {
+            var a_rows = [];
+            a_rows.push('<th colspan="5" class="col-category col-category-general text-center">General</th>');
+            a_rows.push('<th colspan="2" class="col-category col-category-decodable text-center">Decodable Library</th>');
+            a_rows.push('<th colspan="2" class="col-category"></th>');
+            a_rows.push('<th colspan="2" class="col-category col-category-levelled text-center">Levelled Library</th>');
+            a_rows.push('<th class="col-category"></th>');
+            a_rows.push('<th class="col-category"></th>');
+            a_rows.push('<th class="col-category"></th>');
+            a_rows.push('<th class="col-category"></th>');
+            a_rows.push('<th class="col-category"></th>');
+            if (b_archive) { a_rows.push('<th class="col-category"></th>'); }
+            if (!isQRDisabled) { a_rows.push('<th class="col-category"></th>'); }
             return a_rows;
         }
 
@@ -2081,13 +2195,10 @@ if ($arhiveStudentList) { ?>
             a_row.push('<td><span class="username">' + o_user.username + '</span></td>');
             a_row.push('<td><span class="email">' + o_user.email + '</span></td>');
             a_row.push('<td><button class="user_pass">' + o_user.user_pass + '</button></td>');
-            a_row.push('<td data-order="' + o_user.reading_level.slug + '">');
-            a_row.push('<button class="reading_level" data-value="' + o_user.reading_level.slug + '">');
-            a_row.push(o_user.reading_level.name);
-            a_row.push('</button>');
-            a_row.push('</td>');
-            a_row.push('<td><button class="allowed_shelves" data-value="' + o_user.allowed_shelves + '">' + o_user
-                .allowed_shelves + '</button></td>');
+            // Decodable Library
+            a_row.push('<td><button class="sound_cluster" data-value="' + (o_user.sound_cluster || '') + '">' + (o_user.sound_cluster || 'Not Set') + '</button></td>');
+            a_row.push('<td><button class="phase_access" data-value="' + (o_user.phase_access || '') + '">' + (o_user.phase_access || 'Not Set') + '</button></td>');
+            // Reading Group
             a_row.push('<td>');
             a_row.push('<button class="my_reading_group" data-value="' + o_user.my_reading_group.ID + '">');
             a_row.push(o_user.my_reading_group.value);
@@ -2099,6 +2210,14 @@ if ($arhiveStudentList) { ?>
             a_row.push(o_user.rg_setting.name);
             a_row.push('</button>');
             a_row.push('</td>');
+            // Levelled Library
+            a_row.push('<td data-order="' + o_user.reading_level.slug + '">');
+            a_row.push('<button class="reading_level" data-value="' + o_user.reading_level.slug + '">');
+            a_row.push(o_user.reading_level.name);
+            a_row.push('</button>');
+            a_row.push('</td>');
+            a_row.push('<td><button class="allowed_shelves" data-value="' + o_user.allowed_shelves + '">' + o_user
+                .allowed_shelves + '</button></td>');
             a_row.push('<td><button class="narration yesorno" aria-label="Narration: ' + o_user.narration +
                 '" data-value="' + o_user.narration + '">' + o_user
                 .narration + '</button></td>');
@@ -2162,6 +2281,54 @@ if ($arhiveStudentList) { ?>
 
             //Set table length for class page
             $('table.class-table').DataTable(a_tableArgs);
+        }
+
+        function setup_top_scroll() {
+            $(window).off('resize.topscroll');
+
+            var $wrapper = $('.tab-pane.active .table-responsive');
+            if (!$wrapper.length) return;
+
+            $wrapper.siblings('.top-scroll-container, .top-dt-info').remove();
+
+            // Info line at top — scoped to this wrapper to avoid picking up modal DataTable info
+            var $dtInfo = $wrapper.find('.dataTables_info');
+            $wrapper.before('<div class="top-dt-info">' + ($dtInfo.length ? $dtInfo.text() : '') + '</div>');
+
+            // Mirror scroll bar
+            var $topScroll = $('<div class="top-scroll-container"><div class="top-scroll-inner"></div></div>');
+            $wrapper.before($topScroll);
+
+            var $dtWrapper = $wrapper.find('.dataTables_wrapper');
+
+            function syncWidth() {
+                var $table = $wrapper.find('table');
+                var w = $table.length ? $table[0].offsetWidth : $wrapper[0].scrollWidth;
+                $topScroll.find('.top-scroll-inner').css('width', w + 'px');
+                if ($dtWrapper.length && w > $wrapper[0].clientWidth) {
+                    $dtWrapper.css('min-width', w + 'px');
+                }
+            }
+            syncWidth();
+            setTimeout(syncWidth, 500);
+
+            var resizeTimer;
+            $(window).on('resize.topscroll', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(syncWidth, 150);
+            });
+
+            var syncing = false;
+            $topScroll.on('scroll', function() {
+                if (syncing) return; syncing = true;
+                $wrapper.scrollLeft($topScroll.scrollLeft());
+                syncing = false;
+            });
+            $wrapper.on('scroll', function() {
+                if (syncing) return; syncing = true;
+                $topScroll.scrollLeft($wrapper.scrollLeft());
+                syncing = false;
+            });
         }
 
         //Checks if Current Class is Empty, Toggles Notice Popup
@@ -2279,12 +2446,12 @@ if ($arhiveStudentList) { ?>
                     $('<span>').addClass('user_pass').append(o_user.user_pass)
                 )
             ).append(
-                $('<td>').attr('data-order', '').append(
-                    $('<span>').attr('data-value', '').addClass('reading_level').append(o_user.reading_level.name)
+                $('<td>').append(
+                    $('<span>').addClass('sound_cluster').attr('data-value', '').append('Not Set')
                 )
             ).append(
                 $('<td>').append(
-                    $('<span>').addClass('allowed_shelves').attr('value', 'all').append(o_user.allowed_shelves)
+                    $('<span>').addClass('phase_access').attr('data-value', '').append('Not Set')
                 )
             ).append(
                 $('<td>').append(
@@ -2293,6 +2460,14 @@ if ($arhiveStudentList) { ?>
             ).append(
                 $('<td>').append(
                     $('<span>').addClass('rg_setting').attr('value', 'on').append(o_user.rg_setting.name)
+                )
+            ).append(
+                $('<td>').attr('data-order', '').append(
+                    $('<span>').attr('data-value', '').addClass('reading_level').append(o_user.reading_level.name)
+                )
+            ).append(
+                $('<td>').append(
+                    $('<span>').addClass('allowed_shelves').attr('value', 'all').append(o_user.allowed_shelves)
                 )
             ).append(
                 $('<td>').append(
@@ -2855,6 +3030,27 @@ if ($arhiveStudentList) { ?>
 
             $(this).html('Closing ...');
             location.reload();
+        });
+
+        // Add Student drawer toggle — appended to body with inline styles so position:fixed is never blocked
+        $('body').append(
+            '<div id="add-student-tab" title="Add New Student" style="display:none;position:fixed;right:0;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;background:#337ab7;color:#fff;padding:14px 8px;cursor:pointer;border-radius:4px 0 0 4px;font-size:13px;font-weight:600;z-index:9999;align-items:center;gap:6px;user-select:none;box-shadow:-2px 0 6px rgba(0,0,0,0.15);">' +
+            '<i class="glyphicon glyphicon-plus" style="margin-bottom:4px;"></i>' +
+            '<i class="glyphicon glyphicon-user" style="margin-bottom:6px;"></i>' +
+            '<span>Add Student</span>' +
+            '</div>'
+        );
+
+        $('#toggle-student-drawer').on('click', function() {
+            $('#sticky-panel').hide();
+            $('#class-list-column').removeClass('col-lg-9 col-md-9').addClass('col-lg-12 col-md-12');
+            $('#add-student-tab').css('display', 'flex');
+        });
+
+        $('#add-student-tab').on('click', function() {
+            $(this).hide();
+            $('#sticky-panel').show();
+            $('#class-list-column').removeClass('col-lg-12 col-md-12').addClass('col-lg-9 col-md-9');
         });
     });
 </script>

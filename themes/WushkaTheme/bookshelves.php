@@ -198,7 +198,9 @@ if (is_user_logged_in()) {
     }
 
     $prepared_shelves = get_user_meta($current_user->ID, 'prepared_shelves', TRUE);
+
     $my_level         = get_user_meta($current_user->ID, 'allowed_shelves', TRUE);
+    $prepared_decodable_shelves = get_user_meta($current_user->ID, 'prepared_decodable_shelves', TRUE);
 
     // echo "<pre>";
     // print_r($current_user->prepared_shelves);
@@ -297,6 +299,8 @@ $phase_ids   = array();
 
 $a_shelves = isset($current_user->prepared_shelves) ? $current_user->prepared_shelves : [];
 
+
+
 error_log('prepared shelves: ' . print_r($a_shelves, true));
 foreach ($level_terms as $idx => $o_term) {
     if (is_user_logged_in()) {
@@ -332,10 +336,8 @@ if ($library_taxonomy == 'reading-level') {
 // print_r($a_ids);
 // exit;
 
-// echo "<pre>";
-// print_r($level_ids);exit;
 $a_posts = array();
-if (! empty($level_ids)) {
+//if (! empty($level_ids)) {
     $p_args  = array(
         'post_type'      => 'ebook',
         'post_status'    => 'publish',
@@ -365,20 +367,62 @@ if (! empty($level_ids)) {
         $p_args['meta_key'] = 'esiss_resource_id';
         $p_args['orderby'] = 'meta_valu_num';
         $p_args['order'] = 'ASC';
-        $p_args['tax_query']['relation'] = 'AND';
-        $p_args['tax_query'][] = array(
-            'taxonomy' => 'reading-level',
-            'field' => 'term_id',
-            'terms' => $level_ids,
-            'operator' => 'IN'
-        );
+
+
+        if (current_user_can('student') && !empty($prepared_decodable_shelves)) {
+            $all_phases = get_terms(['taxonomy' => 'phonics-phase', 'hide_empty' => false]);
+            $seen_ids   = [];
+
+            foreach ($prepared_decodable_shelves as $shelf) {
+                // Extract phase number prefix e.g. "Phase 2"
+                preg_match('/^(Phase\s+\d+(?:\.\d+)?)/i', $shelf, $phase_match);
+                $prefix = isset($phase_match[1]) ? $phase_match[1] : null;
+
+                // Narrow to all sibling phases sharing the same prefix (mirrors ajax_manage-reading-groups.php:1170-1181)
+                $sibling_ids = [];
+                if ($prefix) {
+                    foreach ($all_phases as $t) {
+                        if (stripos($t->name, $prefix) === 0) {
+                            $sibling_ids[] = $t->term_id;
+                        }
+                    }
+                }
+
+                // Build REGEXP for the sound part of this shelf
+                $sounds_part = preg_replace('/^Phase\s+\d+(?:\.\d+)?\s*-\s*/i', '', $shelf);
+                $phonemes    = preg_split('/[\s,]+/', trim($sounds_part), -1, PREG_SPLIT_NO_EMPTY);
+                $phonemes    = array_map('strtolower', $phonemes);
+                if (empty($phonemes)) continue;
+
+                $pattern    = '^' . implode('[, ]*', array_map('preg_quote', $phonemes)) . '$';
+                $shelf_args = $p_args;
+                if (!empty($sibling_ids)) {
+                    $shelf_args['tax_query'][0]['terms'] = $sibling_ids;
+                }
+                $shelf_args['meta_query'] = [
+                    ['key' => 'esiss_sounds', 'value' => $pattern, 'compare' => 'REGEXP']
+                ];
+
+                foreach (get_posts($shelf_args) as $post) {
+                    if (!isset($seen_ids[$post->ID])) {
+                        $seen_ids[$post->ID] = true;
+                        $a_posts[] = $post;
+                    }
+                }
+            }
+            $per_shelf_done = true;
+        }
     }
 
-    // echo "<pre>";
-    // print_r($p_args);exit;
+
     error_log('taxonomy query params ' . print_r($p_args, true));
-    $a_posts = get_posts($p_args);
-}
+    if (empty($per_shelf_done)) {
+        $a_posts = get_posts($p_args);
+    }
+
+
+//}
+
 error_log('finished performing post taxonomy query: ' . count($a_posts));
 //Create Taxonomy Query (line 352, 370 class manage class list)
 $a_term_books = [];
