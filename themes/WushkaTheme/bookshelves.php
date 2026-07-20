@@ -1156,9 +1156,9 @@ if (is_user_logged_in()) { ?>
             $plng_asset_label      = $a_level['planning_assets_label'];
             $phase_label           = $a_level['phase_label'];
 
-            $display_sm = filter_input(INPUT_GET, 'sm_active', FILTER_VALIDATE_BOOLEAN);
+            //$display_sm = filter_input(INPUT_GET, 'sm_active', FILTER_VALIDATE_BOOLEAN);
             
-            if($display_sm):
+            //if($display_sm):
                 get_template_part('template-parts/support-material/support-material-carousel', null, [
                     'o_term'                 => $o_term,
                     'daily_slideshow'        => $daily_slideshow,
@@ -1171,7 +1171,7 @@ if (is_user_logged_in()) { ?>
                     //'previous_carousel'    => $_SESSION['carousel-support-taxo-' . $o_term->term_taxonomy_id] ?? 0,
                     //'current_user'         => $current_user,
                 ]);
-            endif;
+            //endif;
     ?>
             <div class="shelf-wrapper<?php echo $blocked ?>" <?= $main_content; ?>>
                 <div class="container-fluid">
