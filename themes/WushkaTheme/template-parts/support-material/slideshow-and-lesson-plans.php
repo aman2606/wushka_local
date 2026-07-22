@@ -117,19 +117,28 @@ $embed_src = 'https://view.officeapps.live.com/op/embed.aspx?src=' . rawurlencod
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 79vh;
+        right: 0;
+        bottom: 24px;
+        pointer-events: all;
     }
 
   /* Blocks only the Office Online "more options" corner of its own toolbar. */
   .toolbar-blocker {
-    position: absolute;
-    bottom: 1px;
-    width: 120px;
-    height: 23px;
-    background: #000;
-    z-index: 5;
-    pointer-events: all;
+      /* position: absolute; */
+      /* bottom: 1px; */
+      /* width: 120px; */
+      /* width: 43%; */
+      /* height: 23px; */
+      /* background: #000; */
+      /* z-index: 5; */
+      /* pointer-events: all; */
+      position: absolute;
+      bottom: 0px;
+      width: calc(50% - 100px);
+      height: 23px;
+      background: #000;
+      z-index: 5;
+      pointer-events: all;
   }
   .toolbar-blocker.left  { left: 1px; }
   .toolbar-blocker.right { right: 1px; }
@@ -268,15 +277,15 @@ $embed_src = 'https://view.officeapps.live.com/op/embed.aspx?src=' . rawurlencod
   var fsBtn      = document.getElementById('btn-fs');
   var viewer     = document.getElementById('viewer');
 
-  /* ── Lightweight deterrents against casual copying.
-     Note: these are UX deterrents only, not real DRM — a determined
-     user can still access the underlying file URL via network tools. ── */
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+  });
   document.addEventListener('keydown', function (e) {
     var key = e.key ? e.key.toLowerCase() : '';
     if ((e.ctrlKey || e.metaKey) && ['s', 'p', 'a', 'u'].indexOf(key) !== -1) {
       e.preventDefault();
     }
-    if (key === 'f12' || (e.ctrlKey && e.shiftKey && key === 'i')) {
+    if ( key === 'f12' || (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].indexOf(key) !== -1) ) {
       e.preventDefault();
     }
   });
