@@ -2159,15 +2159,12 @@ if ($arhiveStudentList) { ?>
             var a_rows = [];
             a_rows.push('<th colspan="5" class="col-category col-category-general text-center">General</th>');
             a_rows.push('<th colspan="2" class="col-category col-category-decodable text-center">Decodable Library</th>');
-            a_rows.push('<th colspan="2" class="col-category"></th>');
+            a_rows.push('<th colspan="2" class="col-category text-center">Groups</th>');
             a_rows.push('<th colspan="2" class="col-category col-category-levelled text-center">Levelled Library</th>');
-            a_rows.push('<th class="col-category"></th>');
-            a_rows.push('<th class="col-category"></th>');
-            a_rows.push('<th class="col-category"></th>');
-            a_rows.push('<th class="col-category"></th>');
-            a_rows.push('<th class="col-category"></th>');
-            if (b_archive) { a_rows.push('<th class="col-category"></th>'); }
-            if (!isQRDisabled) { a_rows.push('<th class="col-category"></th>'); }
+            var n_reading_features = 5;
+            if (b_archive) { n_reading_features++; }
+            if (!isQRDisabled) { n_reading_features++; }
+            a_rows.push('<th colspan="' + n_reading_features + '" class="col-category text-center">Reading Features</th>');
             return a_rows;
         }
 
