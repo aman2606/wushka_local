@@ -78,6 +78,12 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
         case 'all_shelves':
             wushka_set_whole_class_allowed_levels($id, $meta_value);
             break;
+        case 'all_sound_cluster':
+            wushka_set_whole_class_sound_cluster($id, $meta_value);
+            break;
+        case 'all_phase_access':
+            wushka_set_whole_class_phase_access($id, $meta_value);
+            break;
         case 'allowed_shelves':
             wushka_set_student_allowed_levels($id, $meta_value);
             break;
@@ -436,6 +442,26 @@ function wushka_set_whole_class_level( $i_class, $s_level, $class_id ) {
     return TRUE;
 
  }
+
+function wushka_set_whole_class_sound_cluster($i_class, $s_cluster) {
+    $a_students = wushka_get_students($i_class, 'class', 1);
+    if (!empty($a_students)) {
+        foreach ($a_students as $idx => $o_user) {
+            wushka_set_student_sound_cluster($o_user->id_hash, $s_cluster);
+        }
+    }
+    return TRUE;
+}
+
+function wushka_set_whole_class_phase_access($i_class, $s_access) {
+    $a_students = wushka_get_students($i_class, 'class', 1);
+    if (!empty($a_students)) {
+        foreach ($a_students as $idx => $o_user) {
+            wushka_set_student_phase_access($o_user->id_hash, $s_access);
+        }
+    }
+    return TRUE;
+}
 
 /** Wushka Set Reading Group
  * ----------------------------------------------------------

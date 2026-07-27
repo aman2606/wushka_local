@@ -373,6 +373,26 @@ if ($arhiveStudentList) { ?>
                             </span>
                             <label class="settings-label">Set Class Level Access</label>
                         </div>
+                        <?php /* ----- Set Class Sound Cluster Button ----- */ ?>
+                        <div class="col-xsp-12 col-xsl-6 col-xs-4">
+                            <span class="empty help-popover pass-popover" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Set Class Sound Cluster" data-content="Set a sound cluster for the whole class.">
+                                <button type="button" class="btn btn-default btn-block btn-set-class-sound-cluster" data-toggle="modal" data-target="#class-sound-cluster-modal" data-dismiss="modal">
+                                    <span class="sr-only">Set Class Sound Cluster</span>
+                                    <span class="x2 glyphicon glyphicon-book-open"></span>
+                                </button>
+                            </span>
+                            <label class="settings-label">Set Class Sound Cluster</label>
+                        </div>
+                        <?php /* ----- Set Class Sound Cluster Access Button ----- */ ?>
+                        <div class="col-xsp-12 col-xsl-6 col-xs-4">
+                            <span class="empty help-popover pass-popover" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Set Class Sound Cluster Access" data-content="Set sound cluster access for the whole class.">
+                                <button type="button" class="btn btn-default btn-block btn-set-class-phase-access" data-toggle="modal" data-target="#class-sound-cluster-access-modal" data-dismiss="modal">
+                                    <span class="sr-only">Set Class Sound Cluster Access</span>
+                                    <span class="x2 glyphicon glyphicon-book-open"></span>
+                                </button>
+                            </span>
+                            <label class="settings-label">Set Class Sound Cluster Access</label>
+                        </div>
                         <?php /* ----- Set Class Narration Button ----- */ ?>
                         <div class="col-xsp-12 col-xsl-6 col-xs-4">
                             <span class="empty help-popover pass-popover" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Set Class Narration" data-content="Switch book narration on/off for the whole class.">
@@ -1315,6 +1335,67 @@ if ($arhiveStudentList) { ?>
     </div>
 </div>
 
+<div class="modal fade" id="class-sound-cluster-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title cn-label">Set Whole Class Sound Cluster</h3>
+                <a role="button" class="btn-close-modal close-xl" data-dismiss="modal" data-toggle="modal" data-target="#manage-class-settings" aria-hidden="true">&times;</a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <?php
+                        if (!empty($a_results['data']['sound_clusters'])) {
+                            foreach ($a_results['data']['sound_clusters'] as $s_name) {
+                                $s_display = $s_name !== '' ? $s_name : 'Not Set';
+                                echo '<div class="col-xs-12 col-sm-6">' .
+                                    '<button type="button" class="btn btn-block btn-default set-class-sound-cluster" data-dismiss="modal" ' .
+                                    'data-id="' . $s_name . '">' . $s_display . '</button>' .
+                                    '</div>';
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#manage-class-settings">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="class-sound-cluster-access-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title cn-label">Set Whole Class Sound Cluster Access</h3>
+                <a role="button" class="btn-close-modal close-xl" data-dismiss="modal" data-toggle="modal" data-target="#manage-class-settings" aria-hidden="true">&times;</a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <?php
+                        if (!empty($a_results['data']['phase_access'])) {
+                            foreach ($a_results['data']['phase_access'] as $s_slug => $s_label) {
+                                echo '<div class="col-xs-12 col-sm-6">' .
+                                    '<button type="button" class="btn btn-block btn-default set-class-phase-access" data-dismiss="modal" ' .
+                                    'data-id="' . $s_slug . '">' . $s_label . '</button>' .
+                                    '</div>';
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#manage-class-settings">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="archive-student-modal" tabindex="-1" role="dialog" aria-labelledby="archive-student-modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1800,6 +1881,22 @@ if ($arhiveStudentList) { ?>
             var s_level = $(this).attr('data-id').trim();
             edit_user_data(get_table_id(), 'all_shelves', s_level);
             update_user_property('all', 'allowed_shelves', s_level);
+        });
+        //10. Set Whole CLASS Sound Cluster Field
+        $(document).on('click', '.set-class-sound-cluster', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var s_cluster = $(this).attr('data-id').trim();
+            edit_user_data(get_table_id(), 'all_sound_cluster', s_cluster);
+            update_user_property('all', 'sound_cluster', s_cluster);
+        });
+        //11. Set Whole CLASS Phase Access Field
+        $(document).on('click', '.set-class-phase-access', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var s_access = $(this).attr('data-id').trim();
+            edit_user_data(get_table_id(), 'all_phase_access', s_access);
+            update_user_property('all', 'phase_access', s_access);
         });
         /* ----------------------------------*/
 
@@ -2683,7 +2780,8 @@ if ($arhiveStudentList) { ?>
 
             if (meta == 'active' || meta == 'classPass' || meta == 'all_level' || meta == 'all_shelves' ||
                 meta == 'archiveAll' || meta == 'allquiz' || meta == 'allnarration' || meta == 'all_setting' ||
-                meta == 'all_quiz_narration' || meta == 'quiz_detail_results' || meta == 'all_quiz_results' || meta == 'all_book_read' || meta == 'email') {
+                meta == 'all_quiz_narration' || meta == 'quiz_detail_results' || meta == 'all_quiz_results' || meta == 'all_book_read' || meta == 'email' ||
+                meta == 'all_sound_cluster' || meta == 'all_phase_access') {
                 bRebuild = true;
             }
 
