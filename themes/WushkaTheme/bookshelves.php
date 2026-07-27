@@ -400,7 +400,7 @@ $a_posts = array();
                     $shelf_args['tax_query'][0]['terms'] = $sibling_ids;
                 }
                 $shelf_args['meta_query'] = [
-                    ['key' => 'esiss_sounds', 'value' => $pattern, 'compare' => 'REGEXP']
+                    ['key' => 'sound_cluster', 'value' => $pattern, 'compare' => 'REGEXP']
                 ];
 
                 foreach (get_posts($shelf_args) as $post) {

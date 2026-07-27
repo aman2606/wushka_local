@@ -205,12 +205,12 @@ class Manage_Reading_Groups
         global $wpdb;
         $sql = "
             SELECT t.term_id, t.name, t.slug, tt.term_taxonomy_id,
-                   GROUP_CONCAT(pm.meta_value SEPARATOR ' | ') AS esiss_sounds
+                   GROUP_CONCAT(pm.meta_value SEPARATOR ' | ') AS sound_cluster
             FROM {$wpdb->terms} t
             INNER JOIN {$wpdb->term_taxonomy} tt ON t.term_id = tt.term_id AND tt.taxonomy = 'phonics-phase'
             INNER JOIN {$wpdb->term_relationships} tr ON tr.term_taxonomy_id = tt.term_taxonomy_id
             INNER JOIN {$wpdb->posts} p ON p.ID = tr.object_id AND p.post_type = 'ebook' AND p.post_status = 'publish'
-            INNER JOIN {$wpdb->postmeta} pm ON pm.post_id = p.ID AND pm.meta_key = 'esiss_sounds'
+            INNER JOIN {$wpdb->postmeta} pm ON pm.post_id = p.ID AND pm.meta_key = 'sound_cluster'
             GROUP BY t.term_id ORDER BY t.slug
         ";
 
@@ -230,7 +230,7 @@ class Manage_Reading_Groups
                 $seen_per_phase[$phase_key] = [];
             }
 
-            $sounds = array_filter(array_map('trim', explode('|', $row->esiss_sounds)), 'strlen');
+            $sounds = array_filter(array_map('trim', explode('|', $row->sound_cluster)), 'strlen');
 
             foreach ($sounds as $sound) {
                 // Canonical-key uniqueness — same approach as get_sound_clusters()
