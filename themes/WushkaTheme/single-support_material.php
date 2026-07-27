@@ -16,3 +16,4 @@ if ( $is_slideshow && $viewer === 'ppt' ) {
 } else {
     echo esc_html__( 'No slideshow or assessment specified.', 'your-textdomain' );
 }
+
