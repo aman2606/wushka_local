@@ -16,14 +16,11 @@ if ( $request_type === 'day' && $assessment_id !== null ) {
     $day_data      = $asset_data['week_days'][ $assessment_id ] ?? [];
 
     if( isset($_GET['sm_type']) && $_GET['sm_type'] === 'slideshow' ):
-
-        echo "day secondary";
         $secondary_link          = $day_data['day_secodary_button_link'] ?? '#';
         $is_flipable_secondary   = $day_data['day_is_secondary_flipable_file'] ?? false;
         $secobdary_iframe_url    = $day_data['day_secondary_iframe_url'] ?? '';
         $final_iframe_url        = get_final_iframe_url( $is_flipable_secondary, $secobdary_iframe_url, $secondary_link );
     else:
-        echo "day primary";
         $primary_link  = $day_data['day_primary_button_link'] ?? '#';
         $is_flipable   = $day_data['day_is_flipable_file'] ?? false;
         $iframe_url    = $day_data['day_iframe_url'] ?? '';
@@ -57,6 +54,7 @@ if ( 'lang="en-AU"' === $html_lang_attr ) {
     $html_lang_attr = 'lang="en"';
 }
 ?>
+
 <!DOCTYPE html>
 <html <?php echo $html_lang_attr; ?> ontouchmove id="simpleViewer">
 
