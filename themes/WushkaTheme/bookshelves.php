@@ -472,6 +472,8 @@ foreach ($a_terms as $idx => $o_term) {
         if ( preg_match( '/Phase\s+(\d+(?:\.\d+)?)/i', $o_term->name, $matches ) ) {
             $phase_label = "Phase $matches[1]: ";
         }
+        $phase_focus_value = get_field('sm_phase_focus', 'term_' . $o_term->term_id);
+        $phase_focus = !empty($phase_focus_value) ? $phase_focus_value . ' ' : '';
         
         // Support material: Filter Asessments and slideshows
         if (! empty($a_support_material_posts)) {
@@ -503,20 +505,22 @@ foreach ($a_terms as $idx => $o_term) {
                     
                     //Week Posts
                     $a_level['daily_slideshow'][] = (object) [
-                        'post_id'        => $o_sm_post->ID,
-                        'post_title'     => $o_sm_post->post_title,
-                        'post_link'      => get_permalink( $o_sm_post->ID ),
-                        'is_week'        => true,
-                        'label'          => $week_assets['week_or_day_label']    ?? $o_sm_post->post_title,
-                        'icon_text'      => $week_assets['icon_text']             ?? '',
-                        'number'         => null,
-                        'primary_text'   => $week_assets['primary_button_text']  ?? '',
-                        'primary_link'   => $week_assets['primary_button_link']  ?? '',
-                        'secondary_text' => $week_assets['seconday_button_text'] ?? '',
-                        'secondary_link' => $week_assets['seconday_button_link'] ?? '',
-                        'index_id'       => $o_sm_post->ID,
-                        'is_flipable'    => $week_assets['is_flipable_file'] ?? false,
-                        'iframe_url'     => $week_assets['iframe_url'] ?? '',
+                        'post_id'                    => $o_sm_post->ID,
+                        'post_title'                 => $o_sm_post->post_title,
+                        'post_link'                  => get_permalink( $o_sm_post->ID ),
+                        'is_week'                    => true,
+                        'label'                      => $week_assets['week_or_day_label']    ?? $o_sm_post->post_title,
+                        'icon_text'                  => $week_assets['icon_text']             ?? '',
+                        'number'                     => null,
+                        'primary_text'               => $week_assets['primary_button_text']  ?? '',
+                        'primary_link'               => $week_assets['primary_button_link']  ?? '',
+                        'secondary_text'             => $week_assets['secondary_button_text'] ?? '',
+                        'secondary_link'             => $week_assets['secodary_button_link']['id'] ?? '',
+                        'index_id'                   => $o_sm_post->ID,
+                        'is_flipable'                => $week_assets['is_flipable_file'] ?? false,
+                        'iframe_url'                 => $week_assets['iframe_url'] ?? '',
+                        'is_secondary_flipable'      => $week_assets['is_secondary_flipable_file'] ?? false,
+                        'secodary_iframe_url'        => $week_assets['secodary_iframe_url'] ?? '',
 
                     ];
 
@@ -540,17 +544,19 @@ foreach ($a_terms as $idx => $o_term) {
                                 'index_id'                => $day_idx,
                                 'is_flipable'             => $day['day_is_flipable_file'] ?? false,
                                 'iframe_url'              => $day['day_iframe_url'] ?? '',
+                                'is_secondary_flipable'   => $day['day_is_secondary_flipable_file'] ?? false,
+                                'secodary_iframe_url'     => $day['day_secondary_iframe_url'] ?? '',
                             ];
                         }
                     }
 
-                    $a_level['slideshows_assets_label'] = $phase_label . $o_sm_post->terms[0]->name;
+                    $a_level['slideshows_assets_label'] = $phase_focus . $o_sm_post->terms[0]->name;
                     $a_level['phase_label'] = $phase_label ?? '';
                 }
 
                 if (in_array('planning-and-assessments', $o_sm_post->category_slugs)) {
                     $a_level['planning_assessments'][] = $o_sm_post;
-                    $a_level['planning_assets_label']  = $phase_label . $o_sm_post->terms[0]->name;
+                    $a_level['planning_assets_label']  = $phase_focus . $o_sm_post->terms[0]->name;
                     $a_level['phase_label'] = $phase_label ?? '';
                 }
             }
@@ -796,6 +802,7 @@ foreach ($a_terms as $idx => $o_term) {
 
     .shelf-wrapper.daily-slideshow .day-icon-box {
         position: relative;
+        line-height: 1.1;
     }
     .shelf-wrapper.daily-slideshow span.day-week-icon-txt {
         position: absolute;

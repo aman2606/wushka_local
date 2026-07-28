@@ -45,7 +45,7 @@ $embed_src = 'https://view.officeapps.live.com/op/embed.aspx?src=' . rawurlencod
         align-items: center;
         justify-content: space-between;
         padding: 0 20px;
-        height: 48px;
+        height: 35px;
         background: #111827;
         border-bottom: 1px solid #1f2937;
         flex-shrink: 0;
@@ -95,7 +95,7 @@ $embed_src = 'https://view.officeapps.live.com/op/embed.aspx?src=' . rawurlencod
     }
     .btn:hover { background: #374151; color: #fff; border-color: #4b5563; }
     .btn:active { background: #0078d4; border-color: #0078d4; }
-    .btn-icon { width: 32px; height: 32px; padding: 0; justify-content: center; font-size: 14px; }
+    .btn-icon { width: 25px; height: 25px; padding: 0; justify-content: center; font-size: 14px; }
 
     /* ── Viewer area ── */
     #viewer {
@@ -258,7 +258,7 @@ $embed_src = 'https://view.officeapps.live.com/op/embed.aspx?src=' . rawurlencod
     </div>
 
     <!-- Status bar -->
-    <footer id="statusbar">
+    <footer id="statusbar" style="display: none;">
       <span class="dot" id="status-dot"></span>
       <span id="status-text">Loading…</span>
     </footer>
