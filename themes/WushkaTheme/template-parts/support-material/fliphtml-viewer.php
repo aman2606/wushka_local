@@ -54,6 +54,7 @@ if ( 'lang="en-AU"' === $html_lang_attr ) {
     $html_lang_attr = 'lang="en"';
 }
 ?>
+
 <!DOCTYPE html>
 <html <?php echo $html_lang_attr; ?> ontouchmove id="simpleViewer">
 
