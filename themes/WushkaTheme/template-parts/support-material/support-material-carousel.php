@@ -301,7 +301,7 @@ $label_color            = 'style="color: ' . esc_attr($phonics_color) . ';"';
                                                                                       text-align:center;font-family:Arial, sans-serif;font-weight:700;color:#000000;
                                                                                       font-size:65px;line-height:1.1;overflow-wrap:break-word;word-break:break-word;
                                                                                       box-sizing:border-box;padding:0 8px;">
-                                                                            <?php echo esc_html( $card->icon_text ); ?>
+                                                                            <?php echo wp_kses_post( $card->icon_text ); ?>
                                                                         </div>
                                                                     </foreignObject>
                                                                 </svg>
