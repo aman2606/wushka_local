@@ -1223,11 +1223,11 @@ class Manage_Reading_Group_Ajax {
 			if ( ! empty( $phonemes ) ) {
 				$pattern = '^' . implode( '[, ]*', array_map( 'preg_quote', $phonemes ) ) . '$';
 				$a_args['meta_query'] = array(
-					array( 'key' => 'esiss_sounds', 'value' => $pattern, 'compare' => 'REGEXP' )
+					array( 'key' => 'sound_cluster', 'value' => $pattern, 'compare' => 'REGEXP' )
 				);
 			} else {
 				$a_args['meta_query'] = array(
-					array( 'key' => 'esiss_sounds', 'value' => $this->_s_sound, 'compare' => '=' )
+					array( 'key' => 'sound_cluster', 'value' => $this->_s_sound, 'compare' => '=' )
 				);
 			}
 		}

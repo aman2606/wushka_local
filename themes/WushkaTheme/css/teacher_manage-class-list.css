@@ -24,9 +24,11 @@ table[id^="table-"] {
 }
 
 .settings-label {
+    display: block;
     text-align: center;
     width: 100%;
     line-height: 1.2;
+    word-break: break-word;
 }
 
 div.tab-pane .dataTables_filter {
@@ -296,6 +298,50 @@ table#child-view, #child-view_paginate, #child-view_info {
   background-color: #ECC903;
   border-color: #EFC006;
   color: #FFF;
+}
+
+.modal .btn-set-class-sound-cluster,
+.modal .set-class-sound-cluster {
+    background-color: #CDDC39;
+    border-color: #C0CA33;
+    color: #FFF;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.modal .btn-set-class-sound-cluster:visited,
+.modal .btn-set-class-sound-cluster:hover,
+.modal .btn-set-class-sound-cluster:focus,
+.modal .btn-set-class-sound-cluster:active,
+.modal .set-class-sound-cluster:visited,
+.modal .set-class-sound-cluster:hover,
+.modal .set-class-sound-cluster:focus,
+.modal .set-class-sound-cluster:active {
+    background-color: #C0CA33;
+    border-color: #AFB42B;
+    color: #FFF;
+}
+
+.modal .btn-set-class-phase-access,
+.modal .set-class-phase-access {
+    background-color: #F4D10B;
+    border-color: #F4C50B;
+    color: #FFF;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.modal .btn-set-class-phase-access:visited,
+.modal .btn-set-class-phase-access:hover,
+.modal .btn-set-class-phase-access:focus,
+.modal .btn-set-class-phase-access:active,
+.modal .set-class-phase-access:visited,
+.modal .set-class-phase-access:hover,
+.modal .set-class-phase-access:focus,
+.modal .set-class-phase-access:active {
+    background-color: #ECC903;
+    border-color: #EFC006;
+    color: #FFF;
 }
 
 

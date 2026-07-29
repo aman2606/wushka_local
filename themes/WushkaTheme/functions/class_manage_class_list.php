@@ -563,7 +563,7 @@ class Class_List
         t.term_id AS phase_id,
         t.name    AS phase,
         t.slug    AS phase_slug,
-        GROUP_CONCAT(pm.meta_value SEPARATOR ' | ') AS esiss_sounds
+        GROUP_CONCAT(pm.meta_value SEPARATOR ' | ') AS sound_cluster
     FROM {$wpdb->terms} t
     INNER JOIN {$wpdb->term_taxonomy} tt
         ON t.term_id = tt.term_id
@@ -576,7 +576,7 @@ class Class_List
        AND p.post_status = 'publish'
     INNER JOIN {$wpdb->postmeta} pm
         ON pm.post_id = p.ID
-       AND pm.meta_key = 'esiss_sounds'
+       AND pm.meta_key = 'sound_cluster'
     GROUP BY t.term_id, t.name, t.slug
     ORDER BY t.slug
 ";
@@ -605,7 +605,7 @@ class Class_List
                 $phase = null;
             }
 
-            $tempArray = explode("|", $row->esiss_sounds);
+            $tempArray = explode("|", $row->sound_cluster);
 
             if (!empty($tempArray)) {
                 foreach ($tempArray as $sound) {
