@@ -411,21 +411,21 @@ class Manage_Reading_Groups
 
         $a_section[] = '<div class="col-lg-3">';
 
-        if (hasLevelledAccess()) {
-            //Gather Reading level Data
-            $a_levels = $this->build_reading_level_menu_items();
-            $a_section[] = '<div class="panel panel-default reading-group-menu reading-group-levelled-menu" style="display: none;">';
-            $a_section[] = '<div class="panel-heading"><i class="glyphicon glyphicon-menu-hamburger"></i> Levelled</div>';
-            $a_section[] = '<div class="panel-body">';
-            $a_section[] = implode('', $a_levels);
-            $a_section[] = '</div>';
-            $a_section[] = '</div>';
-        }
         if (hasDecodableAccess()) {
             //Gather Phonics Phase Data
             $a_levels = $this->build_phonics_level_menu_items();
             $a_section[] = '<div class="panel panel-default reading-group-menu reading-group-decodables-menu" style="display: none;">';
             $a_section[] = '<div class="panel-heading"><i class="glyphicon glyphicon-menu-hamburger"></i> Decodables</div>';
+            $a_section[] = '<div class="panel-body">';
+            $a_section[] = implode('', $a_levels);
+            $a_section[] = '</div>';
+            $a_section[] = '</div>';
+        }
+        if (hasLevelledAccess()) {
+            //Gather Reading level Data
+            $a_levels = $this->build_reading_level_menu_items();
+            $a_section[] = '<div class="panel panel-default reading-group-menu reading-group-levelled-menu" style="display: none;">';
+            $a_section[] = '<div class="panel-heading"><i class="glyphicon glyphicon-menu-hamburger"></i> Levelled</div>';
             $a_section[] = '<div class="panel-body">';
             $a_section[] = implode('', $a_levels);
             $a_section[] = '</div>';
