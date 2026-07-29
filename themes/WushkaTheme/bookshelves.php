@@ -291,15 +291,19 @@ $a_args  = array(
     'order'   => 'ASC'
 );
 
+$a_args_phases  = array(
+    //'orderby' => 'slug',
+    'meta_key'   => 'term_order',
+    'orderby'    => 'meta_value_num',
+    'order'      => 'ASC',
+);
+
 $level_terms = get_terms('reading-level', $a_args);
-$phase_terms = get_terms('phonics-phase', $a_args);
+$phase_terms = get_terms('phonics-phase', $a_args_phases);
 $level_ids   = array();
 $phase_ids   = array();
 
-
 $a_shelves = isset($current_user->prepared_shelves) ? $current_user->prepared_shelves : [];
-
-
 
 error_log('prepared shelves: ' . print_r($a_shelves, true));
 foreach ($level_terms as $idx => $o_term) {
@@ -319,22 +323,12 @@ foreach ($phase_terms as $idx => $o_term) {
     $phase_ids[] = $o_term->term_id;
 }
 
-// echo "<pre>";
-// print_r($phase_ids);
-// exit;
-
 error_log('performing post taxonomy query');
 if ($library_taxonomy == 'reading-level') {
     $a_ids = $level_ids;
 } else {
     $a_ids = $phase_ids;
 }
-
-
-
-// echo "<pre>";
-// print_r($a_ids);
-// exit;
 
 $a_posts = array();
 //if (! empty($level_ids)) {
