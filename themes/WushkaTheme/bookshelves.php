@@ -202,17 +202,11 @@ if (is_user_logged_in()) {
     $my_level         = get_user_meta($current_user->ID, 'allowed_shelves', TRUE);
     $prepared_decodable_shelves = get_user_meta($current_user->ID, 'prepared_decodable_shelves', TRUE);
 
-    // echo "<pre>";
-    // print_r($current_user->prepared_shelves);
-    // exit;
     //Reading Groups
     include_once 'functions/reading-groups/class_reading-groups.php';
     $c_rg     = new Reading_Groups();
     $i_group  = NULL;
 
-    // echo "<pre>";
-    // print_r($prepared_shelves);
-    // exit;
     if (current_user_can('student')) {
         //Check Student Reading Group Permissions Before Loading Reading Group Carousel Data
         $s_setting = $current_user->rg_setting;
@@ -288,20 +282,42 @@ if (is_user_logged_in()) {
 $master  = array();
 $a_args  = array(
     'orderby' => 'slug',
-    'order'   => 'ASC'
+    'order'   => 'ASC',
+    //'meta_key'   => 'term_order_number',
+    //'orderby'    => 'meta_value_num',
 );
 
-$a_args_phases  = array(
-    //'orderby' => 'slug',
-    'meta_key'   => 'term_order',
-    'orderby'    => 'meta_value_num',
-    'order'      => 'ASC',
-);
+$level_terms     = get_terms('reading-level', $a_args);
+$all_phase_terms = get_terms('phonics-phase', $a_args);
+$level_ids       = array();
+$phase_ids       = array();
 
-$level_terms = get_terms('reading-level', $a_args);
-$phase_terms = get_terms('phonics-phase', $a_args_phases);
-$level_ids   = array();
-$phase_ids   = array();
+/** Manual Categories order **/
+$with_order      = array();  //has meta
+$without_order   = array();  //no meta
+
+if( !empty( $all_phase_terms ) ){
+    foreach ( $all_phase_terms as $term ) {
+        $order = get_term_meta( $term->term_id, 'term_order', true );
+        if ( $order !== '' && $order !== false ) {
+            $term->_term_order = (float) $order; // temp property for sorting
+            $with_order[] = $term;
+        } else {
+            $without_order[] = $term;
+        }
+    }
+}
+
+if ( ! empty( $with_order ) ) {
+    usort( $with_order, function( $a, $b ) {
+        // Extra safety in case _term_order somehow isn't set
+        $a_order = isset( $a->_term_order ) ? $a->_term_order : 0;
+        $b_order = isset( $b->_term_order ) ? $b->_term_order : 0;
+        return $a_order <=> $b_order;
+    } );
+}
+
+$phase_terms = array_merge( $with_order, $without_order );
 
 $a_shelves = isset($current_user->prepared_shelves) ? $current_user->prepared_shelves : [];
 
