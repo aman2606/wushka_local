@@ -642,7 +642,7 @@ class Class_List
     private function get_phase_access()
     {
         $a_phases            = array();
-        $a_phases['']        = 'Not Set';
+        $a_phases['']        = '';
         $a_phases['sound-cluster-only'] = 'Sound cluster only';
         $a_phases['sound-cluster-one-below'] = 'Sound cluster + one below';
         $a_phases['sound-cluster-all-below-in-phase'] = 'Sound cluster + all below in phase';
