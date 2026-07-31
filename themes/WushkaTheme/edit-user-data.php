@@ -832,7 +832,7 @@ function wushka_set_student_prep_decodable_shelves( $i_user ) {
 
     
 
-    if ( empty($s_cluster) || $s_cluster === 'Not Set' || empty($s_phase_access) ||  $s_cluster=='all-phases') {
+    if ( empty($s_cluster) || $s_cluster === 'Not Set' || empty($s_phase_access) || $s_cluster === 'all-phases' || $s_phase_access === 'reading-group-only' ) {
         update_user_meta($i_user, 'prepared_decodable_shelves', $a_prep_new);
         return TRUE;
     }
