@@ -1221,25 +1221,28 @@ if (is_user_logged_in()) { ?>
             $total_books       = count($posts);
             $previous_carousel = isset($_SESSION['carousel-taxo-' . $o_term->term_taxonomy_id]) ? $_SESSION['carousel-taxo-' . $o_term->term_taxonomy_id] : 0;
 
-            // Support material: Carousel template call
-            $daily_slideshow       = $a_level['daily_slideshow'];
-            $planning_assessments  = $a_level['planning_assessments'];
-            $sh_asset_label        = $a_level['slideshows_assets_label'];
-            $plng_asset_label      = $a_level['planning_assets_label'];
-            $phase_label           = $a_level['phase_label'];
+            if( !current_user_can('student') ){
+                // Support material: Carousel template call
+                $daily_slideshow       = $a_level['daily_slideshow'];
+                $planning_assessments  = $a_level['planning_assessments'];
+                $sh_asset_label        = $a_level['slideshows_assets_label'];
+                $plng_asset_label      = $a_level['planning_assets_label'];
+                $phase_label           = $a_level['phase_label'];
 
-            get_template_part('template-parts/support-material/support-material-carousel', null, [
-                'o_term'                 => $o_term,
-                'daily_slideshow'        => $daily_slideshow,
-                'planning_assessments'   => $planning_assessments,
-                'ebooks'                 => $posts, 
-                'counter'                => $content_count,
-                'sh_asset_label'         => $sh_asset_label,
-                'plng_asset_label'       => $plng_asset_label,
-                'phase_label'            => $phase_label,
-                //'previous_carousel'    => $_SESSION['carousel-support-taxo-' . $o_term->term_taxonomy_id] ?? 0,
-                //'current_user'         => $current_user,
-            ]);
+                get_template_part('template-parts/support-material/support-material-carousel', null, [
+                    'o_term'                 => $o_term,
+                    'daily_slideshow'        => $daily_slideshow,
+                    'planning_assessments'   => $planning_assessments,
+                    'ebooks'                 => $posts, 
+                    'counter'                => $content_count,
+                    'sh_asset_label'         => $sh_asset_label,
+                    'plng_asset_label'       => $plng_asset_label,
+                    'phase_label'            => $phase_label,
+                    //'previous_carousel'    => $_SESSION['carousel-support-taxo-' . $o_term->term_taxonomy_id] ?? 0,
+                    //'current_user'         => $current_user,
+                ]);
+            }
+            
             
     ?>
             <div class="shelf-wrapper<?php echo $blocked ?>" <?= $main_content; ?>>
