@@ -254,6 +254,8 @@ if (is_user_logged_in()) {
             }
         }
     }
+
+
     $a_id[]  = $current_user->ID;
     $s_param = '%d';
     if (isset($current_user->student_link_id) && ! empty($current_user->student_link_id)) {
@@ -431,7 +433,7 @@ $a_posts = array();
             $s_phase_access = current_user_can('student')
                 ? get_user_meta($current_user->ID, 'phase_access', TRUE)
                 : '';
-            if ($s_phase_access !== 'reading-group-only') {
+            if (empty($s_phase_access) || $s_phase_access === 'all-phases') {
                 $a_posts = get_posts($p_args);
             }
         } else {
