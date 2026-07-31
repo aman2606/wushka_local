@@ -335,7 +335,7 @@ $label_color            = 'style="color: ' . esc_attr($phonics_color) . ';"';
                                                                 <?php endif; ?>
                                                             <?php endif; ?>
 
-                                                           <?php if ( !empty($secondary_link_id) ) :?>
+                                                           <?php if ( isset($secondary_link_id) && $secondary_link_id !== '' && $secondary_link_id !== null ) : ?>
                                                                 <?php if ( is_user_logged_in() ) : ?>
                                                                     <a href="<?php echo esc_url( $card->post_link ).'?sm_type=slideshow&type='.$type.'&viewer=' . $slideshow_file_type . '&id=' . $secondary_link_id; ?>" class="secondary-button" target="_blank">
                                                                         <span <?php echo $panel_heading_back ?? ''; ?>>
