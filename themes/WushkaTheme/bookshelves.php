@@ -1218,19 +1218,21 @@ if (is_user_logged_in()) { ?>
                 $sh_asset_label        = $a_level['slideshows_assets_label'];
                 $plng_asset_label      = $a_level['planning_assets_label'];
                 $phase_label           = $a_level['phase_label'];
-
-                get_template_part('template-parts/support-material/support-material-carousel', null, [
-                    'o_term'                 => $o_term,
-                    'daily_slideshow'        => $daily_slideshow,
-                    'planning_assessments'   => $planning_assessments,
-                    'ebooks'                 => $posts, 
-                    'counter'                => $content_count,
-                    'sh_asset_label'         => $sh_asset_label,
-                    'plng_asset_label'       => $plng_asset_label,
-                    'phase_label'            => $phase_label,
-                    //'previous_carousel'    => $_SESSION['carousel-support-taxo-' . $o_term->term_taxonomy_id] ?? 0,
-                    //'current_user'         => $current_user,
-                ]);
+                
+                if( !empty($planning_assessments) || !empty($daily_slideshow) ){
+                    get_template_part('template-parts/support-material/support-material-carousel', null, [
+                        'o_term'                 => $o_term,
+                        'daily_slideshow'        => $daily_slideshow,
+                        'planning_assessments'   => $planning_assessments,
+                        'ebooks'                 => $posts, 
+                        'counter'                => $content_count,
+                        'sh_asset_label'         => $sh_asset_label,
+                        'plng_asset_label'       => $plng_asset_label,
+                        'phase_label'            => $phase_label,
+                        //'previous_carousel'    => $_SESSION['carousel-support-taxo-' . $o_term->term_taxonomy_id] ?? 0,
+                        //'current_user'         => $current_user,
+                    ]);
+                }
             }
             
             
