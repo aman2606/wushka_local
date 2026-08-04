@@ -1189,6 +1189,7 @@ if (is_user_logged_in()) { ?>
 
         $o_term = $a_level['term'];
         $posts  = $a_level['books'];
+        $category_display_name = get_field('category_display_name', 'term_' . $o_term->term_taxonomy_id);
 
         $main_content = "";
         if (! is_user_logged_in() || !current_user_can('student')) {
@@ -1245,7 +1246,7 @@ if (is_user_logged_in()) { ?>
                                     <div class="carousel slide" id="carousel-taxo-<?php echo $o_term->term_taxonomy_id; ?>">
                                         <div class="panel-heading">
                                             <i class="glyphicon glyphicon-inbox bookshelf-glyphicon"></i>
-                                            <?php echo $o_term->name; ?>
+                                            <?php echo $category_display_name ?: $o_term->name; ?>
                                             <span class="pull-right">
                                                 <a role="button" class="btn btn-small btn-shelf-expand" style="display:none"
                                                     href="#collapse-<?php echo $o_term->term_taxonomy_id; ?>"
