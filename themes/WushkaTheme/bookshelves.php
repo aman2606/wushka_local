@@ -1273,9 +1273,9 @@ if (is_user_logged_in()) { ?>
                                         <?php $counter = 0; ?>
                                         <div class="panel-body ebook__panel-body">
                                             <?php if (in_array($o_term->slug, $newLabelPhases)) { ?>
-                                                <div class="ebook__new-label">
+                                                <!-- <div class="ebook__new-label">
                                                     <h3>NEW</h3>
-                                                </div>
+                                                </div> -->
                                             <?php } ?>
                                             <div class="carousel-inner">
                                                 <div class="item <?php echo ($previous_carousel == 0) ? 'active' : ''; ?>">

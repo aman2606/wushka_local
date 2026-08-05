@@ -19,6 +19,14 @@ if ( $counter === null ) {
     return;
 }
 
+$new_support_metrial = [
+    'phase-2',
+    'phase-3',
+    'phase-4',
+    'phase-5',
+    'phase-6',
+];
+
 // ---------------------------------------------------------------------------
 // Shared values
 // ---------------------------------------------------------------------------
@@ -87,6 +95,11 @@ $label_color            = 'style="color: ' . esc_attr($phonics_color) . ';"';
 
                             <!-- Carousel pages -->
                             <div class="panel-body ebook__panel-body">
+                                <?php if (in_array($phase_class, $new_support_metrial)) { ?>
+                                    <div class="ebook__new-label">
+                                        <h3>NEW</h3>
+                                    </div>
+                                <?php } ?>
                                 <div class="carousel-inner">
 
                                     <?php foreach ( $pa_pages as $page_num => $page_posts ) : ?>
@@ -255,6 +268,11 @@ $label_color            = 'style="color: ' . esc_attr($phonics_color) . ';"';
 
                             <!-- Carousel pages -->
                             <div class="panel-body ebook__panel-body">
+                                <?php if (in_array($phase_class, $new_support_metrial)) { ?>
+                                    <div class="ebook__new-label">
+                                        <h3>NEW</h3>
+                                    </div>
+                                <?php } ?>
                                 <div class="carousel-inner">
 
                                     <?php foreach ( $ds_pages as $page_num => $page_cards ) : ?>
