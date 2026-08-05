@@ -2017,7 +2017,7 @@ if (is_user_logged_in()) { ?>
 
 
             $(window).on('load', function() {
-                var element = document.querySelector('.panel-2c2-letter-sounds');
+                var element = document.querySelector('.phase-2');
 
                 if (element) {
                     // Function to handle the scroll with a "Self-Correction" check
