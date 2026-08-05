@@ -1379,6 +1379,9 @@ if ($arhiveStudentList) { ?>
                         <?php
                         if (!empty($a_results['data']['phase_access'])) {
                             foreach ($a_results['data']['phase_access'] as $s_slug => $s_label) {
+                                if(empty($s_label)){
+                                    $s_label = 'Not Set';
+                                }
                                 echo '<div class="col-xs-12 col-sm-6">' .
                                     '<button type="button" class="btn btn-block btn-default set-class-phase-access" data-dismiss="modal" ' .
                                     'data-id="' . $s_slug . '">' . $s_label . '</button>' .
@@ -1639,14 +1642,14 @@ if ($arhiveStudentList) { ?>
             //6b. Edit Phase Access Field
             $('.phase_access').editable({
                 type: 'select',
-                emptytext: 'Not Set',
+                emptytext: 'All Phases',
                 mode: 'inline',
                 source: o_phase_access,
                 success: function(response, value) {
                     var id   = $(this).closest('tr').attr('id').replace('user-', '').trim();
                     var meta = $(this).attr('class').split(' ')[0];
                     edit_user_data(id, meta, value);
-                    update_user_property(id, meta, o_phase_access[value] || 'Not Set');
+                    update_user_property(id, meta, o_phase_access[value] || 'All Phases');
                 }
             });
             //6. Edit Reading Group Field
@@ -2290,8 +2293,8 @@ if ($arhiveStudentList) { ?>
             a_row.push('<td><span class="email">' + o_user.email + '</span></td>');
             a_row.push('<td><button class="user_pass">' + o_user.user_pass + '</button></td>');
             // Decodable Library
-            a_row.push('<td><button class="sound_cluster" data-value="' + (o_user.sound_cluster || '') + '">' + (o_user.sound_cluster || 'Not Set') + '</button></td>');
-            a_row.push('<td><button class="phase_access" data-value="' + (o_user.phase_access || '') + '">' + (o_user.phase_access || 'Not Set') + '</button></td>');
+            a_row.push('<td><button class="sound_cluster" data-value="' + (o_user.sound_cluster || '') + '">' + (o_user.sound_cluster || '') + '</button></td>');
+            a_row.push('<td><button class="phase_access" data-value="' + (o_user.phase_access || '') + '">' + (o_user.phase_access || '') + '</button></td>');
             // Reading Group
             a_row.push('<td>');
             a_row.push('<button class="my_reading_group" data-value="' + o_user.my_reading_group.ID + '">');
@@ -2541,11 +2544,11 @@ if ($arhiveStudentList) { ?>
                 )
             ).append(
                 $('<td>').append(
-                    $('<span>').addClass('sound_cluster').attr('data-value', '').append('Not Set')
+                    $('<span>').addClass('sound_cluster').attr('data-value', '').append('')
                 )
             ).append(
                 $('<td>').append(
-                    $('<span>').addClass('phase_access').attr('data-value', '').append('Not Set')
+                    $('<span>').addClass('phase_access').attr('data-value', '').append('')
                 )
             ).append(
                 $('<td>').append(
