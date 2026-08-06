@@ -2015,41 +2015,41 @@ if (is_user_logged_in()) { ?>
                 }
             });
 
-
             $(window).on('load', function() {
-                var element = document.querySelector('.phase-2');
 
-                if (element) {
-                    // Function to handle the scroll with a "Self-Correction" check
-                    function reliableScroll(attempts) {
-                        element.scrollIntoView({
-                            behavior: 'auto',
-                            block: 'center'
-                        });
+                var CAROUSEL_GROUP_SELECTOR = '.shelf-wrapper';
+                var newLabel = document.querySelector('.ebook__new-label');
 
-                        // Wait for the smooth scroll animation to likely finish (~800ms)
-                        setTimeout(function() {
-                            // Check the current distance from the top of the viewport
-                            var currentRect = element.getBoundingClientRect();
-
-                            // If top is not near 0 (within 5px), the page layout shifted!
-                            if (Math.abs(currentRect.top) > 5 && attempts < 3) {
-                                // Force a second precise jump to fix the "miss"
-                                element.scrollIntoView({
-                                    behavior: 'auto',
-                                    block: 'center'
-                                });
-                                // Increment attempts to prevent infinite loops
-                                reliableScroll(attempts + 1);
-                            }
-                        }, 800);
-                    }
-
-                    // Initial trigger after a 300ms safety buffer for images to render
-                    setTimeout(function() {
-                        reliableScroll(1);
-                    }, 300);
+                if (!newLabel) {
+                    return; // no NEW labels on this page, nothing to scroll to
                 }
+
+                var element = newLabel.closest(CAROUSEL_GROUP_SELECTOR);
+
+                if (!element) {
+                    element = newLabel;
+                }
+
+                function reliableScroll(attempts) {
+                    element.scrollIntoView({
+                        behavior: 'auto',
+                        block: 'center'
+                    });
+                    setTimeout(function() {
+                        var currentRect = element.getBoundingClientRect();
+                        if (Math.abs(currentRect.top) > 5 && attempts < 3) {
+                            element.scrollIntoView({
+                                behavior: 'auto',
+                                block: 'center'
+                            });
+                            reliableScroll(attempts + 1);
+                        }
+                    }, 800);
+                }
+
+                setTimeout(function() {
+                    reliableScroll(1);
+                }, 300);
             });
 
         });

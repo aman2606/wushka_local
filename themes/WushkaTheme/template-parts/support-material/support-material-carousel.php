@@ -19,15 +19,6 @@ if ( $counter === null ) {
     return;
 }
 
-$new_support_metrial = [
-    'phase-2',
-    'phase-3',
-    'phase-4',
-    'phase-5',
-    'phase-5-5',
-    'phase-6',
-];
-
 // ---------------------------------------------------------------------------
 // Shared values
 // ---------------------------------------------------------------------------
@@ -44,6 +35,7 @@ $sh_asset_label         = $args['sh_asset_label']       ?? '';
 $plng_asset_label       = $args['plng_asset_label']     ?? '';
 
 $phonics_color          = get_field('phonics_color', 'term_' . $o_term->term_taxonomy_id) ?: '#f7941d';
+$display_new_label      = get_field('display_new_label', 'term_' . $o_term->term_taxonomy_id) ?: false;
 $panel_border           = 'style="border: 2px solid ' . esc_attr($phonics_color) . ';"';
 $panel_heading_back     = 'style="background-color: ' . esc_attr($phonics_color) . ';"';
 $day_week_badge_fill    = 'style="background: ' . esc_attr($phonics_color) . ';"';
@@ -96,7 +88,7 @@ $label_color            = 'style="color: ' . esc_attr($phonics_color) . ';"';
 
                             <!-- Carousel pages -->
                             <div class="panel-body ebook__panel-body">
-                                <?php if (in_array($phase_class, $new_support_metrial)) { ?>
+                                <?php if ($display_new_label) { ?>
                                     <div class="ebook__new-label">
                                         <h3>NEW</h3>
                                     </div>
@@ -269,7 +261,7 @@ $label_color            = 'style="color: ' . esc_attr($phonics_color) . ';"';
 
                             <!-- Carousel pages -->
                             <div class="panel-body ebook__panel-body">
-                                <?php if (in_array($phase_class, $new_support_metrial)) { ?>
+                                <?php if ($display_new_label) { ?>
                                     <div class="ebook__new-label">
                                         <h3>NEW</h3>
                                     </div>
