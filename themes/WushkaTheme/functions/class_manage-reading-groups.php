@@ -205,7 +205,7 @@ class Manage_Reading_Groups
         global $wpdb;
         $sql = "
             SELECT t.term_id, t.name, t.slug, tt.term_taxonomy_id,
-                   GROUP_CONCAT(pm.meta_value SEPARATOR ' | ') AS sound_cluster
+                   GROUP_CONCAT(pm.meta_value ORDER BY pm.meta_id ASC SEPARATOR ' | ') AS sound_cluster
             FROM {$wpdb->terms} t
             INNER JOIN {$wpdb->term_taxonomy} tt ON t.term_id = tt.term_id AND tt.taxonomy = 'phonics-phase'
             INNER JOIN {$wpdb->term_relationships} tr ON tr.term_taxonomy_id = tt.term_taxonomy_id

@@ -563,7 +563,7 @@ class Class_List
         t.term_id AS phase_id,
         t.name    AS phase,
         t.slug    AS phase_slug,
-        GROUP_CONCAT(pm.meta_value SEPARATOR ' | ') AS sound_cluster
+        GROUP_CONCAT(pm.meta_value ORDER BY pm.meta_id ASC SEPARATOR ' | ') AS sound_cluster
     FROM {$wpdb->terms} t
     INNER JOIN {$wpdb->term_taxonomy} tt
         ON t.term_id = tt.term_id
