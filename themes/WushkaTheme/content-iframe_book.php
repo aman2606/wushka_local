@@ -10,6 +10,19 @@ $ebookIframeInfo = get_field('ebook_iframe_info', $iframeBook->ID);
 if (isset($ebookIframeInfo) && $ebookIframeInfo['has_iframe_url']) {
 
     $iframeURL = $ebookIframeInfo['iframe_url'];
+    //  var_dump(iframeURL);
+    // exit;
+
+    $siteUrl = get_site_url();
+    if (
+        strpos($siteUrl, 'wushka_local') !== false ||
+        strpos($siteUrl, 'wushkatemplate.com') !== false ||
+        strpos($siteUrl, '.com.au') !== false
+    ) {
+        $bookSlug = basename(rtrim($iframeURL, '/'));
+        $iframeURL = 'https://cdn1.wushka.com.au/Resources/Wushka_Ebooks/' . $bookSlug . '/index.html';
+    }
+
 }
 ?>
 
