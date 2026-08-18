@@ -42,6 +42,20 @@ if (current_user_can('teacher')) {
     }
 }
 ?>
+<style>
+    .book-login-required:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 50%;
+        background: #222;
+        color: #fff;
+        padding: 4px 8px;
+        font-size: 12px;
+        white-space: nowrap;
+        border-radius: 4px;
+        z-index: 9999;
+    }
+</style>
 
 <div class="container-fluid">
     <div class="row mt30">
@@ -112,11 +126,10 @@ if (current_user_can('teacher')) {
 
                         $iframeURL = false;
 
-                        $ebookIframeInfo = get_field('ebook_iframe_info',$post->ID);
-                        if(isset($ebookIframeInfo) && $ebookIframeInfo['has_iframe_url']){
+                        $ebookIframeInfo = get_field('ebook_iframe_info', $post->ID);
+                        if (isset($ebookIframeInfo) && $ebookIframeInfo['has_iframe_url']) {
 
                             $iframeURL = $ebookIframeInfo['iframe_url'];
-
                         }
 
                         // if (has_term('jill-jet-no-audio', 'phonics-phase', $post->ID)) {
@@ -134,13 +147,20 @@ if (current_user_can('teacher')) {
                         //Show new sash for one month old books
                         $origpostdate = get_the_date('Y-m-d', $post->ID);
                         $days         = get_time_difference($origpostdate);
-                        if(!$iframeURL){
-                            echo "<a href='#' class='lz-res wushka_ebook' >$ebookImg<span class='glyphicon glyphicon-play-button btn-glyphicon-sample-play' style='display: inline; opacity: 1;'></span><span class='sr-only'>Read eBook</span></a>";
-                        }else{
-                            $pdfUrl = get_site_url().'/ereader/?book='.$resource_id;
-                            echo "<a href='".$pdfUrl."' class='lz-res'>$ebookImg<span class='glyphicon glyphicon-play-button btn-glyphicon-sample-play' style='display: inline; opacity: 1;'></span><span class='sr-only'>Read eBook</span></a>";
+
+                        if (!is_user_logged_in()) { ?>
+                            <a href='#' class='lz-res book-login-required' data-tooltip='Login Required' onclick="return false"><?= $ebookImg ?><span class='glyphicon glyphicon-play-button btn-glyphicon-sample-play' style='display: inline; opacity: 1;'></span><span class='sr-only'>Read eBook</span></a>
+                        <?php } else {
+
+                            if (!$iframeURL) {
+                                echo "<a href='#' class='lz-res wushka_ebook' >$ebookImg<span class='glyphicon glyphicon-play-button btn-glyphicon-sample-play' style='display: inline; opacity: 1;'></span><span class='sr-only'>Read eBook</span></a>";
+                            } else {
+                                $pdfUrl = get_site_url() . '/ereader/?book=' . $resource_id;
+                                echo "<a href='" . $pdfUrl . "' class='lz-res'>$ebookImg<span class='glyphicon glyphicon-play-button btn-glyphicon-sample-play' style='display: inline; opacity: 1;'></span><span class='sr-only'>Read eBook</span></a>";
+                            }
                         }
-                       
+
+
 
 
                         //Store Program Coordinator Display Mode (School||Teacher)
