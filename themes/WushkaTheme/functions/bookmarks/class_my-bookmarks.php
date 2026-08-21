@@ -48,7 +48,7 @@ class Wushka_Bookmarks {
     }
 
     public function load_stylesheets() {
-        $tmp_dir         = get_template_directory_uri() . '/functions/bookmarks/';
+        $tmp_dir         = get_stylesheet_directory_uri() . '/functions/bookmarks/';
         $a_stylesheets[] = '<link type="text/css" rel="stylesheet" href="' . $tmp_dir . 'css_my-bookmarks.css" />';
         $a_stylesheets[] = '<script>';
         $a_stylesheets[] = 'var temp_fle_drctry = "' . $tmp_dir . '";';

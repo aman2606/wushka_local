@@ -26,7 +26,7 @@ class Student_Favourites {
 	}
 
 	public function load_stylesheets() {
-		$tmp_dir =  get_template_directory_uri().'/functions/favourites/';
+		$tmp_dir =  get_stylesheet_directory_uri().'/functions/favourites/';
 		$a_stylesheets[] = '<link type="text/css" rel="stylesheet" href="'.$tmp_dir.'css_my-favourites.css" />';
 
 		echo implode('', $a_stylesheets);

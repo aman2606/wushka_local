@@ -6,7 +6,6 @@ if (function_exists('wushka_is_yootheme_builder_page') && wushka_is_yootheme_bui
     return;
 }
 ?>
-
 <?php get_header(); ?>
 	<div class="singlepage">
 		<?php while (have_posts()) : the_post(); ?>
