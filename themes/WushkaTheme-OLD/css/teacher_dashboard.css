@@ -1,0 +1,162 @@
+@CHARSET "ISO-8859-1";
+/* --- TEACHER DASHBOARD --- */
+/*.body.wrap {
+	width: 60%;
+	margin: 0 auto 0 auto;
+}*/
+.page-section.banner {
+	/*border: solid 2px rgba(0, 0, 0, 0.8);*/
+	padding: 30px;
+	margin: 0px 0px 10px 0px;
+        background-color: #476A86;
+}
+div#banner ul.banner {
+	list-style-type: none;
+	width: 79%;
+	margin: 0px auto 0px auto;
+}
+input[type="button"].banner.pagination {
+	background: none;
+	border: solid 2px rgba(0, 0, 0, 0.5);
+	height: 50px;
+	width: 50px;
+	border-radius: 30px;
+	position: absolute;
+	top: 205px;
+	font-size:2rem;
+}
+a.banner.item {
+	display: inline-block;
+	width: 200px;
+	border: solid 2px;
+	height: 250px;
+	padding: 10px;
+	background: rgba(255, 255, 255, 0.7);
+	margin: 0px 10px;
+        border-radius: 6px;
+}
+input[type="button"].banner.pagination:hover {
+	cursor: pointer;
+}
+input[type="button"].banner.pagination.previous {
+	left: 400px;
+}
+input[type="button"].banner.pagination.next {
+	right: 400px;
+}
+
+.page-section.select-button {
+	margin: 10px 0px;
+	padding: 10px 0px;
+}
+
+.page-section.select-button input[type="button"][class="btn full-width"] {
+	width: 100%;
+	height: 50px;
+	text-align: center;
+	font-size: 1.3rem;
+}
+
+.page-section.teacher-functions {
+	padding: 30px 0;
+	margin: 0;
+}
+
+div.teacher-functions a.list-item {
+	/*display: -webkit-inline-box;
+	border: solid 2px rgba(0, 0, 0, 0.8);
+	border-radius: 15px;
+	width: 330px;
+	height: 330px;
+	margin: 10px;
+	padding: 20px;
+	vertical-align: top;*/
+}
+div.teacher-functions a.list-item:hover {
+	text-decoration: none;
+}
+
+.teacher-function.wrapper{
+	margin-bottom: 15px;
+}
+	.teacher-function.heading-wrapper {
+		padding: 15px;
+		/*border-radius: 6px 6px 0 0;
+		min-height: 150px;*/
+		background-color: #005f7b;
+		text-align: center;
+		border-radius: 6px 6px 0 0;
+	}
+		.teacher-function.icon {
+			display: inline-block;
+			width: 50px;
+			height: 50px;
+			border-radius: 100%;
+			background-color: white;
+			margin: 15px 0;
+		}
+		.teacher-function.heading {
+			font-size: 2.0rem;
+			color: #FFF;
+		}
+	.teacher-function.content {
+		/*border: solid 2px rgba(0, 0, 0, 0.8);
+		border-radius: 6px;*/
+		padding: 15px;
+		background-color: #FFF;
+		background: linear-gradient(#FFF, #bed8e5);
+	}
+.teacher-function.text-items {
+list-style-type: disc;
+list-style-position: inside;
+}
+	.teacher-function.text-item {
+	font-size: 1.8rem;
+	color: #444;
+	}
+        
+.teacher-function.heading {
+	text-align: center;
+	font-size: 2.0rem;
+}
+.teacher-function.text-item {
+	font-size: 1.5rem;
+}
+/* Student Statistics Dashboard */
+.page-section.overall-statistics {
+	width: 90%;
+	margin: 10px auto 10px auto;
+}
+/* --- END TEACHER DASHBOARD --- */
+
+/* ----- STUDENT DASHBOARD ----- */
+.page-section.student-statistics {
+	width: 90%;
+	margin: 10px auto 10px auto;
+}
+.statistic-section-wrap {
+	width: 100%;
+	border: solid 2px rgba(0, 0, 0, 0.8);
+	padding: 5px 10px;
+}
+.statistic-section {
+	display: inline-block;
+	width: 30%;
+	margin: 5px auto 10px auto;
+	border: solid 2px rgba(0, 0, 0, 0.8);
+	padding: 5px 10px;
+}
+/* --- END STUDENT DASHBOARD --- */
+
+.grad-linear {
+    background: -webkit-linear-gradient(#3a9ac0, #577d9e); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#3a9ac0, #577d9e); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#3a9ac0, #577d9e); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#3a9ac0, #577d9e); /* Standard syntax (must be last) */
+}
+.grad-radial {
+  background: -webkit-radial-gradient(top center, #3a9ac0, #577d9e); /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(top center, #3a9ac0, #577d9e); /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(top center, #3a9ac0, #577d9e); /* For Firefox 3.6 to 15 */
+  background: radial-gradient(top center, #3a9ac0, #577d9e); /* Standard syntax */
+}

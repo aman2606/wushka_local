@@ -1,0 +1,352 @@
+.table {
+	font-size: 16px;
+	font-size: 1.6rem;
+	color: #444;
+	> tfoot {
+		> tr {
+			> th {
+				padding: 10px 18px 6px;
+				vertical-align: middle;
+			}
+			> td {
+				vertical-align: middle;
+			}
+		}
+	}
+	> thead {
+		> tr {
+			> th {
+				padding: 10px 18px 6px;
+				vertical-align: middle;
+			}
+			> td {
+				vertical-align: middle;
+			}
+		}
+	}
+	> tbody {
+		> tr {
+			> td {
+				vertical-align: middle;
+			}
+			> th {
+				vertical-align: middle;
+			}
+		}
+	}
+}
+table {
+	font-size: 16px;
+	font-size: 1.6rem;
+	color: #444;
+}
+.class-view-table-heading {
+	background-color: #fff;
+}
+
+.table-answers ol {
+	margin-bottom: 0;
+	margin-left: 5px;
+}
+
+.table-answer.checked span,
+.table-answer.checkedtrue span {
+	/*color: $wk-green;*/
+	background-image: url("//cdn1.wushka.com.au/Resources/correct2.svg");
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: center;
+	display: inline-block;
+	padding: 3px 10px 3px 5px;
+	vertical-align: middle;
+	margin: 0 0 0 -5px;
+	min-width: 70px;
+}
+
+.table-answer.true span {
+	/*color: $wk-red;*/
+	background-image: url("//cdn1.wushka.com.au/Resources/incorrect2.svg");
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: center;
+	display: inline-block;
+	padding: 3px 10px 3px 5px;
+	vertical-align: middle;
+	margin: 0 0 0 -5px;
+	min-width: 65px;
+}
+
+.table-answer.correct,
+.table-response.correct {
+	background-image: url("//cdn1.wushka.com.au/Resources/correct-mark2.svg");
+	background-repeat: no-repeat;
+	background-size: 28px;
+	background-position: center;
+	color: transparent;
+}
+
+.table-answer.incorrect,
+.table-response.incorrect {
+	background-image: url("//cdn1.wushka.com.au/Resources/incorrect-mark.svg");
+	background-repeat: no-repeat;
+	background-size: 24px;
+	background-position: center;
+	color: transparent;
+}
+
+.table-bordered {
+	border: none;
+}
+
+.page-manage-class-list .table-bordered {
+	border: 1px solid #ddd;
+	margin-top: 5px;
+}
+
+thead th:first-child {
+	border-radius: 6px 0 0 0;
+}
+
+thead th:last-child {
+	border-radius: 0 6px 0 0;
+}
+
+tfoot th:first-child {
+	border-radius: 0 0 0 6px;
+}
+
+tfoot th:last-child {
+	border-radius: 0 0 6px 0;
+}
+
+tr:last-child td:first-child {
+	border-radius: 0 0 0 6px;
+}
+tr:last-child td:last-child {
+	border-radius: 0 0 6px 0;
+}
+tr:last-child div[id="manage-class-settings"] .settings-label {
+	line-height: 1.2;
+}
+tr:last-child.class-view-table-data td:first-child,
+tr:last-child.student-table-row td:first-child {
+	border-radius: 0 0 0 0;
+}
+tr:last-child.class-view-table-data td:last-child,
+tr:last-child.student-table-row td:last-child {
+	border-radius: 0 0 0 0;
+}
+
+tr.order_table_item td:first-child,
+tr.order_table_item td:last-child {
+	border-radius: 0 0 0 0;
+}
+
+.table-bordered > tbody > tr > td,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > td,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > thead > tr > th {
+	border-width: 1px 1px 0 0;
+}
+
+.table-bordered > tbody > tr > td:last-child,
+.table-bordered > tbody > tr > th:last-child,
+.table-bordered > tfoot > tr > td:last-child,
+.table-bordered > tfoot > tr > th:last-child,
+.table-bordered > thead > tr > td:last-child,
+.table-bordered > thead > tr > th:last-child {
+	border-right: none;
+}
+
+.dataTables_wrapper {
+	overflow-x: auto;
+}
+
+.class-view-table-data input,
+.dataTables_wrapper .dataTables_filter input {
+	margin-left: 0.5em;
+	display: inline-block;
+	padding: 4px 6px;
+	/* font-size: 14px; font-size: 1.4rem; */
+	line-height: 1;
+	color: #222;
+	vertical-align: middle;
+	border-radius: 4px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-webkit-transition: border linear 0.2s, -webkit-box-shadow linear 0.2s;
+	transition: border linear 0.2s, -webkit-box-shadow linear 0.2s;
+	transition: border linear 0.2s, box-shadow linear 0.2s;
+	transition: border linear 0.2s, box-shadow linear 0.2s, -webkit-box-shadow linear 0.2s;
+}
+
+table tr {
+	background-color: #fff;
+}
+
+table.dataTable tbody td,
+table.dataTable tbody th {
+	padding: 4px 8px !important;
+	/* Need to overwrite Plugin's dataTable.css */
+}
+
+table.dataTable.display tbody tr.even,
+table.dataTable.stripe tbody tr.even {
+	background-color: #fff !important;
+}
+
+table.dataTable.display tbody tr.even > .sorting_1,
+table.dataTable.order-column.stripe tbody tr.even > .sorting_1 {
+	background-color: #cce1ea !important;
+}
+
+table.dataTable.display tbody tr.even:hover > .sorting_1,
+table.dataTable.order-column.stripe tbody tr.even > .sorting_1:hover {
+	background-color: #bfd8e5 !important;
+}
+
+table.dataTable.display tbody tr.odd,
+table.dataTable.stripe tbody tr.odd {
+	background-color: #f1f6fc !important;
+}
+
+table:not(.student-view) tr.row-odd {
+	background-color: #fff !important;
+}
+
+table.dataTable.display tbody tr.odd > .sorting_1,
+table.dataTable.order-column.stripe tbody tr.odd > .sorting_1 {
+	background-color: #bfd8e5 !important;
+}
+
+/* Need to overwrite Plugin's dataTable.css */
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th {
+	background-color: #bfd8e5 !important;
+}
+
+table.dataTable.display tbody tr.even:hover,
+table.dataTable.display tbody tr.odd:hover,
+table.dataTable.display tbody tr:hover,
+table.dataTable.hover tbody tr.even:hover,
+table.dataTable.hover tbody tr.odd:hover,
+table.dataTable.hover tbody tr:hover,
+tr.row-odd:hover {
+	background-color: #bfd8e5 !important;
+}
+
+table.dataTable thead .sorting_asc {
+	background: url("//cdn1.wushka.com.au/Resources/wk-sort_asc.png") no-repeat center right !important;
+}
+
+table.dataTable thead .sorting_desc {
+	background: url("//cdn1.wushka.com.au/Resources/wk-sort_desc.png") no-repeat center right !important;
+}
+
+.dataTables_wrapper .dataTables_filter {
+	margin-bottom: 8px;
+}
+.dataTables_wrapper .dataTables_filter label {
+	color: #fff;
+	margin-bottom: 0;
+}
+
+/* Pagination Button Group */
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.next,
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous {
+	border-width: 0 0 1px !important;
+	font-size: 16px;
+	font-size: 1.6rem;
+	/*padding: 8px 12px 6px;*/
+	padding: 10px 12px;
+	line-height: 1;
+	background-color: #f3f3f3 !important;
+	border-color: #8e8f92 !important;
+	/* background: linear-gradient(to bottom, #f3f3f3, #bfc0c2) !important; */
+	margin: 0;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous {
+	border-radius: 2px 0 0 2px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.next {
+	border-radius: 0 2px 2px 0;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+	background-color: #bfc0c2 !important;
+	border-color: #5f6062 !important;
+	/* background: linear-gradient(to bottom, #f3f3f3, #8e8f92) !important; */
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled:hover {
+	color: #a2a2a2 !important;
+	/* background: linear-gradient(to bottom, #f3f3f3, #B2B2B2) !important; */
+	border-color: #a2a2a2 !important;
+}
+
+.class-view-table-data select.input-sm {
+	height: 40px !important;
+}
+
+.dataTables_wrapper div[role="status"] {
+	color: #333;
+	display: inline-block;
+	padding: 4px 10px;
+	background-color: #f6f6f6;
+	margin-top: 8px;
+	border-radius: 25px;
+	//float: right;
+}
+
+/* dataTable form - Error validation */
+.edit-child label.error {
+	font-weight: bold;
+	color: red;
+	padding: 2px 8px;
+	margin-top: 2px;
+	color: #a94442;
+	background-color: #f2dede;
+	padding: 3px 10px;
+	margin-bottom: 0;
+	border: 1px solid transparent;
+	border-radius: 0;
+	list-style-type: none;
+	font-size: 16px;
+	font-size: 1.6rem;
+	margin-top: 5px;
+}
+.edit-child label.error:before {
+	/* Triangle size & direction */
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid #f2dede;
+	/* Position of the triangle */
+	position: absolute;
+	top: auto;
+	right: auto;
+	bottom: 30px;
+	left: 30px;
+	display: block;
+	-o-border-image: none;
+	border-image: none;
+	z-index: 3;
+	content: "";
+}
+
+a.list-group-item {
+	color: #555;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

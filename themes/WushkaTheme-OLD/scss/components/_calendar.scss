@@ -1,0 +1,94 @@
+/* CALENDAR STYLES */
+td.cala_day:nth-child(1) a,
+td.cala_day:nth-child(7) a {
+    display: none;
+}
+
+.page-school-calendar tr:last-child td:first-child,
+.page-school-calendar tr:last-child td:last-child {
+    border-radius: 0;
+}
+
+#pop_table *,
+.cal_event p,
+.caltext_color_other_months span,
+.calyear_table *,
+.week_days {
+    font-family: LatoRegular, Arial, Helvetica, sans-serif !important;
+    text-shadow: none !important;
+}
+
+div[id="cal_event"] {
+    background-color: white !important;
+    border: none;
+    padding: 5px;
+    margin: 3px;
+    border-radius: 3px;
+}
+
+#bigcalendar1 {
+    margin-top: 35px;
+}
+
+#bigcalendar1 .top_table {
+    border-bottom: 1px solid #3a9ac0;
+}
+
+#bigcalendar1 .cala_arrow a:link,
+#bigcalendar1 .cala_arrow a:visited {
+    font-size: 25px !important;
+}
+
+#bigcalendar1 .general_table table tr:last-child > td:first-child > div,
+#bigcalendar1 .general_table table tr:last-child > td:last-child > div {
+    opacity: 1 !important;
+    background-color: #577d9e !important;
+}
+
+#bigcalendar1 .caltext_color_other_months {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+#bigcalendar1 .calyear_table td:nth-child(3) span {
+    color: #577d9e !important;
+    font-size: 32px !important;
+    font-weight: bold !important;
+}
+
+#bigcalendar1 .cala_arrow a {
+    color: #bdbdbd !important;
+}
+
+#bigcalendar1 .week_days {
+    color: #fff;
+}
+
+.cala_day p,
+.caltext_color_other_months span {
+    line-height: 1.8 !important;
+}
+
+#cats li {
+    margin-right: 10px;
+}
+
+#cats .categories1 {
+    display: inline-block;
+    min-width: auto;
+    min-height: auto;
+    padding: 0;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 1.2;
+    vertical-align: text-bottom;
+}
+
+#cats .categories2 {
+    left: -12px;
+}
+
+.school-calendar-heading-year:not(:first-child) {
+    margin-top: 30px;
+}
+
+/* End of CALENDAR STYLES */

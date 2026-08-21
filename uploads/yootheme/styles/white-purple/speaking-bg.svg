@@ -1,0 +1,52 @@
+<svg width="2560" height="6000" viewBox="0 0 2560 6000" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        svg {
+        animation-name: svg-hue-rotation;
+        animation-duration: 15s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes svg-hue-rotation {
+        0%, 100% { filter: hue-rotate(0); }
+        50% { filter: hue-rotate(30deg); }
+      }
+
+      .svg-ribbon-1 {
+        animation-name: svg-ribbon-animation;
+        animation-duration: 30s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes svg-ribbon-animation {
+        0%, 100% { transform: scale(1, 1.4) translateY(0); }
+        50% { transform: scale(1, 1) translateY(1400px); }
+      }
+
+      .svg-ribbon-2 {
+        animation-name: svg-ribbon-animation;
+        animation-duration: 30s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes svg-ribbon-animation {
+        0%, 100% { transform: scale(1, 1.2) translateY(0); }
+        50% { transform: scale(1, 1) translateY(200px); }
+      }
+    </style>
+    <g class="svg-ribbon-1">
+        <polygon fill="#6804CC" points="2804.05 2519.88 2379.55 3095.48 2749.15 2059.48 2804.05 2519.88" />
+        <polygon fill="#6804CC" points="3316.85 4108.68 3208.75 4282.78 2004.25 3374.28 2008.95 3116.48 3316.85 4108.68" />
+        <polygon fill="#7200E5" points="2804.05 2519.88 2379.55 3095.48 2004.25 3374.28 2008.95 3116.48 2804.05 2519.88" />
+    </g>
+    <g class="svg-ribbon-2">
+        <polygon fill="#6804CC" points="2579.32 1463.88 1844.02 1052.98 1741.32 753.08 2401.72 1123.78 2579.32 1463.88" />
+        <polygon fill="#6804CC" points="3421.42 -227.92 1741.32 753.08 2161.02 266.38 3326.12 -406.62 3421.42 -227.92" />
+        <polygon fill="#6804CC" points="2562.25 1619.28 2334.65 1881.48 1934.05 1972.88 1964.85 1754.18 2562.25 1619.28" />
+        <polygon fill="#7200E5" points="2161.02 266.38 1844.02 1052.98 1741.32 753.08 2161.02 266.38" />
+        <polygon fill="#7200E5" points="2994.65 2302.88 2893.45 2478.28 1934.05 1972.98 1964.75 1754.18 2994.65 2302.88" />
+        <polygon fill="#7200E5" points="2579.32 1463.88 2562.25 1619.28 2334.65 1881.48 2401.72 1123.78 2579.32 1463.88" />
+    </g>
+</svg>

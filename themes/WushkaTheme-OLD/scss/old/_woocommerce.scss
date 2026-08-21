@@ -1,0 +1,838 @@
+/* WOOCOMMERCE / Bootstrap Styling  */
+/* Woo Tables (Before, they all had a .woocommerce class before [table] ) */
+.table-res table,
+table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  /* border: 1px solid $table-border-color;
+  background-color: #FFF; */
+}
+
+table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 2px solid $table-border-color;
+}
+
+table > tbody > tr > td,
+table > tbody > tr > th,
+table > tfoot > tr > td,
+table > tfoot > tr > th,
+table > thead > tr > td,
+table > thead > tr > th {
+  padding: 8px;
+  vertical-align: top;
+  border-top: 1px solid $table-border-color;
+}
+
+table > thead:first-child > tr > th {
+  border-top: none;
+}
+
+table > tbody > tr > td:last-child,
+table > tbody > tr > th:last-child,
+table > tfoot > tr > td:last-child,
+table > tfoot > tr > th:last-child,
+table > thead > tr > td:last-child,
+table > thead > tr > th:last-child {
+  border-right: none;
+  /* 1px solid #CCC */
+}
+
+table > tbody > tr > td.label {}
+
+table {
+  a:not(.button) {
+    /* color: $wk-cyan;
+    text-decoration: none; */
+  }
+  a:not(.button):hover {
+    /*color: $wk-cyan;
+     text-decoration: underline;*/
+  }
+}
+
+/* Show Children List */
+.show-children-list {
+  margin-top: 25px;
+}
+
+.child-profile {
+  // margin-top: 25px;
+  margin-top: 0;
+  @media screen and (min-width:768px) {
+    margin-top: 0;
+  }
+  margin-bottom: 25px;
+}
+
+.child-profile-inner {
+  padding: 10px;
+  border-radius: 2px;
+  border: none;
+  background-color: #F6F6F6;
+  color: #444;
+}
+
+.page-manage-child-list {
+  .child-profile:first-child .child-profile-inner {
+    background-color: #FFC107;
+    .child-profile-name {
+      background-color: #FFC107;
+    }
+  }
+}
+
+.child-profile-name {
+  text-align: center;
+  /* min-height: 202px; */
+}
+
+.child-profile-name .h3 {
+  margin: 0;
+}
+
+.child-profile-options {
+  text-align: center;
+}
+
+.btn-student-stats {
+  margin-top: 5px;
+}
+
+.avatar.avatar-100.photo {
+  border-radius: 50%;
+}
+/* Edit Child Profile */
+.user-profile-form {
+  input[type="submit"].btn-primary {
+    margin-top: 15px;
+    @media screen and (min-width:768px) {
+      margin-top: 0;
+    }
+  }
+}
+
+.form-date-dmy input {
+  width: 70px;
+}
+
+.page-child-add .glyphicon-search {
+  font-size: 18px;
+  font-size: 1.8rem;
+}
+
+.school-panel .btn-small {
+  padding: 2px;
+  line-height: 1;
+  margin-top: -5px;
+}
+
+/* Hidden elements to be displayed on Click */
+.has-error-wrapper {
+  display: none;
+}
+
+/* #section-results{ display:none; } */
+
+/* My-account-details */
+.page-my-account .wrapper-main {
+  /* @extend .grad-radial; */
+  height: 100vh;
+}
+
+.my-account-details {
+  h2,
+  h3 {
+    font-size: 24px;
+    font-size: 2.4rem;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    clear: both;
+  }
+}
+
+.myaccount_address {
+  margin-left: 15px;
+}
+
+.col-1.address {
+  margin-bottom: 70px;
+
+  .btn,
+  address {
+    margin-left: 15px;
+  }
+}
+
+.customer_details,
+.view-order-wrapper address p {
+  margin-left: 15px;
+  line-height: 1.4;
+}
+
+.order-info {
+  .mark,
+  mark {
+    padding: 0.2em;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+  }
+}
+
+.page-my-account .title {
+  h3 {
+    font-size: 16px;
+    font-size: 1.6rem;
+  }
+
+  .btn {
+    margin: 0;
+    padding: 2px 15px 0 !important;
+    line-height: 1.6;
+    margin-top: -4px !important;
+  }
+}
+
+.page-my-account {
+  .panel-info > .panel-heading {
+    color: #31708F;
+    background-color: #D9EDF7;
+    border: none;
+  }
+}
+/* Woocommerce Buttons */
+.button {
+  font-size: 16px;
+  font-size: 1.6rem;
+  line-height: 1.6;
+  font-weight: normal;
+  text-align: center;
+  /* padding: 8px 12px 6px; */
+  padding: 8px 20px 6px;
+  /* padding: 10px 12px; */
+  margin-bottom: 0;
+  display: inline-block;
+  vertical-align: top;
+  background-image: none;
+  border-width: 0 1px;
+  border-style: solid;
+  border: none;
+  border-radius: 2px;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* btn-default */
+  color: #333;
+  background-color: $btn-default;
+  border-color: $btn-default-border;
+  /* background: linear-gradient(to bottom, $btn-default, $btn-default-dark); */
+  &.active,
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: $btn-default-dark;
+    border-color: $btn-default-border-hover;
+    /* background: linear-gradient(to bottom, $btn-default, $btn-default-dark-hover); */
+  }
+}
+
+.my_account_subscriptions .button {
+  width: 100%;
+}
+
+table .button {
+  font-size: 16px;
+  font-size: 1.6rem;
+
+  &.cancel {
+    margin-top: 6px;
+  }
+}
+
+/* Btn Change Billing Address: */
+.place-order .button {
+  color: #FFF;
+  background-color: $btn-primary;
+  border-color: $btn-primary-border;
+  /* background: linear-gradient(to bottom, $btn-primary, $btn-primary-dark); */
+  .button.active,
+  .button:active,
+  .button:focus,
+  .button:hover {
+    background-color: $btn-primary-dark;
+    border-color: $btn-primary-border-hover;
+    /* background: linear-gradient(to bottom, $btn-primary, $btn-primary-dark-hover); */
+  }
+}
+
+.button.save-address {
+  color: #FFF;
+  background-color: $btn-primary;
+  border-color: $btn-primary-border;
+  /* background: linear-gradient(to bottom, $btn-primary, $btn-primary-dark); */
+  &.active,
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: $btn-primary-dark;
+    border-color: $btn-primary-border-hover;
+    /* background: linear-gradient(to bottom, $btn-primary, $btn-primary-dark-hover); */
+  }
+}
+
+/* Btn Upgrade Subscription: */
+.button.switch {
+  color: #FFF;
+  background-color: $btn-primary;
+  border-color: $btn-primary-border;
+  /* background: linear-gradient(to bottom, $btn-primary, $btn-primary-dark); */
+  margin-bottom: 5px;
+
+  &.active,
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: $btn-primary-dark;
+    border-color: $btn-primary-border-hover;
+    /* background: linear-gradient(to bottom, $btn-primary, $btn-primary-dark-hover); */
+  }
+}
+
+/* btn-Primary */
+.button.renew {
+  color: #FFF;
+  background-color: $btn-primary;
+  border-color: $btn-primary-border;
+  /* background: linear-gradient(to bottom, $btn-primary, $btn-primary-dark); */
+  &.active,
+  &:active,
+  &:focus,
+  &:hover {
+    text-decoration: none;
+    background-color: $btn-primary-dark;
+    border-color: $btn-primary-border-hover;
+    /* background: linear-gradient(to bottom, $btn-primary, $btn-primary-dark-hover); */
+  }
+}
+
+.pagination .selected {
+  color: #fff;
+}
+
+.lzpromocode {
+  margin-top: -12px;
+}
+
+[id="update_all_subscriptions_addresses_field"] {
+  margin-left: 0;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  @media screen and (min-width:590px) {
+    margin-left: 215px;
+  }
+}
+
+.button.pdf {
+  margin-left: 4px;
+}
+
+.myaccount_user .btn {
+  vertical-align: baseline;
+}
+/* Woocommerce Forms | General Styles */
+.woo-btn-wrapper {
+  margin-top: 20px;
+}
+
+.input-text,
+input[type="text"] {
+  display: inline-block;
+  padding: 4px 8px;
+  /* margin-bottom: 10px; */
+  font-size: 14px;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #222;
+  /* vertical-align: middle; */
+  border-radius: 2px;
+  background-color: #FFF;
+  border: 1px solid #CCC;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+
+.woocommerce .input-text,
+.woocommerce input[type="text"] {
+  width: 330px;
+}
+
+.wushka-login-wrapper input[type="password"],
+.wushka-login-wrapper input[type="text"] {
+  width: 100%;
+}
+
+.wushka-login-wrapper {
+  .login-heading {
+    padding-bottom: 10px;
+    margin-left: -15px;
+  }
+
+  p {
+    line-height: 1.4;
+  }
+}
+
+input {
+  vertical-align: middle;
+  /* Fixes Coupon Code Btn vertical alignment on Checkout Page */
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  vertical-align: baseline;
+}
+
+.country_select,
+.state_select,
+.woocommerce .select {
+  font-size: 14px;
+  font-size: 1.4rem;
+  line-height: 1.8;
+  background-color: #fff;
+  background-image: linear-gradient(#fff 20%, #f6f6f6 50%, #eee 52%, #f4f4f4 100%);
+  border-radius: 5px;
+  background-clip: padding-box;
+  border: 1px solid #aaa;
+  box-shadow: 0 0 3px #fff inset, 0 1px 1px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  /* padding: 0 0 0 8px; */
+  padding: 0;
+  color: #444;
+  text-decoration: none;
+  width: 330px;
+}
+
+.woocommerce label {
+  font-size: 16px;
+  font-size: 1.6rem;
+  display: inline-block;
+  text-align: right;
+  padding-top: 5px;
+  margin-bottom: 0;
+  font-weight: bold;
+  min-width: 200px;
+  vertical-align: middle;
+}
+
+a.lost_password {
+  color: $wk-cyan;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.woocommerce .control-label label {
+  min-width: 100%;
+  padding-top: 0;
+  color: #444;
+}
+
+.form-horizontal .control-label {
+  padding-right: 0;
+}
+/* Woo Checkout Page */
+.billing-address-form label,
+.checkout label {
+  margin-right: 15px;
+  padding-left: 0;
+  float: left;
+  /* <-- Added to make the Countries menu on the Billing Address form properly align left */
+  text-align: left;
+  @media screen and (min-width:590px) {
+    text-align: left;
+  }
+}
+
+.payment_methods label {
+  text-align: left;
+  padding-top: 0;
+  margin-left: 0;
+}
+
+.woocommerce .payment-image {
+  width: 120px;
+  height: 40px;
+  display: inline-block;
+}
+
+.woocommerce .payment-image#payment-img-vm {
+  background: url('img/payment/visa_mastercard.jpg');
+  background-size: 120px 40px;
+}
+/* Form-checkout.php Styles */
+.woocommerce .woocommerce-error {
+  margin: 0 15px 2em !important;
+}
+
+.woocommerce label {
+  text-align: left!important;
+  padding-top: 0;
+}
+
+#payment.woocommerce-checkout-payment {
+  background: transparent;
+}
+
+#payment ul.payment_methods {
+  padding: 10px 5px !important;
+}
+
+#payment li input[id^="payment_method_"] {
+  float: left;
+  margin: 7px 5px 0 0 !important;
+}
+
+#payment .payment_methods label {
+  min-width: 140px;
+  /* height: 35px; */
+}
+
+#payment h3.payment-heading {
+  padding: 10px !important;
+  border-bottom: solid 1px #ddd;
+}
+
+#payment #payment .payment_box {
+  background-color: #EEE!important;
+  margin: 10px 0 !important;
+  padding: 10px !important;
+  border-radius: 10px!important;
+  width: 100%!important;
+}
+
+#payment .payment_box fieldset input[type="radio"] {
+  float: left;
+  /* margin: 15px 10px 0 0!important; */
+  margin: 8px 5px 0 0 !important;
+  clear: left;
+}
+
+#payment .payment_box .payment-box-description {
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+#payment .payment_box .btn-manage-cards {
+  margin-bottom: 0 20% !important;
+}
+
+#payment .payment_box .form-row {
+  margin: 0 !important;
+}
+
+#payment .payment_box .card-wrap {
+  height: 35px;
+}
+
+#payment .payment_box .card-wrap input[type="radio"] {
+  margin: 10px !important;
+  float: left;
+}
+
+#payment div.payment_box:after {
+  border: 8px solid #D32F2F!important;
+  border-right-color: rgba(0, 0, 0, 0)!important;
+  border-left-color: rgba(0, 0, 0, 0)!important;
+  border-top-color: rgba(0, 0, 0, 0)!important;
+}
+
+#payment .form-group.place-order {
+  margin: 0;
+  padding: 0;
+
+  p {
+    margin: 0 0 5px;
+  }
+}
+
+#payment label[for="terms"] {
+  /* width:89%;
+    font-size:1.4rem; */
+  width: initial !important;
+  float: none;
+  margin: 0 0 0 8px !important;
+  display: inline;
+}
+
+.select2-container .select2-choice {
+  padding: 4px 8px;
+}
+
+.woocommerce-checkout #payment div.payment_box span.help {
+  font-size: 13px;
+  color: #777;
+  font-weight: normal;
+  display: block;
+  line-height: 1.2;
+  margin-top: 5px;
+}
+
+.woocommerce form .form-row-first,
+.woocommerce form .form-row-last,
+.woocommerce-page form .form-row-first,
+.woocommerce-page form .form-row-last {
+  width: 100%;
+  @media screen and (min-width:768px) {
+    width: 47%;
+  }
+}
+
+label[for="cc-cvc"],
+label[for="cc-expiry-month"] {
+  float: none;
+  @media screen and (min-width:768px) {
+    float: left;
+  }
+}
+
+#place_order {
+  margin-top: 15px;
+}
+
+.payment_method_paypal {
+  margin-bottom: 45px !important;
+}
+
+.payment_method_cheque {
+  display: block;
+  margin-top: 35px !important;
+}
+
+label[for="payment_method_cheque"] {
+  margin-top: -38px;
+  margin-left: 18px;
+}
+
+#payment li input[id="payment_method_cheque"] {
+  margin-top: -31px !important;
+}
+
+.payment_box.payment_method_pin_payments {
+  .button {
+    float: right;
+    border-radius: 3px !important;
+    line-height: 1.6 !important;
+    padding: 8px 20px 6px;
+  }
+}
+
+.place-order .btn-primary[disabled] {
+  background-color: #ddd !important;
+  border-color: #ccc !important;
+}
+/* End of Form-checkout.php Styles */
+.woocommerce .payment-image#payment-img-pp {
+  background: url('img/payment/pp-acceptance-small.png');
+  background-size: 59px 39px;
+  width: 60px;
+}
+
+.payment_box {
+  margin-top: 5px;
+}
+
+.woocommerce .checkbox {
+  padding-top: 0;
+  margin: 0 5px 0 0;
+}
+
+.billing-address-form .checkbox {
+  margin-left: 5px;
+}
+
+.woocommerce-checkout .form-row .chzn-container {
+  width: 330px;
+  vertical-align: middle;
+}
+
+.chzn-container {
+  font-size: 14px;
+  font-size: 1.4rem;
+}
+
+.message-browser {
+  font-size: 14px;
+  background: #F6F6F6;
+  padding: 15px;
+  border-radius: 2px;
+}
+/* Set height for input fields cross-browser -------------------------------------------- */
+.woocommerce-checkout .form-row .chzn-container-single .chzn-single {
+  height: 35px;
+  line-height: 35px;
+}
+
+.input-text,
+input[type="text"] {
+  min-height: 35px;
+}
+
+.country_select,
+.state_select,
+.woocommerce .select {
+  /* height: 35px; */
+}
+/* End of Set height for input fields cross-browser -------------------------------------------- */
+.lzpromocode {
+  vertical-align: bottom;
+}
+
+.terms {
+  margin-top: 10px;
+}
+/* Billing Address */
+.checkbox {
+  margin-top: 0;
+  padding-top: 0;
+}
+/* Woommerce alerts */
+.woocommerce-error {
+  color: #A94442;
+  background-color: #F2DEDE;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 0;
+  list-style-type: none;
+  font-size: 16px;
+  font-size: 1.6rem;
+}
+
+.page-login {
+  .woocommerce-error,
+  .woocommerce-message {
+    max-width: 960px;
+    margin: 20px auto;
+  }
+  /* Hide footer if login page */
+  /* .footer-nav{ display:none; }
+      .footer-minimal{ display:none; }
+      .form-horizontal .control-label {
+          text-align:left !important;
+        @media screen and (min-width: 992px) {
+          text-align:right !important;
+        }
+      } */
+}
+
+.woocommerce-message {
+  color: #31708F;
+  background-color: #D9EDF7;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 0;
+  list-style-type: none;
+  font-size: 16px;
+  font-size: 1.6rem;
+}
+
+.woocommerce .woocommerce-error,
+.woocommerce .woocommerce-info,
+.woocommerce .woocommerce-message {
+  margin: 0 2em 1em !important;
+}
+/* Upgrade Table */
+.woocommerce .group_table label {
+  text-align: left;
+  font-weight: normal;
+}
+
+.group_table .label {
+  display: table-cell;
+  font-weight: normal;
+  line-height: 1;
+  color: #333;
+  text-align: left;
+  white-space: nowrap;
+  /* font-size: 14px; font-size: 1.4rem; */
+}
+/* Cancel Subscription Popup Window */
+/*.woocommerce .account-popup.sub-cancel {
+  display: block;
+  position: absolute;
+  border: solid 2px #000;
+  background: #FFF;
+  padding: 20px;
+  border-radius: 10px;
+  top: 170px;
+  left: 400px;
+  width: 400px;
+  height: auto;
+}*/
+.woocommerce .account-popup.sub-cancel {
+  position: fixed;
+  top: 5%;
+  width: 90%;
+  height: auto;
+  padding: 30px;
+  border-radius: 2px;
+  margin: 0;
+  left: 5%;
+  font-size: 1.6rem;
+  background-color: #FFF;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  outline: 0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  @media screen and (min-width:640px) {
+    top: 10%;
+  }
+  @media screen and (min-width:768px) {
+    top: 20%;
+    width: 40%;
+    left: 30%;
+  }
+
+  p {
+    line-height: 1.6;
+  }
+}
+
+.actions-btn-group {
+  text-align: right;
+  margin-top: 15px;
+
+  .btn {
+    width: 100%;
+    font-size: 16px;
+    font-size: 1.6rem;
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+    white-space: normal;
+    @media screen and (min-width:1024px) {
+      width: auto;
+      margin: 0;
+      display: inline-block;
+    }
+  }
+}
+
+.woocommerce .panel-heading h3 {
+  font-size: 18px;
+  font-size: 1.8rem;
+
+  .glyphicon {
+    margin-right: 5px;
+  }
+}

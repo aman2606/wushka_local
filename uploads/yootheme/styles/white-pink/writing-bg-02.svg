@@ -1,0 +1,36 @@
+<svg width="2560" height="2430" viewBox="0 0 2560 2430" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        svg {
+        animation-name: svg-hue-rotation;
+        animation-duration: 15s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes svg-hue-rotation {
+        0%, 100% { filter: hue-rotate(0); }
+        50% { filter: hue-rotate(30deg); }
+      }
+
+      .svg-ribbon {
+        animation-name: svg-ribbon-animation;
+        animation-duration: 24s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes svg-ribbon-animation {
+        0%, 100% { transform: scale(1, 1); }
+        50% { transform: scale(1.2, 0.9); }
+      }
+    </style>
+    <g class="svg-ribbon">
+        <polygon fill="#EB2367" points="925.73 2261.95 737.43 2150.21 353.94 1922.64 353.94 1922.63 -64.25 1429.41 227.94 1604.77 898.57 2007.26 898.57 2007.27 925.73 2261.95" />
+        <polygon fill="#FD256E" points="925.73 2261.95 113.18 2975.55 -136.69 2925.62 898.57 2007.26 898.57 2007.27 925.73 2261.95" />
+        <polygon fill="#FD256E" points="353.94 1922.63 -64.25 1429.41 -422.5 538.63 -232.08 444.28 227.94 1604.77 353.94 1922.63" />
+    </g>
+    <g class="svg-ribbon">
+        <polygon fill="#EB2367" points="2494.85 629.39 2168.85 425.36 1257.11 -145.27 1346.75 -339.96 2009.77 75.21 2009.8 75.23 2494.84 629.38 2494.85 629.39" />
+        <polygon fill="#FD256E" points="2801.73 1305.29 2615.36 1408.19 2168.85 425.36 2009.77 75.21 2009.76 75.19 2009.8 75.23 2494.84 629.38 2494.85 629.39 2801.73 1305.29" />
+    </g>
+</svg>

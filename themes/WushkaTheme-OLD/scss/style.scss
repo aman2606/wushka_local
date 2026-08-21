@@ -1,0 +1,33 @@
+/*!
+Theme Name: wushka
+Theme URI:
+Author: Wushka online literacy
+Author URI:
+Description: Wushka literacy platform.
+Version: 2.1
+License:
+License URI:
+Copyright: (c) 2020 Wushka.
+*/
+
+@charset "UTF-8";
+//==============================================================================
+// Configuration
+//==============================================================================
+
+@import "base/fonts";
+@import "base/variables";
+@import "base/mixins";
+
+//==============================================================================
+// Components
+//==============================================================================
+/*@import "components/layout2";*/
+
+@import "components/helpers";
+@import "components/tables";
+@import "components/tabs";
+@import "components/calendar";
+@import "components/datepicker";
+@import "components/layout";
+@import "components/responsive";
