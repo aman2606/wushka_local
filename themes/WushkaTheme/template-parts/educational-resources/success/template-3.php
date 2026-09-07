@@ -252,7 +252,7 @@ $downloadables = $downloadableAssets;
                 <?php if (!empty($successPage['trial_image'])) { ?>
                     <img src="<?= $successPage['trial_image']; ?>" alt="" class="img-responsive">
                 <?php } else { ?>
-                    <img src="<?= get_template_directory_uri() . '/img/trial-success_u.png'; ?>" alt="" class="img-responsive">
+                    <img src="<?= get_stylesheet_directory_uri() . '/img/trial-success_u.png'; ?>" alt="" class="img-responsive">
 
                 <?php } ?>
             </div>

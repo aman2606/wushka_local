@@ -585,8 +585,8 @@ class Stamp_Student_QR
     private function stamp_text_field($a_data, $stamper, $s_header = FALSE, $b_long = FALSE,$fontFamily = 'Lato-Regular',$fontSize = 9)
     {
         //$font  = SetaPDF_Core_Font_Standard_Helvetica::create($this->o_document);
-        //echo get_template_directory() . '/fonts/lato-bold-webfont.ttf';
-        $font = SetaPDF_Core_Font_TrueType::create($this->o_document, get_template_directory() . "/fonts/{$fontFamily}.ttf", 'WinAnsiEncoding', ['auto']);
+        //echo get_stylesheet_directory() . '/fonts/lato-bold-webfont.ttf';
+        $font = SetaPDF_Core_Font_TrueType::create($this->o_document, get_stylesheet_directory() . "/fonts/{$fontFamily}.ttf", 'WinAnsiEncoding', ['auto']);
         //$font = SetaPDF_Core_Font_TrueType::create ( $this->o_document, 'stamp/library/SetaPDF/Core/Font/TrueType/SofiaPro.ttf', 'WinAnsiEncoding', 'auto');
         $stamp = new SetaPDF_Stamper_Stamp_Text($font);
 
@@ -616,7 +616,7 @@ class Stamp_Student_QR
     {
         //$font  = SetaPDF_Core_Font_Standard_Helvetica::create($this->o_document);
         //echo get_template_directory() . '/fonts/lato-bold-webfont.ttf';
-        $font = SetaPDF_Core_Font_TrueType::create($this->o_document, get_template_directory() . "/fonts/{$fontFamily}.ttf", 'WinAnsiEncoding', ['auto']);
+        $font = SetaPDF_Core_Font_TrueType::create($this->o_document, get_stylesheet_directory() . "/fonts/{$fontFamily}.ttf", 'WinAnsiEncoding', ['auto']);
         //$font = SetaPDF_Core_Font_TrueType::create ( $this->o_document, 'stamp/library/SetaPDF/Core/Font/TrueType/SofiaPro.ttf', 'WinAnsiEncoding', 'auto');
         $stamp = new SetaPDF_Stamper_Stamp_Text($font);
 

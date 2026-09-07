@@ -1,0 +1,72 @@
+/*
+ * @package     [FS] Toggle element for YOOtheme Pro
+ * @subpackage  fs-toggle
+ *
+ * @author      Flart Studio https://flart.studio
+ * @copyright   Copyright (C) 2008-2026 Flart Studio. All rights reserved.
+ * @license     Proprietary — https://flart.studio/license
+ * @link        https://flart.studio/yootheme-pro/toggle
+ * @build       (FLART_BUILD_NUMBER)
+ *
+ * PROPRIETARY AND CONFIDENTIAL
+ * Unauthorized sharing, redistribution, or modification prohibited.
+ */
+
+// Edit mode styles — only visible in builder preview
+.fs-toggle {
+
+  // Container: solid border (no split)
+  [data-edit-mode]:not(:has([data-fs-toggle-group])) {
+    border: 1px solid #ccc;
+  }
+
+  // Groups
+  [data-fs-toggle-group], [data-edit-mode][data-cls] {
+    position: relative;
+  }
+
+  [data-edit-mode] [data-fs-toggle-group] {
+    border: 1px dashed #1e87f0;
+
+    &::before {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      font-size: 11px;
+      color: #1e87f0;
+      content: "\2713";
+    }
+  }
+
+  // Hidden group — yellow
+  [data-edit-mode] [data-fs-toggle-group-hidden] {
+    border-color: #ccc;
+    opacity: 0.75;
+
+    &::before {
+      color: #ccc;
+      content: "\2715";
+    }
+  }
+
+  // Media cls group — muted
+  [data-edit-mode] [data-cls], [data-edit-mode][data-cls] {
+    border-color: #ccc;
+    opacity: 0.75;
+
+    &::before {
+      content: attr(data-cls);
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1;
+      padding: 2px 6px;
+      font-family: monospace;
+      font-size: 10px;
+      color: #ccc;
+      background: #fff;
+      border-bottom: 1px dashed #ccc;
+      border-left: 1px dashed #ccc;
+    }
+  }
+}

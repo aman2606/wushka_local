@@ -9,7 +9,7 @@ if( ! function_exists('add_action') ) {
 }
 
 require_once plugin_dir_path(__FILE__) . '../stamp/library/SetaPDF/Autoload.php';
-require_once get_template_directory().'/functions/ajax_student-statistics.php';
+require_once get_stylesheet_directory().'/functions/ajax_student-statistics.php';
 
 class Stamp_Student_Statistics {
     //Variable Parameters

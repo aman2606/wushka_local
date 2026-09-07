@@ -63,8 +63,8 @@ if ( 'lang="en-AU"' === $html_lang_attr ) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="p:domain_verify" content="0b1f38a6c5f52782dddde74afcc90cd1" />
 <title><?php wp_title( '|', true, 'right' ); ?></title>
-<link rel="shortcut icon" href="<?php echo esc_url( get_template_directory_uri() ); ?>/favicon.ico">
-<link href="<?php echo esc_url( get_template_directory_uri() ); ?>/style.css" rel="stylesheet">
+<link rel="shortcut icon" href="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/favicon.ico">
+<link href="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/style.css" rel="stylesheet">
 
 <?php wp_head(); ?>
 <style>

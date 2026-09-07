@@ -14,7 +14,7 @@ add_action('admin_enqueue_scripts', 'wushka_school_term_link_script');
 add_action('wp_enqueue_scripts', 'wushka_general_scripts');
 
 function lessonzone_scripts() {
-    $s_uri = get_template_directory_uri();
+    $s_uri = get_stylesheet_directory_uri();
 
     wp_enqueue_script('jquery-validate', $s_uri . '/js/jquery.validate.min.js', array('jquery'), NULL, TRUE);
     wp_enqueue_script('jquery-touchswipe', $s_uri . '/js/jquery.touchSwipe.min.js', array('jquery'), NULL, TRUE);
@@ -40,7 +40,7 @@ function wushka_school_term_link_script( $hook ) {
     if( 'edit-tags.php' !== $hook ) {
         return;
     }
-    $s_uri = get_template_directory_uri() . '/js/school_term-links.js';
+    $s_uri = get_stylesheet_directory_uri() . '/js/school_term-links.js';
     wp_enqueue_script('school_term_link_script', $s_uri, array('jquery'), FALSE, TRUE);
     wp_localize_script('school_term_link_script', 'school_account_terms', array(
         'ajax_url' => esc_url(wp_nonce_url(site_url("wp-admin/admin-ajax.php"), "wp-admin/admin-ajax.php")),
@@ -50,10 +50,10 @@ function wushka_school_term_link_script( $hook ) {
 
 //General Wushka Scripts
 function wushka_general_scripts() {
-    $s_uri = get_template_directory_uri() . '/js/jquery.form.2020.js';
+    $s_uri = get_stylesheet_directory_uri() . '/js/jquery.form.2020.js';
     wp_enqueue_script('jquery-ajaxSubmit', $s_uri, array('jquery'), NULL, TRUE);
 
-    $s_uri = get_template_directory_uri() . '/js/ereader_iframe.js';
+    $s_uri = get_stylesheet_directory_uri() . '/js/ereader_iframe.js';
     wp_enqueue_script('ereader_script', $s_uri, array('jquery'), NULL, TRUE);
     wp_localize_script('ereader_script', 'a_ereader_iframe',
         array(
@@ -63,11 +63,11 @@ function wushka_general_scripts() {
     );
 
     //Animated Buttons
-    $s_uri = get_template_directory_uri() . '/js/wushka_buttons.js';
+    $s_uri = get_stylesheet_directory_uri() . '/js/wushka_buttons.js';
     wp_enqueue_script('wushka_buttons_script', $s_uri, array('jquery'), FALSE, TRUE);
 
     if( is_page('new-teacher-confirmation') ) {
-        $s_uri = get_template_directory_uri() . '/js/teacher_confirmation.js';
+        $s_uri = get_s_directory_uri() . '/js/teacher_confirmation.js';
         wp_enqueue_script('teacher_confirm_script', $s_uri, array('jquery'), FALSE, TRUE);
         wp_localize_script('teacher_confirm_script', 'a_teacher_confirm',
             array(
@@ -76,7 +76,7 @@ function wushka_general_scripts() {
             )
         );
     } else if( is_page('new-trial-activation') ) {
-        $s_uri = get_template_directory_uri() . '/js/user_confirmation.js';
+        $s_uri = get_stylesheet_directory_uri() . '/js/user_confirmation.js';
         wp_enqueue_script('user_confirm_script', $s_uri, array('jquery'), FALSE, TRUE);
         wp_localize_script('user_confirm_script', 'a_user_confirm',
             array(
@@ -86,7 +86,7 @@ function wushka_general_scripts() {
         );
     } else if( is_page('child-add') ) {
         //Page JS
-        $s_uri = get_template_directory_uri() . '/js/school_create_child.js';
+        $s_uri = get_stylesheet_directory_uri() . '/js/school_create_child.js';
         wp_enqueue_script('user_script', $s_uri, array('jquery'), FALSE, TRUE);
         wp_localize_script('user_script', 'a_user_script',
             array(
@@ -97,7 +97,7 @@ function wushka_general_scripts() {
         //Google Maps JS
         wp_enqueue_script('google_script', 'https://maps.googleapis.com/maps/api/js?region=AU', array('jquery'), NULL, TRUE);
     } else if( is_page('view-schools') ) {
-        $s_uri = get_template_directory_uri() . '/js/bisdev_view-schools.js';
+        $s_uri = get_stylesheet_directory_uri() . '/js/bisdev_view-schools.js';
         wp_enqueue_script('view-schools_script', $s_uri, array('jquery'), FALSE, TRUE);
         wp_localize_script('view-schools_script', 'a_schools_script',
             array(
@@ -106,7 +106,7 @@ function wushka_general_scripts() {
             )
         );
     } else if( is_page('student-statistics') || is_page('my-page') ) {
-        $s_uri = get_template_directory_uri();
+        $s_uri = get_s_directory_uri();
         //CSS
         wp_register_style('student_statistics', $s_uri . '/css/teacher_student-statistics.css', __FILE__);
         wp_enqueue_style('student_statistics');
@@ -120,7 +120,7 @@ function wushka_general_scripts() {
             )
         );
     } else if( is_page('manage-class-list') ) {
-        $s_uri = get_template_directory_uri();
+        $s_uri = get_stylesheet_directory_uri();
         wp_register_style('page_mcl', $s_uri . '/css/teacher_manage-class-list.css', __FILE__);
         wp_enqueue_style('page_mcl');
     } else {

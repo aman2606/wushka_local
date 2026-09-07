@@ -22,7 +22,7 @@ if(isset($successPage) && !empty($successPage)){
     <div class="clearfix cheers">
         <div class="container">
             <div class="col-md-6 hidden-sm hidden-xs">
-                <img src="<?=  get_template_directory_uri().'/img/strategy-bookmarks-success.png'; ?>" alt="">
+                <img src="<?=  get_stylesheet_directory_uri().'/img/strategy-bookmarks-success.png'; ?>" alt="">
             </div>
             <div class="col-md-6 col-sm-12 content mt50">
                 <h1><?php echo $heading; ?></h1>
@@ -30,7 +30,7 @@ if(isset($successPage) && !empty($successPage)){
                 <a href="<?= esc_url(remove_query_arg(['AWSAccessKeyId', 'Expires', 'Signature'], get_field('downloadable_file'))); ?>" class="btn btn-primary" target="_blank" download style="background-color:<?=$args['button_colour'] ?>;border-color:<?=$args['button_colour'] ?>;"><?php echo $downloadButtonText; ?></a>
             </div>
             <div class="col-sm-12 visible-sm visible-xs">
-                <img src="<?=  get_template_directory_uri().'/img/strategy-bookmarks-success.png'; ?>" alt="">
+                <img src="<?=  get_stylesheet_directory_uri().'/img/strategy-bookmarks-success.png'; ?>" alt="">
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@ if(isset($successPage) && !empty($successPage)){
                         <a href="#"  class="btn btn-primary" style="background-color:<?=$args['button_colour'] ?>;border-color:<?=$args['button_colour'] ?>;"><?php echo $trialButtonText; ?></a>
                     </div>
                     <div class="col-md-6">
-                        <img src="<?= get_template_directory_uri().'/img/trial-success.png'; ?>" alt="" class="img-responsive">
+                        <img src="<?= get_stylesheet_directory_uri().'/img/trial-success.png'; ?>" alt="" class="img-responsive">
                     </div>   
                 </div>                     
             </div>

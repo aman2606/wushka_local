@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.1\n"
+"X-Generator: GlotPress/4.1.0\n"
 "Language: en_AU\n"
 "Project-Id-Version: Themes - Twenty Twenty-Four\n"
 
@@ -16,25 +16,25 @@ msgctxt "Template part name"
 msgid "Post Meta"
 msgstr "Post Meta"
 
-#: styles/fossil.json styles/ice.json styles/maelstrom.json theme.json
+#: theme.json styles/fossil.json styles/ice.json styles/maelstrom.json
 msgctxt "Font size name"
 msgid "Medium"
 msgstr "Medium"
 
-#: styles/fossil.json styles/ice.json styles/maelstrom.json theme.json
+#: theme.json styles/fossil.json styles/ice.json styles/maelstrom.json
 msgctxt "Font size name"
 msgid "Large"
 msgstr "Large"
 
-#: styles/fossil.json styles/ice.json theme.json
+#: theme.json styles/fossil.json styles/ice.json
 msgctxt "Font family name"
 msgid "Inter"
 msgstr "Inter"
 
 #. Author URI of the theme
 #. Translators: WordPress link.
-#: style.css patterns/footer-centered-logo-nav.php:22
-#: patterns/footer-colophon-3-col.php:91 patterns/footer.php:117
+#: style.css patterns/footer-centered-logo-nav.php:27
+#: patterns/footer-colophon-3-col.php:96 patterns/footer.php:122
 msgid "https://wordpress.org"
 msgstr "https://wordpress.org"
 
@@ -48,19 +48,19 @@ msgctxt "Template part name"
 msgid "Footer"
 msgstr "Footer"
 
-#: styles/fossil.json styles/ice.json styles/maelstrom.json theme.json
+#: theme.json styles/fossil.json styles/ice.json styles/maelstrom.json
 msgctxt "Font size name"
 msgid "Extra Large"
 msgstr "Extra Large"
 
-#: styles/ember.json styles/fossil.json styles/ice.json styles/maelstrom.json
-#: styles/mint.json styles/onyx.json styles/rust.json theme.json
+#: theme.json styles/ember.json styles/fossil.json styles/ice.json
+#: styles/maelstrom.json styles/mint.json styles/onyx.json styles/rust.json
 msgctxt "Color name"
 msgid "Contrast"
 msgstr "Contrast"
 
-#: styles/ember.json styles/fossil.json styles/ice.json styles/maelstrom.json
-#: styles/mint.json styles/onyx.json styles/rust.json theme.json
+#: theme.json styles/ember.json styles/fossil.json styles/ice.json
+#: styles/maelstrom.json styles/mint.json styles/onyx.json styles/rust.json
 msgctxt "Color name"
 msgid "Base"
 msgstr "Base"

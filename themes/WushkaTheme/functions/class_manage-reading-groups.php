@@ -58,7 +58,7 @@ class Manage_Reading_Groups
 
     public function load_stylesheets()
     {
-        $s_template_path = get_template_directory_uri();
+        $s_template_path = get_stylesheet_directory_uri();
         $script_vars = '<script>';
         $script_vars .= 'var thm_tmp_fnc_pth = "' . $s_template_path . '"; ';
         $script_vars .= 'var int_teacher_hash = "' . $this->_o_user->id_hash . '"; ';
@@ -66,7 +66,7 @@ class Manage_Reading_Groups
         $script_vars .= '</script>';
 
         echo $script_vars;
-        echo '<link rel="stylesheet" type="text/css" href="' . $s_template_path . '/css/teacher_manage-reading-groups.css?ver=' . filemtime(get_template_directory() . '/css/teacher_manage-reading-groups.css') . '">';
+        echo '<link rel="stylesheet" type="text/css" href="' . $s_template_path . '/css/teacher_manage-reading-groups.css?ver=' . filemtime(get_stylesheet_directory() . '/css/teacher_manage-reading-groups.css') . '">';
         echo '<script src="' . $s_template_path . '/js/teacher_manage-reading-groups.js?ver=' . get_bloginfo('version') . '"></script>';
     }
 

@@ -1,0 +1,173 @@
+{
+  "limit": {
+    "label": "Limit Output",
+    "description": "Limit the text output.",
+    "type": "checkbox",
+    "text": "Enable"
+  },
+  "style": {
+    "label": "Style",
+    "description": "Select a predefined text style, including color, size and font-family.",
+    "type": "select",
+    "options": {
+      "None": "",
+      "Heading 3X-Large": "heading-3xlarge",
+      "Heading 2X-Large": "heading-2xlarge",
+      "Heading X-Large": "heading-xlarge",
+      "Heading Large": "heading-large",
+      "Heading Medium": "heading-medium",
+      "Heading Small": "heading-small",
+      "Heading H1": "h1",
+      "Heading H2": "h2",
+      "Heading H3": "h3",
+      "Heading H4": "h4",
+      "Heading H5": "h5",
+      "Heading H6": "h6",
+      "Text Meta": "text-meta",
+      "Text Lead": "text-lead",
+      "Text Small": "text-small",
+      "Text Large": "text-large"
+    }
+  },
+  "style_label": {
+    "label": "Style",
+    "description": "Select a predefined text style, including color, size and font-family.",
+    "type": "select",
+    "options": {
+      "None": "",
+      "Heading 3X-Large": "heading-3xlarge",
+      "Heading 2X-Large": "heading-2xlarge",
+      "Heading X-Large": "heading-xlarge",
+      "Heading Large": "heading-large",
+      "Heading Medium": "heading-medium",
+      "Heading Small": "heading-small",
+      "Heading H1": "h1",
+      "Heading H2": "h2",
+      "Heading H3": "h3",
+      "Heading H4": "h4",
+      "Heading H5": "h5",
+      "Heading H6": "h6",
+      "Text Meta": "text-meta",
+      "Text Lead": "text-lead",
+      "Text Small": "text-small",
+      "Text Large": "text-large",
+      "Label": "label"
+    }
+  },
+  "font_family": {
+    "label": "Font Family",
+    "description": "Select an alternative font family.",
+    "type": "select",
+    "options": {
+      "None": "",
+      "Default": "default",
+      "Primary": "primary",
+      "Secondary": "secondary",
+      "Tertiary": "tertiary"
+    }
+  },
+  "transform": {
+    "label": "Text Transform",
+    "description": "The following options will transform text into uppercased, capitalized or lowercased characters..",
+    "type": "select",
+    "options": {
+      "None": "",
+      "Capitalize": "capitalize",
+      "Uppercase": "uppercase",
+      "Lowercase": "lowercase"
+    }
+  },
+  "color": {
+    "label": "Color",
+    "description": "Select the text color. If the Background option is selected, styles that don't apply a background image use the primary color instead.",
+    "type": "select",
+    "options": {
+      "None": "",
+      "Muted": "muted",
+      "Emphasis": "emphasis",
+      "Primary": "primary",
+      "Secondary": "secondary",
+      "Success": "success",
+      "Warning": "warning",
+      "Danger": "danger"
+    }
+  },
+  "text_align": {
+    "label": "Align",
+    "description": "Text align options. If the inherit option is selected, the column content will be aligned like the whole element.",
+    "default": "",
+    "type": "select",
+    "options": {
+      "Inherit": "",
+      "Left": "left",
+      "Center": "center",
+      "Right": "right"
+    }
+  },
+  "visibility": {
+    "label": "Visibility",
+    "description": "Show or hide the content on this device width and larger. If all elements are hidden, columns, rows and sections will hide accordingly.",
+    "type": "select",
+    "options": {
+      "Always": "",
+      "Visible Small (Phone Landscape)": "uk-visible@s",
+      "Visible Medium (Tablet Landscape)": "uk-visible@m",
+      "Visible Large (Desktop)": "uk-visible@l",
+      "Visible X-Large (Large Screens)": "uk-visible@xl",
+      "Hidden Small (Phone Landscape)": "uk-hidden@s",
+      "Hidden Medium (Tablet Landscape)": "uk-hidden@m",
+      "Hidden Large (Desktop)": "uk-hidden@l",
+      "Hidden X-Large (Large Screens)": "uk-hidden@xl"
+    }
+  },
+  "heading_decoration": {
+    "label": "Decoration",
+    "description": "Decorate the title with a divider, bullet or a line that is vertically centered to the heading.",
+    "type": "select",
+    "options": {
+      "None": "",
+      "Divider": "divider",
+      "Bullet": "bullet",
+      "Line": "line"
+    }
+  },
+  "margin": {
+    "label": "Margin Top",
+    "description": "Set the top margin. Note that the margin will only apply if the content field immediately follows another content field.",
+    "type": "select",
+    "options": {
+      "Small": "small",
+      "Default": "",
+      "Medium": "medium",
+      "Large": "large",
+      "X-Large": "xlarge",
+      "None": "remove"
+    }
+  },
+  "table_width_options": {
+    "Expand": "",
+    "Shrink": "shrink",
+    "Small": "small",
+    "Medium": "medium",
+    "Large": "large",
+    "XLarge": "xlarge",
+    "2XLarge": "2xlarge",
+    "Custom": "custom"
+  },
+  "element": {
+    "label": "HTML Element",
+    "description": "Choose one of the HTML elements to fit the semantic structure.",
+    "default": "div",
+    "type": "select",
+    "options": {
+      "h1": "h1",
+      "h2": "h2",
+      "h3": "h3",
+      "h4": "h4",
+      "h5": "h5",
+      "h6": "h6",
+      "div": "div",
+      "span": "span"
+    }
+  }
+}

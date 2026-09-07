@@ -541,7 +541,7 @@ class WP_REST_Students_Controller extends WP_REST_Controller {
 		} 
 		  
 		// Include edit-user-data.php to get access to functions
-		require_once get_template_directory(). '/edit-user-data.php';
+		require_once get_stylesheet_directory(). '/edit-user-data.php';
 		$id_hash = get_user_meta($id, 'id_hash', true);
 		
 		$args = [
@@ -713,7 +713,7 @@ class WP_REST_Students_Controller extends WP_REST_Controller {
 		$request->set_param( 'context', 'edit' );
 
 		$previous = $this->prepare_item_for_response( $user, $request );  
-		require_once get_template_directory(). '/edit-user-data.php';
+		require_once get_stylesheet_directory(). '/edit-user-data.php';
 		$id_hash = get_user_meta($id, 'id_hash', true);
 		 
 

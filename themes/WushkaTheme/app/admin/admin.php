@@ -23,7 +23,7 @@ function wushka_admin_custom_css_js($hook_suffix){
     }
 
     wp_enqueue_style('datatables', '//cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css');
-    wp_enqueue_style('datatables-custom', get_template_directory_uri(). '/css/admin/export-data.css');
+    wp_enqueue_style('datatables-custom', get_stylesheet_directory_uri(). '/css/admin/export-data.css');
 
     wp_enqueue_script('datatables', '//cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js');
 
@@ -33,7 +33,7 @@ function wushka_admin_custom_css_js($hook_suffix){
     wp_enqueue_script('datatables-fonts', 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js');
     wp_enqueue_script('datatables-html5', 'https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js');
 
-    wp_enqueue_script('datatables-init', get_template_directory_uri(). '/js/admin/export-data.js');
+    wp_enqueue_script('datatables-init', get_stylesheet_directory_uri(). '/js/admin/export-data.js');
 }
 add_action( 'admin_enqueue_scripts', 'wushka_admin_custom_css_js' );
 

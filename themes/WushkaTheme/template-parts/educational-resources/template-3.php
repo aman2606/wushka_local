@@ -1,7 +1,7 @@
 <style>
     .educational-resource li:before {
         padding: 6px 7px;
-        content: url('<?php echo get_template_directory_uri() ?>/img/icon_tick.svg');
+        content: url('<?php echo get_stylesheet_directory_uri() ?>/img/icon_tick.svg');
         font-family: FontAwesome;
         color: white;
         background: <?= $args['bullet_point_colour'] ?>;

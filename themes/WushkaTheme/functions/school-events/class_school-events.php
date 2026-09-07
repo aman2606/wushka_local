@@ -49,7 +49,7 @@ class School_Events {
     }
 
     public function load_stylesheets() {
-        $tmp_dir         = get_template_directory_uri() . '/functions/school-events/';
+        $tmp_dir         = get_stylesheet_directory_uri() . '/functions/school-events/';
         $a_stylesheets[] = '<link type="text/css" rel="stylesheet" href="' . $tmp_dir . 'css_school-events.css" />';
         $a_stylesheets[] = '<script type="text/javascript">';
         $a_stylesheets[] = 'var temp_fle_drctry = "' . $tmp_dir . '";';
@@ -235,6 +235,7 @@ class School_Events {
                 }
             }
         }
+
         return TRUE;
     }
 

@@ -1,0 +1,1122 @@
+{
+  "@import": "./element.php",
+  "name": "fs_table_item",
+  "title": "Item",
+  "width": 500,
+  "__fragment": true,
+  "placeholder": {
+    "props": {
+      "title": "Item"
+    }
+  },
+  "templates": {
+    "render": "./templates/template.php",
+    "content": "./templates/content.php"
+  },
+  "fields": {
+    "sublayout": {
+      "label": "Sublayouts",
+      "type": "content-items",
+      "item": "fragment",
+      "title": "name"
+    },
+    "title": {
+      "label": "Title",
+      "source": true
+    },
+    "description": {
+      "label": "Description",
+      "divider": true,
+      "description": "<code>NOTE:</code>Description text will be visible only if the title display is enabled.",
+      "type": "editor",
+      "source": true
+    },
+    "text_1": {
+      "label": "Text #1",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_1']"
+    },
+    "text_1_link": {
+      "label": "Link #1",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_1'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_1_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_1_link && !text_1_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_1'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_1_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_1'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_2": {
+      "label": "Text #2",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_2']"
+    },
+    "text_2_link": {
+      "label": "Link #2",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_2'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_2_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_2_link && !text_2_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_2'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_2_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_2'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_3": {
+      "label": "Text #3",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_3']"
+    },
+    "text_3_link": {
+      "label": "Link #3",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_3'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_3_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_3_link && !text_3_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_3'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_3_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_3'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_4": {
+      "label": "Text #4",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_4']"
+    },
+    "text_4_link": {
+      "label": "Link #4",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_4'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_4_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_4_link && !text_4_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_4'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_4_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_4'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_5": {
+      "label": "Text #5",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_5']"
+    },
+    "text_5_link": {
+      "label": "Link #5",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_5'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_5_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_5_link && !text_5_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_5'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_5_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_5'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_6": {
+      "label": "Text #6",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_6']"
+    },
+    "text_6_link": {
+      "label": "Link #6",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_6'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_6_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_6_link && !text_6_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_6'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_6_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_6'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_7": {
+      "label": "Text #7",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_7']"
+    },
+    "text_7_link": {
+      "label": "Link #7",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_7'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_7_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_7_link && !text_7_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_7'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_7_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_7'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_8": {
+      "label": "Text #8",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_8']"
+    },
+    "text_8_link": {
+      "label": "Link #8",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_8'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_8_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_8_link && !text_8_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_8'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_8_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_8'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_9": {
+      "label": "Text #9",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_9']"
+    },
+    "text_9_link": {
+      "label": "Link #9",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_9'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_9_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_9_link && !text_9_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_9'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_9_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_9'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_10": {
+      "label": "Text #10",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_10']"
+    },
+    "text_10_link": {
+      "label": "Link #10",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_10'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_10_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_10_link && !text_10_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_10'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_10_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_10'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_11": {
+      "label": "Text #11",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_11']"
+    },
+    "text_11_link": {
+      "label": "Link #11",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_11'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_11_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_11_link && !text_11_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_11'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_11_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_11'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_12": {
+      "label": "Text #12",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_12']"
+    },
+    "text_12_link": {
+      "label": "Link #12",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_12'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_12_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_12_link && !text_12_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_12'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_12_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_12'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_13": {
+      "label": "Text #13",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_13']"
+    },
+    "text_13_link": {
+      "label": "Link #13",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_13'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_13_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_13_link && !text_13_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_13'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_13_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_13'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_14": {
+      "label": "Text #14",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_14']"
+    },
+    "text_14_link": {
+      "label": "Link #14",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_14'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_14_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_14_link && !text_14_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_14'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_14_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_14'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_15": {
+      "label": "Text #15",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_15']"
+    },
+    "text_15_link": {
+      "label": "Link #15",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_15'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_15_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_15_link && !text_15_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_15'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_15_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_15'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_16": {
+      "label": "Text #16",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_16']"
+    },
+    "text_16_link": {
+      "label": "Link #16",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_16'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_16_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_16_link && !text_16_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_16'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_16_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_16'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_17": {
+      "label": "Text #17",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_17']"
+    },
+    "text_17_link": {
+      "label": "Link #17",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_17'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_17_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_17_link && !text_17_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_17'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_17_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_17'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_18": {
+      "label": "Text #18",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_18']"
+    },
+    "text_18_link": {
+      "label": "Link #18",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_18'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_18_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_18_link && !text_18_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_18'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_18_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_18'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_19": {
+      "label": "Text #19",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_19']"
+    },
+    "text_19_link": {
+      "label": "Link #19",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_19'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_19_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_19_link && !text_19_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_19'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_19_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_19'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_20": {
+      "label": "Text #20",
+      "type": "editor",
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_20']"
+    },
+    "text_20_link": {
+      "label": "Link #20",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_text_20'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_20_link_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "text_20_link && !text_20_link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_text_20'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "text_20_link_toggle": {
+      "type": "checkbox",
+      "divider": true,
+      "text": "Toggle (also used for sublayouts modal connect)",
+      "show": "this.builder.parent(this.node)['props']['show_text_20'] && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "label": {
+      "label": "Label",
+      "description": "<code>NOTE:</code>Label will be visible only if the title display is enabled.",
+      "type": "text",
+      "default": "",
+      "attrs": {
+        "placeholder": "Enter label text"
+      },
+      "source": true,
+      "enable": "title",
+      "show": "this.builder.parent(this.node)['props']['show_label']"
+    },
+    "label_color": {
+      "label": "Label Color",
+      "description": "Select label color.",
+      "default": "",
+      "type": "select",
+      "options": {
+        "Default": "",
+        "Success": "success",
+        "Warning": "warning",
+        "Danger": "danger",
+        "Custom": "custom"
+      },
+      "source": true,
+      "enable": "label && title",
+      "show": "label && this.builder.parent(this.node)['props']['show_label']"
+    },
+    "label_custom_color": {
+      "label": "Label Custom Color",
+      "divider": true,
+      "default": "#000000",
+      "type": "color",
+      "source": true,
+      "show": "label && label_color == 'custom' && this.builder.parent(this.node)['props']['show_label']"
+    },
+    "image": {
+      "label": "Image",
+      "type": "image",
+      "source": true,
+      "altRef": "%name%_alt",
+      "show": "this.builder.parent(this.node)['props']['show_image']"
+    },
+    "_fs_focal_point_panel": {
+      "type": "button-panel",
+      "description": "<code>IMPORTANT:</code> Requires YOOtheme Pro 4.x <br />Set a focal point to adjust the image focus when cropping.",
+      "panel": "fs_focal_point_settings",
+      "text": "Image Focal Point",
+      "show": "this.builder.parent(this.node)['props']['show_image'] && image"
+    },
+    "image_alt": {
+      "label": "Image Alt",
+      "description": "<code>SEO Optimization:</code> Alt text is applied to image tags to provide a text alternative for search engines.",
+      "attrs": {
+        "placeholder": "Describe your image here"
+      },
+      "source": true,
+      "enable": "image && !icon",
+      "show": "image && !icon && this.builder.parent(this.node)['props']['show_image']"
+    },
+    "image_aria_label": {
+      "label": "Image Aria-Label",
+      "description": "<code>WCAG Accessibility:</code> The aria-label attribute provides a way to place a descriptive text label on an object, such as a image, when there are no elements visible on the page that describe the object.",
+      "attrs": {
+        "placeholder": "Descriptive text label for the image"
+      },
+      "source": true,
+      "enable": "image && !icon",
+      "show": "image && !icon && this.builder.parent(this.node)['props']['show_image']"
+    },
+    "icon": {
+      "label": "Icon",
+      "description": "Instead of using a custom image, you can click on the pencil to pick an icon from the icon library.",
+      "type": "icon",
+      "source": true,
+      "enable": "!image",
+      "show": "!image && this.builder.parent(this.node)['props']['show_image']"
+    },
+    "image_title": {
+      "label": "Image Title",
+      "divider": true,
+      "description": "<code>W3C Optimization:</code> Image title text is an attribute used to provide additional information about the image.",
+      "attrs": {
+        "placeholder": "Describe your image here"
+      },
+      "source": true,
+      "enable": "image && !icon",
+      "show": "image && !icon && this.builder.parent(this.node)['props']['show_image']"
+    },
+    "link": {
+      "label": "Link",
+      "type": "link",
+      "description": "Enter or pick a link, an image or a video file.",
+      "attrs": {
+        "placeholder": "https://"
+      },
+      "source": true,
+      "enable": "!link_toggle || !link_toggle_modal_integration",
+      "show": "this.builder.parent(this.node)['props']['show_link']"
+    },
+    "link_item_target": {
+      "type": "checkbox",
+      "text": "Open the link in a new window",
+      "enable": "link && !link_toggle",
+      "show": "this.builder.parent(this.node)['props']['show_link']"
+    },
+    "link_toggle": {
+      "type": "checkbox",
+      "text": "Interactive toggle (also used for sublayouts modal connect)",
+      "enable": "!link_woo",
+      "show": "this.builder.parent(this.node)['props']['show_link']"
+    },
+    "link_toggle_modal_integration": {
+      "type": "checkbox",
+      "text": "Connect the modal automatically",
+      "enable": "!link_woo",
+      "show": "this.builder.parent(this.node)['props']['show_link'] && link_toggle && this.builder.parent(this.node)['props']['show_sublayout'] && this.builder.parent(this.node)['props']['sublayout_mode'] == 'modal' && this.builder.parent(this.node)['props']['sublayout_modal_wrap'] == 'all'"
+    },
+    "link_advanced": {
+      "type": "checkbox",
+      "text": "Advanced link settings",
+      "enable": "link",
+      "show": "this.builder.parent(this.node)['props']['show_link']"
+    },
+    "link_nofollow": {
+      "type": "checkbox",
+      "description": "Will be added automatically when using WooCommerce add to cart link integration.",
+      "label": "Nofollow",
+      "text": "Enable",
+      "enable": "link && link_advanced && !link_toggle && !link_woo",
+      "show": "link && link_advanced"
+    },
+    "link_noopener": {
+      "type": "checkbox",
+      "label": "Noopener",
+      "text": "Enable",
+      "enable": "link && link_advanced && !link_toggle",
+      "show": "link && link_advanced"
+    },
+    "link_noreferrer": {
+      "type": "checkbox",
+      "label": "Noreferrer",
+      "text": "Enable",
+      "enable": "link && link_advanced && !link_toggle",
+      "show": "link && link_advanced"
+    },
+    "link_prefetch": {
+      "type": "checkbox",
+      "label": "Prefetch",
+      "text": "Enable",
+      "enable": "link && link_advanced",
+      "show": "link && link_advanced"
+    },
+    "link_text": {
+      "label": "Link Text",
+      "description": "Set a different link text for this item.",
+      "attrs": {
+        "placeholder": "Read More"
+      },
+      "source": true,
+      "enable": "link",
+      "show": "this.builder.parent(this.node)['props']['show_link']"
+    },
+    "link_aria_label": {
+      "description": "<code>WCAG Accessibility:</code> The aria-label attribute provides a way to place a descriptive text label on an object, such as a link, when there are no elements visible on the page that describe the object.",
+      "label": "Aria Label",
+      "attrs": {
+        "placeholder": "Descriptive text label for the link"
+      },
+      "source": true,
+      "enable": "link && link_advanced",
+      "show": "link && link_advanced && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "link_title": {
+      "label": "Link Title",
+      "description": "<code>SEO Optimization:</code> Set a link title attribute for a link tooltips support.",
+      "attrs": {
+        "placeholder": "Description for the link"
+      },
+      "source": true,
+      "enable": "link && link_advanced",
+      "show": "link && link_advanced && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "link_modal_id": {
+      "label": "Modal ID",
+      "description": "Requires to create an unique ID for the modal and add the same ID in the link field with the leading <code>#</code> like: <code>#my-unique-modal-id</code>",
+      "source": true,
+      "attrs": {
+        "placeholder": "my-unique-modal-id"
+      },
+      "enable": "(!link_toggle || !link_toggle_modal_integration) && (link_toggle || text_1_link_toggle || text_2_link_toggle || text_3_link_toggle || text_4_link_toggle || text_5_link_toggle || text_6_link_toggle || text_7_link_toggle || text_8_link_toggle || text_9_link_toggle || text_10_link_toggle || text_11_link_toggle || text_12_link_toggle || text_13_link_toggle || text_14_link_toggle || text_15_link_toggle || text_16_link_toggle || text_17_link_toggle || text_18_link_toggle || text_19_link_toggle || text_20_link_toggle) && !link_woo",
+      "show": "(link_toggle || text_1_link_toggle || text_2_link_toggle || text_3_link_toggle || text_4_link_toggle || text_5_link_toggle || text_6_link_toggle || text_7_link_toggle || text_8_link_toggle || text_9_link_toggle || text_10_link_toggle || text_11_link_toggle || text_12_link_toggle || text_13_link_toggle || text_14_link_toggle || text_15_link_toggle || text_16_link_toggle || text_17_link_toggle || text_18_link_toggle || text_19_link_toggle || text_20_link_toggle) && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "link_modal_header_text": {
+      "label": "Modal Header Text",
+      "description": "<code>Sublayouts Modal Header Text</code> can be used only when wrapping all sublayouts into one modal window. Header display should be enabled in the Sublayouts/Modal setting section.",
+      "source": true,
+      "attrs": {
+        "placeholder": "Modal Header Text"
+      },
+      "enable": "(link_toggle || text_1_link_toggle || text_2_link_toggle || text_3_link_toggle || text_4_link_toggle || text_5_link_toggle || text_6_link_toggle || text_7_link_toggle || text_8_link_toggle || text_9_link_toggle || text_10_link_toggle || text_11_link_toggle || text_12_link_toggle || text_13_link_toggle || text_14_link_toggle || text_15_link_toggle || text_16_link_toggle || text_17_link_toggle || text_18_link_toggle || text_19_link_toggle || text_20_link_toggle) && link_modal_id && !link_woo",
+      "show": "(link_toggle || text_1_link_toggle || text_2_link_toggle || text_3_link_toggle || text_4_link_toggle || text_5_link_toggle || text_6_link_toggle || text_7_link_toggle || text_8_link_toggle || text_9_link_toggle || text_10_link_toggle || text_11_link_toggle || text_12_link_toggle || text_13_link_toggle || text_14_link_toggle || text_15_link_toggle || text_16_link_toggle || text_17_link_toggle || text_18_link_toggle || text_19_link_toggle || text_20_link_toggle) && link_modal_id && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "link_class": {
+      "label": "Link Class",
+      "description": "Set a custom classes to a link.",
+      "source": true,
+      "enable": "link && link_advanced",
+      "show": "link && link_advanced && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "link_attrs_tag": {
+      "label": "Link Attributes",
+      "type": "editor",
+      "editor": "code",
+      "divider": true,
+      "description": "Define one or more attributes for the link element. Separate attribute name and value by <code>=</code> character. One attribute per line. Examples: <code>uk-toggle</code> <code>uk-modal</code> <code>data-type=iframe</code> <code>download=&quot;&quot;</code>  <code>onclick=&quot;window.print();&quot;</code>. For multiple rel attributes use <code>rel=&quot;nofollow noreferrer&quot;</code>",
+      "source": true,
+      "enable": "link && link_advanced",
+      "show": "link && link_advanced && this.builder.parent(this.node)['props']['show_link']"
+    },
+    "rating": {
+      "label": "Rating",
+      "description": "Enter rating value from 0 to 5. You can also enter not integer values like: <code>2.5</code>, <code>3.5</code>, <code>4.5</code>",
+      "attrs": {
+        "placeholder": "0"
+      },
+      "source": true,
+      "show": "this.builder.parent(this.node)['props']['show_rating']"
+    },
+    "icon_color": {
+      "label": "Icon Color",
+      "description": "Set the icon color.",
+      "type": "select",
+      "options": {
+        "Inherit": "",
+        "Muted": "muted",
+        "Emphasis": "emphasis",
+        "Primary": "primary",
+        "Secondary": "secondary",
+        "Success": "success",
+        "Warning": "warning",
+        "Danger": "danger"
+      }
+    },
+    "show_checkbox": {
+      "label": "Checkboxes",
+      "type": "checkbox",
+      "description": "Show the checkboxes instead 0 and 1 numbers.",
+      "text": "Enable",
+      "source": true
+    },
+    "status": "${builder.statusItem}",
+    "source": "${builder.source}",
+    "item_id": {
+      "type": "text",
+      "label": "ID",
+      "description": "Define a unique identifier for the item.",
+      "source": true
+    },
+    "item_class": {
+      "type": "text",
+      "label": "Classes",
+      "description": "Define one or more class names for the item. Separate multiple classes with spaces.",
+      "source": true
+    },
+    "item_attrs_tag": {
+      "label": "Attributes",
+      "description": "Define one or more attributes for the item. Separate attribute name and value by <code>=</code> character. One attribute per line.",
+      "type": "editor",
+      "editor": "code",
+      "divider": true,
+      "source": true
+    },
+    "link_woo": {
+      "label": "WooCommerce",
+      "type": "checkbox",
+      "description": "<code>WooCommerce</code>Integrate WooCommerce AJAX Add to Cart button. <br /><u>Please set the item link first</u>, by choosing Add to Cart Link in the dynamic content sources and don't forget to <u>enable ajax add to cart feature</u> in the WooCommerce settings.",
+      "text": "Add to Cart",
+      "enable": "link",
+      "show": "this.builder.parent(this.node)['props']['show_link'] && !Joomla"
+    },
+    "link_woo_sku": {
+      "description": "<code>REQUIRED</code>Please mapp product SKU via dynamic content.",
+      "label": "Product SKU",
+      "attrs": {
+        "placeholder": "Product SKU"
+      },
+      "source": true,
+      "enable": "link && link_woo",
+      "show": "link && link_woo && this.builder.parent(this.node)['props']['show_link'] && !Joomla"
+    },
+    "link_woo_quantity": {
+      "description": "<code>REQUIRED</code>Sets default product quantity that will be added to the cart.",
+      "label": "Quantity",
+      "attrs": {
+        "placeholder": "1"
+      },
+      "source": true,
+      "enable": "link && link_woo",
+      "show": "link && link_woo && this.builder.parent(this.node)['props']['show_link'] && !Joomla"
+    }
+  },
+  "fieldset": {
+    "default": {
+      "type": "tabs",
+      "fields": [
+        {
+          "title": "Content",
+          "fields": [
+            "title",
+            "description",
+            "label",
+            "label_color",
+            "label_custom_color",
+            "image",
+            "_fs_focal_point_panel",
+            "image_alt",
+            "image_aria_label",
+            "icon",
+            "image_title",
+            "link",
+            "link_item_target",
+            "link_toggle",
+            "link_toggle_modal_integration",
+            "link_advanced",
+            "link_modal_id",
+            "link_modal_header_text",
+            {
+              "label": "Link Attributes",
+              "description": "<code>IMPORTANT</code> Please learn the implications for SEO and web security, before enabling those attributes.",
+              "type": "group",
+              "fields": [
+                "link_nofollow",
+                "link_noopener",
+                "link_noreferrer",
+                "link_prefetch"
+              ],
+              "show": "link && link_advanced && this.builder.parent(this.node)['props']['show_link']",
+              "enable": "link && link_advanced"
+            },
+            "link_text",
+            "link_aria_label",
+            "link_title",
+            "link_class",
+            "link_attrs_tag",
+            "rating"
+          ]
+        },
+        {
+          "title": "Fields",
+          "fields": [
+            "text_1",
+            "text_1_link",
+            "text_1_link_target",
+            "text_1_link_toggle",
+            "text_2",
+            "text_2_link",
+            "text_2_link_target",
+            "text_2_link_toggle",
+            "text_3",
+            "text_3_link",
+            "text_3_link_target",
+            "text_3_link_toggle",
+            "text_4",
+            "text_4_link",
+            "text_4_link_target",
+            "text_4_link_toggle",
+            "text_5",
+            "text_5_link",
+            "text_5_link_target",
+            "text_5_link_toggle",
+            "text_6",
+            "text_6_link",
+            "text_6_link_target",
+            "text_6_link_toggle",
+            "text_7",
+            "text_7_link",
+            "text_7_link_target",
+            "text_7_link_toggle",
+            "text_8",
+            "text_8_link",
+            "text_8_link_target",
+            "text_8_link_toggle",
+            "text_9",
+            "text_9_link",
+            "text_9_link_target",
+            "text_9_link_toggle",
+            "text_10",
+            "text_10_link",
+            "text_10_link_target",
+            "text_10_link_toggle",
+            "text_11",
+            "text_11_link",
+            "text_11_link_target",
+            "text_11_link_toggle",
+            "text_12",
+            "text_12_link",
+            "text_12_link_target",
+            "text_12_link_toggle",
+            "text_13",
+            "text_13_link",
+            "text_13_link_target",
+            "text_13_link_toggle",
+            "text_14",
+            "text_14_link",
+            "text_14_link_target",
+            "text_14_link_toggle",
+            "text_15",
+            "text_15_link",
+            "text_15_link_target",
+            "text_15_link_toggle",
+            "text_16",
+            "text_16_link",
+            "text_16_link_target",
+            "text_16_link_toggle",
+            "text_17",
+            "text_17_link",
+            "text_17_link_target",
+            "text_17_link_toggle",
+            "text_18",
+            "text_18_link",
+            "text_18_link_target",
+            "text_18_link_toggle",
+            "text_19",
+            "text_19_link",
+            "text_19_link_target",
+            "text_19_link_toggle",
+            "text_20",
+            "text_20_link",
+            "text_20_link_target",
+            "text_20_link_toggle"
+          ]
+        },
+        {
+          "title": "Sublayout",
+          "fields": [
+            "sublayout"
+          ]
+        },
+        {
+          "title": "Overrides",
+          "fields": [
+            {
+              "label": "Image",
+              "type": "group",
+              "divider": true,
+              "fields": [
+                "icon_color"
+              ]
+            },
+            {
+              "label": "Miscellaneous",
+              "type": "group",
+              "divider": true,
+              "fields": [
+                "show_checkbox"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Advanced",
+          "fields": [
+            "status",
+            "source",
+            "item_id",
+            "item_class",
+            "item_attrs_tag",
+            "link_woo",
+            "link_woo_sku",
+            "link_woo_quantity"
+          ]
+        }
+      ]
+    }
+  },
+  "panels": {
+    "fs_focal_point_settings": {
+      "title": "Image Focal Point",
+      "width": 500,
+      "fields": {
+        "lightbox_image_focal_point": {
+          "label": "Lightbox Image Focal Point",
+          "description": "<code>NOTE:</code>Lightbox width and height should be settled.<br />Set a focal point to adjust the image focus when cropping.",
+          "type": "select",
+          "options": {
+            "Top Left": "top-left",
+            "Top Center": "top-center",
+            "Top Right": "top-right",
+            "Center Left": "center-left",
+            "Center Center": "",
+            "Center Right": "center-right",
+            "Bottom Left": "bottom-left",
+            "Bottom Center": "bottom-center",
+            "Bottom Right": "bottom-right"
+          },
+          "source": true,
+          "enable": "this.builder.parent(this.node)['props']['show_lightbox'] && image"
+        },
+        "image_focal_point": {
+          "label": "Image Focal Point",
+          "description": "<code>NOTE:</code>Image width and height should be settled.<br />Set a focal point to adjust the image focus when cropping.",
+          "type": "select",
+          "options": {
+            "Top Left": "top-left",
+            "Top Center": "top-center",
+            "Top Right": "top-right",
+            "Center Left": "center-left",
+            "Center Center": "",
+            "Center Right": "center-right",
+            "Bottom Left": "bottom-left",
+            "Bottom Center": "bottom-center",
+            "Bottom Right": "bottom-right"
+          },
+          "source": true,
+          "enable": "this.builder.parent(this.node)['props']['show_image'] && image"
+        }
+      },
+      "fieldset": {
+        "default": {
+          "fields": [
+            "lightbox_image_focal_point",
+            "image_focal_point"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<!--
+  @package     [FS] Toggle element for YOOtheme Pro
+  @subpackage  fs-toggle
+
+  @author      Flart Studio https://flart.studio
+  @copyright   Copyright (C) 2008-2026 Flart Studio. All rights reserved.
+  @license     Proprietary — https://flart.studio/license
+  @link        https://flart.studio/yootheme-pro/toggle
+  @build       (FLART_BUILD_NUMBER)
+
+  PROPRIETARY AND CONFIDENTIAL
+  Unauthorized sharing, redistribution, or modification prohibited.
+-->
+<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path d="m10,3c4.12968,0,7.7916,5.33617,8.83276,7-1.04116,1.66383-4.70309,7-8.83276,7S2.2084,11.66383,1.16724,10c1.04116-1.66383,4.70309-7,8.83276-7m0-1C4.47715,2,0,10,0,10c0,0,4.47715,8,10,8s10-8,10-8c0,0-4.47715-8-10-8h0Z"
+          fill="#444"/>
+    <path d="m10,8c1.1028,0,2,.8972,2,2s-.8972,2-2,2-2-.8972-2-2,.8972-2,2-2m0-1c-1.65685,0-3,1.34315-3,3s1.34315,3,3,3,3-1.34315,3-3-1.34315-3-3-3h0Z"
+          fill="#444"/>
+</svg>

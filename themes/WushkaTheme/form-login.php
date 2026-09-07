@@ -237,6 +237,7 @@ get_header();
 <script src="https://unpkg.com/@ungap/global-this@0.4.4/min.js"></script>
 <script src="https://unpkg.com/html5-qrcode@2.2.1/html5-qrcode.min.js"></script>
 <script>
+
     function goToScanner() {
 
         jQuery('.login_with_QR').show();

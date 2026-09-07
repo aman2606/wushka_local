@@ -1,0 +1,19 @@
+<!--
+  @package     [FS] Grid Pro element for YOOtheme Pro
+  @subpackage  fs-grid
+
+  @author      Flart Studio https://flart.studio
+  @copyright   Copyright (C) 2008-2026 Flart Studio. All rights reserved.
+  @license     Proprietary — https://flart.studio/license
+  @link        https://flart.studio/yootheme-pro/grid-pro
+  @build       (FLART_BUILD_NUMBER)
+
+  PROPRIETARY AND CONFIDENTIAL
+  Unauthorized sharing, redistribution, or modification prohibited.
+-->
+<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <rect fill="none" stroke="#444" width="6" height="6" x="2.5" y="2.5"/>
+    <rect fill="none" stroke="#444" width="6" height="6" x="11.5" y="2.5"/>
+    <rect fill="none" stroke="#444" width="6" height="6" x="11.5" y="11.5"/>
+    <rect fill="none" stroke="#444" width="6" height="6" x="2.5" y="11.5"/>
+</svg>

@@ -23,7 +23,7 @@
                             <div class="inside">
                     
                                 <div class="input-text-wrap teacher-csv-div">
-                                    <label for="wsm_teacher_csv">Upload Teacher List ( <a href="<?php echo get_template_directory_uri() ?>/download-transfer-teacher-template.php">Download CSV Template</a> )</label>
+                                    <label for="wsm_teacher_csv">Upload Teacher List ( <a href="<?php echo get_stylesheet_directory_uri() ?>/download-transfer-teacher-template.php">Download CSV Template</a> )</label>
                                     <input type="file" class="form-control-file" name="wsm_teacher_csv" id="wsm_teacher_csv">
                                 </div>
 

@@ -37,7 +37,7 @@ if(isset($successPage) && !empty($successPage)){
 <!-- <div class="clearfix cheers">
     <div class="container">
         <div class="col-md-6 hidden-sm hidden-xs">
-            <img src="<?= get_template_directory_uri() . '/img/strategy-bookmarks-success.png'; ?>" alt="">
+            <img src="<?= get_stylesheet_directory_uri() . '/img/strategy-bookmarks-success.png'; ?>" alt="">
         </div>
         <div class="col-md-6 col-sm-12 content mt50">
             <h1>Cheers! Here’s <br />Your Download</h1>
@@ -45,7 +45,7 @@ if(isset($successPage) && !empty($successPage)){
             <a href="<?= esc_url(remove_query_arg(['AWSAccessKeyId', 'Expires', 'Signature'], get_field('downloadable_file'))); ?>" class="btn btn-primary" target="_blank" download>Download Now</a>
         </div>
         <div class="col-sm-12 visible-sm visible-xs">
-            <img src="<?= get_template_directory_uri() . '/img/strategy-bookmarks-success.png'; ?>" alt="">
+            <img src="<?= get_stylesheet_directory_uri() . '/img/strategy-bookmarks-success.png'; ?>" alt="">
         </div>
     </div>
 </div> -->
@@ -85,7 +85,7 @@ if(isset($successPage) && !empty($successPage)){
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6 trail_image">
-                        <img src="<?= get_template_directory_uri() . '/img/trial-success_u.png'; ?>" alt="" class="img-responsive">
+                        <img src="<?= get_stylesheet_directory_uri() . '/img/trial-success_u.png'; ?>" alt="" class="img-responsive">
                     </div>
                     <div class="col-md-6 trial_u">
                         <h2><?php echo $trialHeading; ?></h2>
@@ -109,7 +109,7 @@ if(isset($successPage) && !empty($successPage)){
                         <a href="#" class="btn btn-primary">Start a Trial</a>
                     </div>
                     <div class="col-md-6">
-                        <img src="<?= get_template_directory_uri() . '/img/trial-success.png'; ?>" alt="" class="img-responsive">
+                        <img src="<?= get_stylesheet_directory_uri() . '/img/trial-success.png'; ?>" alt="" class="img-responsive">
                     </div>
                 </div>
             </div>
