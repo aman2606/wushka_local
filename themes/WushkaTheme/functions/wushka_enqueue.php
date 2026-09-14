@@ -67,7 +67,7 @@ function wushka_general_scripts() {
     wp_enqueue_script('wushka_buttons_script', $s_uri, array('jquery'), FALSE, TRUE);
 
     if( is_page('new-teacher-confirmation') ) {
-        $s_uri = get_s_directory_uri() . '/js/teacher_confirmation.js';
+        $s_uri = get_stylesheet_directory_uri() . '/js/teacher_confirmation.js';
         wp_enqueue_script('teacher_confirm_script', $s_uri, array('jquery'), FALSE, TRUE);
         wp_localize_script('teacher_confirm_script', 'a_teacher_confirm',
             array(
@@ -106,7 +106,7 @@ function wushka_general_scripts() {
             )
         );
     } else if( is_page('student-statistics') || is_page('my-page') ) {
-        $s_uri = get_s_directory_uri();
+        $s_uri = get_stylesheet_directory_uri();
         //CSS
         wp_register_style('student_statistics', $s_uri . '/css/teacher_student-statistics.css', __FILE__);
         wp_enqueue_style('student_statistics');

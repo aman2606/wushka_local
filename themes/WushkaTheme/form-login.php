@@ -112,6 +112,12 @@ get_header();
         padding-right: 10px;
         cursor: pointer;
     }
+    #sticky-footer-wrapper{
+        display:none;
+    }
+    .qr_place{
+        object-fit: inherit
+    }
 </style>
 <section class="sso-login-wrapper container mt70 pb70">
     <div class="clearfix">

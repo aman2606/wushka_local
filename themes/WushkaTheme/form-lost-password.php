@@ -20,6 +20,13 @@ if (isset($_GET['errors'])) {
 $args['form'] = 'lost_password';
 ?>
 <style>
+.mta-bar-top{
+	display:none !important;
+}
+ #sticky-footer-wrapper{
+        display:none;
+    }
+
 @media (min-width: 768px) {
 .role- .wrapper-main{min-height:518px}
 }

@@ -415,6 +415,20 @@ if ($extension == 'nz') {
 <?php /*----- END READER MODAL-----*/ ?>
 
 </div> <!-- End of .wrapper-main -->
+<?php
+if (function_exists('wushka_yootheme_header_pages') && is_page(wushka_yootheme_header_pages()) && function_exists('\YOOtheme\app')) {
+    try {
+        $cfg = \YOOtheme\app('config');
+        $view = \YOOtheme\app('view');
+        dynamic_sidebar('bottom');
+        if ($cfg('~theme.footer.content')) {
+            echo '<footer>';
+            echo $view->builder($cfg('~theme.footer.content'), 'footer');
+            echo '</footer>';
+        }
+    } catch (\Throwable $e) {}
+}
+?>
 <?php $s_uri = $_SERVER['REQUEST_URI']; ?>
 <?php if (($s_uri == '/stories/' && !is_user_logged_in()) || ((is_home() || !is_user_logged_in()) && $s_uri != '/stories/')) { ?>
     <aside class="footer-nav padding-y">

@@ -36,6 +36,12 @@ add_action('after_setup_theme', function () {
 //     parent directory. Acts as a guaranteed safety net if Layer 1 misses
 //     anything (e.g. after a YOOtheme update adds a new asset key).
 //
+// Pages (by slug) that should render the YooTheme navbar instead of the Bootstrap header.
+// Add page slugs here to extend the list.
+function wushka_yootheme_header_pages() {
+    return ['login','lost-password'];
+}
+
 // Builder page detection: YOOtheme stores its JSON layout as an HTML comment
 // at the start of post_content: <!-- {"type":"layout",...} -->
 // ---------------------------------------------------------------------------
@@ -94,6 +100,7 @@ add_action('wp_head', function () {
 // Fires at priority 7 — just before YOOtheme's own printStyles at priority 8.
 add_action('wp_head', function () {
     if (wushka_is_yootheme_builder_page()) return;
+    if (is_page(wushka_yootheme_header_pages())) return; // these pages use YooTheme header; keep UIkit assets
     if (!function_exists('\YOOtheme\app')) return;
     try {
         $meta = \YOOtheme\app('metadata');
@@ -112,7 +119,7 @@ add_action('wp_head', function () {
 // consumes WordPress's own ob_start() buffer (which is always open, level ≥ 1).
 $wushka_ob_head = false;
 add_action('wp_head', function () use (&$wushka_ob_head) {
-    if (!wushka_is_yootheme_builder_page()) {
+    if (!wushka_is_yootheme_builder_page() && !is_page(wushka_yootheme_header_pages())) {
         ob_start();
         $wushka_ob_head = true;
     }
@@ -168,7 +175,7 @@ add_action('wp_head', function () use (&$wushka_ob_head) {
 // buffer alone is not enough — we need to strip the footer output too.
 $wushka_ob_footer = false;
 add_action('wp_footer', function () use (&$wushka_ob_footer) {
-    if (!wushka_is_yootheme_builder_page()) {
+    if (!wushka_is_yootheme_builder_page() && !is_page(wushka_yootheme_header_pages())) {
         ob_start();
         $wushka_ob_footer = true;
     }

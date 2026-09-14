@@ -492,6 +492,15 @@ function temp_meta_details()
     <!-- Fixed navbar -->
     <div class="wrapper-main">
         <h1 class="sr-only"><?php wp_title(); ?></h1>
+        <?php
+        $wushka_yootheme_nav_rendered = false;
+        if (function_exists('wushka_yootheme_header_pages') && is_page(wushka_yootheme_header_pages()) && function_exists('\YOOtheme\app')) {
+            try {
+                echo \YOOtheme\app('view')('~theme/templates/header');
+                $wushka_yootheme_nav_rendered = true;
+            } catch (\Throwable $e) {}
+        }
+        if (!$wushka_yootheme_nav_rendered) { ?>
         <?php if (is_user_logged_in() && is_super_admin() || is_admin() || user_can($current_user, "student") || user_can($current_user, "teacher") || user_can($current_user, "school")) { ?>
             <header class="navbar navbar-wushka" id="top" style="background-color:#fff !important">
                 <div class="container-fluid">
@@ -698,3 +707,4 @@ function temp_meta_details()
                                             </div>
                                         </div>
                                     <?php } ?>
+        <?php } // end !$wushka_yootheme_nav_rendered ?>
