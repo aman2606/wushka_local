@@ -3,7 +3,7 @@ global $current_user;
 if (!isset($_SESSION)) {
     session_start();
 }
-if (is_user_logged_in()) {
+if (is_page('home') && is_user_logged_in()) {
     if (is_super_admin() || is_admin() || user_can($current_user, "student")) {
         $active_user = get_user_meta($current_user->ID, 'active', true);
         if (user_can($current_user, "student") && !$active_user) {

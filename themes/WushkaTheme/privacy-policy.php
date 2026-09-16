@@ -185,7 +185,7 @@ if ($extension == 'nz') {
         <p class="main-para">We respect an individual’s choice to opt-out of direct marketing communications activities. Should you decide you do not wish to receive marketing or promotional materials from us, please contact us in writing or as directed in any particular promotional material you may receive. If you opt out of receiving marketing material from us, we may still contact you in relation to any ongoing relationship with you covered by this Privacy Policy.</p>
 
         <h2 class="sub-title">Cross Border disclosure</h2>
-        <p class="main-para">We may disclose personal information to third-party data storage facilities, software and service providers that may be located in Australia and other countries including but not limited to the United States of America and Japan.</p>
+        <p class="main-para">We may disclose personal information to third-party data storage facilities, software and service providers that may be located in Australia and other countries including but not limited to India, New Zealand and Phillippines.</p>
 
         <h2 class="sub-title">Adoption, use or disclosure of Governmental related identifiers</h2>
         <p class="main-para">We do not use Commonwealth Identifiers as a means of identifying the personal information we collect from you.</p>
