@@ -26,65 +26,65 @@ if ($extension == 'nz') {
   <div class="bubbles">
     <div class="b1">
       <picture>
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/webp/b-green-orange.webp" type="image/webp">
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/b-green-orange.png" type="image/jpeg">
-        <img src="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/b-green-orange.png" alt="">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/webp/b-green-orange.webp" type="image/webp">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/b-green-orange.png" type="image/jpeg">
+        <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/b-green-orange.png" alt="">
       </picture>
     </div>
     <div class="b2">
       <picture>
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/webp/b2-purple-s2.webp" type="image/webp">
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/b2-purple-s2.png" type="image/jpeg">
-        <img src="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/b2-purple-s2.png" alt="">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/webp/b2-purple-s2.webp" type="image/webp">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/b2-purple-s2.png" type="image/jpeg">
+        <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/b2-purple-s2.png" alt="">
       </picture>
     </div>
     <div class="b3">
       <picture>
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/webp/b-orange.webp" type="image/webp">
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/b-orange.png" type="image/jpeg">
-        <img src="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/b-orange.png" alt="">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/webp/b-orange.webp" type="image/webp">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/b-orange.png" type="image/jpeg">
+        <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/b-orange.png" alt="">
       </picture>
     </div>
     <div class="b4">
       <picture>
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/webp/b-green-orange.webp" type="image/webp">
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/b-green-orange.png" type="image/jpeg">
-        <img src="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/b-green-orange.png" alt="">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/webp/b-green-orange.webp" type="image/webp">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/b-green-orange.png" type="image/jpeg">
+        <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/b-green-orange.png" alt="">
       </picture>
     </div>
     <div class="b5">
       <picture>
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/decodable-library/webp/bubbles-blue.webp" type="image/webp">
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/decodable-library/bubbles-blue.png" type="image/jpeg">
-        <img src="<?php echo get_template_directory_uri(); ?>/img/decodable-library/bubbles-blue.png" alt="">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/decodable-library/webp/bubbles-blue.webp" type="image/webp">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/decodable-library/bubbles-blue.png" type="image/jpeg">
+        <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/decodable-library/bubbles-blue.png" alt="">
       </picture>
     </div>
     <div class="b6">
       <picture>
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/webp/b2-purple-s2.webp" type="image/webp">
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/b2-purple-s2.png" type="image/jpeg">
-        <img src="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/b2-purple-s2.png" alt="">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/webp/b2-purple-s2.webp" type="image/webp">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/b2-purple-s2.png" type="image/jpeg">
+        <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/b2-purple-s2.png" alt="">
       </picture>
     </div>
     <div class="b7">
       <picture>
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/webp/b-orange.webp" type="image/webp">
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/b-orange.png" type="image/jpeg">
-        <img src="<?php echo get_template_directory_uri(); ?>/img/helpful-resources/b-orange.png" alt="">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/webp/b-orange.webp" type="image/webp">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/b-orange.png" type="image/jpeg">
+        <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/helpful-resources/b-orange.png" alt="">
       </picture>
     </div>
     <div class="b8">
       <picture>
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/decodable-library/webp/bubbles-mix.webp" type="image/webp">
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/decodable-library/bubbles-mix.png" type="image/jpeg">
-        <img src="<?php echo get_template_directory_uri(); ?>/img/decodable-library/bubbles-mix.png" alt="">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/decodable-library/webp/bubbles-mix.webp" type="image/webp">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/decodable-library/bubbles-mix.png" type="image/jpeg">
+        <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/decodable-library/bubbles-mix.png" alt="">
       </picture>
     </div>
     <div class="b9">
       <picture>
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/decodable-library/webp/bubbles-blue.webp" type="image/webp">
-        <source srcset="<?php echo get_template_directory_uri(); ?>/img/decodable-library/bubbles-blue.png" type="image/jpeg">
-        <img src="<?php echo get_template_directory_uri(); ?>/img/decodable-library/bubbles-blue.png" alt="">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/decodable-library/webp/bubbles-blue.webp" type="image/webp">
+        <source srcset="<?php echo get_stylesheet_directory_uri(); ?>/img/decodable-library/bubbles-blue.png" type="image/jpeg">
+        <img src="<?php echo get_stylesheet_directory_uri(); ?>/img/decodable-library/bubbles-blue.png" alt="">
       </picture>
     </div>
   </div>
@@ -181,11 +181,11 @@ if ($extension == 'nz') {
           <li class="lt big-font">Equifax - <a href="https://www.equifax.com.au/contact" target="_blank">https://www.equifax.com.au/contact</a></li>
         </ul>
         <h2 class="sub-title">Direct Marketing</h2>
-        <p class="main-para">The personal information you provide may be utilised at a later date to allow us to market direct to you information about products and services offered by us and our associated entities. At times we may disclose your personal information to third parties and our associated entities to market direct to you our and our associated entities products and/or services. We take steps to ensure that our service providers are obliged to protect the privacy and security of your personal information and use it only for the purpose for which it is disclosed.</p>
+        <p class="main-para">The personal information you provide may be utilised at a later date to allow us to market direct to you information about products and services offered by us. At times we may disclose your personal information to third parties to market direct to you our products and/or services. We take steps to ensure that our service providers are obliged to protect the privacy and security of your personal information and use it only for the purpose for which it is disclosed.</p>
         <p class="main-para">We respect an individual’s choice to opt-out of direct marketing communications activities. Should you decide you do not wish to receive marketing or promotional materials from us, please contact us in writing or as directed in any particular promotional material you may receive. If you opt out of receiving marketing material from us, we may still contact you in relation to any ongoing relationship with you covered by this Privacy Policy.</p>
 
         <h2 class="sub-title">Cross Border disclosure</h2>
-        <p class="main-para">We may disclose personal information to third-party data storage facilities, software and service providers that may be located in Australia and other countries including but not limited to the United States of America and Japan.</p>
+        <p class="main-para">We may disclose personal information to third-party data storage facilities, software and service providers that may be located in Australia and other countries including but not limited to India, New Zealand and Phillippines.</p>
 
         <h2 class="sub-title">Adoption, use or disclosure of Governmental related identifiers</h2>
         <p class="main-para">We do not use Commonwealth Identifiers as a means of identifying the personal information we collect from you.</p>
