@@ -52,6 +52,14 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
             wushka_set_student_archive($id, $meta_value);
             break;
         case 'classPass':
+            if (strlen($meta_value) < 8 ||
+                !preg_match('/[a-zA-Z]/', $meta_value) ||
+                !preg_match('/\d/', $meta_value) ||
+                !preg_match('/[\W_]/', $meta_value)) {
+                http_response_code(400);
+                echo 'Password must be at least 8 characters and include letters, numbers, and symbols.';
+                exit;
+            }
             wushka_set_whole_class_password($id, $meta_value);
             break;
         case 'allquiz':

@@ -485,3 +485,16 @@ table.archive-table.dataTable.display tbody tr.odd > .sorting_1, table.archive-t
     font-size: 14px;
     margin-bottom: 4px;
 }
+
+.password-policy-icon {
+    cursor: pointer;
+    color: #888;
+    font-size: 12px;
+    margin-left: 3px;
+    vertical-align: middle;
+}
+
+.popover-title,
+.popover-content {
+    color: #333;
+}

@@ -5024,7 +5024,7 @@ function do_wushka_password_reset()
 
             $strict_allowed_roles = passwordPolicyAllowedRoles();
 
-            if(!empty($_POST['password_1']) && !empty($user) && array_intersect($strict_allowed_roles, $user->roles) && !is_password_policy_valid($_POST['password_1'])){
+            if(!empty($_POST['password_1']) && !empty($user) && array_intersect($strict_allowed_roles, $user->roles) && !is_password_policy_valid_for_user($_POST['password_1'], $user)){
                 $redirect_url = home_url('password-reset');
                 $redirect_url = add_query_arg('key', $rp_key, $redirect_url);
                 $redirect_url = add_query_arg('login', $rp_login, $redirect_url);
@@ -6693,11 +6693,23 @@ function is_password_policy_valid($password)
     );
 }
 
+function is_password_policy_valid_for_user($password, $user)
+{
+
+    $min_length = in_array('student', (array)$user->roles) ? 8 : 15;
+    return (
+        strlen($password) >= $min_length &&
+        preg_match('/[a-zA-Z]/', $password) &&
+        preg_match('/\d/', $password) &&
+        preg_match('/[\W_]/', $password)
+    );
+}
+
 function passwordPolicyAllowedRoles()
 {
     //return ['administrator', 'subadmin', 'marketingmanager'];
     //return ['subadmin','customer', 'student', 'parent','school','school_admin'];
-    return ['subadmin','customer','parent','school_admin','school','teacher','marketingmanager'];
+    return ['subadmin','customer','parent','school_admin','school','teacher','marketingmanager','student'];
 }
 
 // function check_password_policy($user_id)
@@ -6718,7 +6730,7 @@ add_filter('wp_authenticate_user', 'check_password_policy_on_auth_user', 10, 2);
 
 function check_password_policy_on_auth_user($user, $password)
 {
-    if (isset($password) && !is_password_policy_valid($password)) {
+    if (isset($password) && !is_password_policy_valid_for_user($password, $user)) {
         update_user_meta($user->ID, 'password_needs_reset', true);
     } else {
         delete_user_meta($user->ID, 'password_needs_reset');

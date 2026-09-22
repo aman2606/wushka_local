@@ -28,8 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //     $errors[] = 'Incorrect current password.';
     // }
 
-    if (!is_password_policy_valid($new_pass)) {
-        $errors[] = 'New password must be at least 15 characters long and include letters, numbers, and symbols.';
+    if (!is_password_policy_valid_for_user($new_pass, $user)) {
+        $min_chars = in_array('student', (array)$user->roles) ? 8 : 15;
+        $errors[] = "New password must be at least {$min_chars} characters long and include letters, numbers, and symbols.";
     }
 
     if ($new_pass !== $confirm_pass) {
@@ -103,8 +104,13 @@ get_header();
             </div>
         <?php endif; ?>
 
+        <?php
+            $is_student = user_can( $user, 'student' );
+            $min_chars = $is_student ? 8 : 15;
+            $role_label = $is_student ? 'student' : 'non-student';
+        ?>
         <p class="note text-center">
-            <strong>Note:</strong> As a non-student user, your password must meet the password policy criteria (At least 15 characters long and include letters, numbers, and symbols).
+            <strong>Note:</strong> As a <?= esc_html($role_label); ?> user, your password must meet the password policy criteria (At least <?= $min_chars; ?> characters long and include letters, numbers, and symbols).
         </p>
 
         <form method="post" class="mt-3">
