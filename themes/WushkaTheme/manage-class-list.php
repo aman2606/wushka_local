@@ -1559,6 +1559,11 @@ if ($arhiveStudentList) { ?>
             $(".user_pass").editable({
                 emptytext: 'Not set',
                 mode: 'inline',
+                validate: function(value) {
+                    if (value.length < 8 || !/[a-zA-Z]/.test(value) || !/\d/.test(value) || !/[\W_]/.test(value)) {
+                        return 'Password must be at least 8 characters and include letters, numbers, and symbols.';
+                    }
+                },
                 success: function(response, value) {
                     var id = $(this).closest('tr').attr('id').replace('user-', '');
                     var meta = $(this).attr('class').split(' ')[0];
