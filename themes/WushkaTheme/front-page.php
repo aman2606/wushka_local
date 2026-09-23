@@ -60,7 +60,7 @@ if (is_user_logged_in()) {
     
     if(user_can($current_user, OPEN_HOUSE_CUSTOMER)){
 
-        wp_redirect(esc_url(home_url() . '/levelled/'));
+        wp_redirect(esc_url(home_url() . '/decodable/'));
         exit();
 
     }

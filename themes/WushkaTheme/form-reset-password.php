@@ -126,11 +126,14 @@ if (isset($_GET['login']) && isset($_GET['key'])) {
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 col-xl-6 col-xl-offset-3">
 
-				<?php if (!user_can($user, 'student')) { ?>
-					<div class="alert alert-warning" role="alert">
-						As a non-student user, your password must meet the password policy criteria (At least 15 characters long and include letters, numbers, and symbols).
-					</div>
-				<?php } ?>
+				<?php
+					$is_student = $user && in_array('student', (array)$user->roles);
+					$min_chars = $is_student ? 8 : 15;
+					$role_label = $is_student ? 'student' : 'non-student';
+				?>
+				<div class="alert alert-warning" role="alert">
+					As a <?= esc_html($role_label); ?> user, your password must meet the password policy criteria (At least <?= $min_chars; ?> characters long and include letters, numbers, and symbols).
+				</div>
 				<!--erro msg starts-->
 				<?php if (count($attributes['errors']) > 0) : ?>
 					<?php foreach ($attributes['errors'] as $error) : ?>

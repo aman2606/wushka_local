@@ -52,6 +52,7 @@ $a_active  = $a_results['data']['active'];
 $isQRDisabled = isQRDisabled();
 
 //NOTE: CSS Rules have been moved to css/teacher_manage-class-list.css
+$student_policy_min_chars = 8; // student min from is_password_policy_valid_for_user() in functions.php
 ?>
 <!-- MCL PAGE DATA VARIABLES -->
 <script>
@@ -61,6 +62,7 @@ $isQRDisabled = isQRDisabled();
     var i_hash = '<?php echo $current_user->id_hash; ?>';
     var s_template_url = '<?php echo get_stylesheet_directory_uri(); ?>';
     var o_active = <?php echo json_encode($a_active); ?>;
+    var i_student_min_pwd = <?php echo (int)$student_policy_min_chars; ?>;
     var all_levels = <?php echo json_encode($a_results['data']['levels']); ?>;
     var decodable_levels = <?php echo json_encode($a_results['data']['decodables']); ?>;
     var o_levels = all_levels;
@@ -652,12 +654,14 @@ if ($arhiveStudentList) { ?>
                 <div class="input-group">
                     <label for="new-class-password" class="sr-only">New password</label>
                     <input class="form-control class-password" id="new-class-password" type="text" value="" placeholder="New Password" />
+                    <p id="class-password-error" class="text-danger" style="display:none; margin-top:8px;">Testing</p>
                 </div>
+              
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#manage-class-settings">Cancel
                 </button>
-                <button class="btn btn-primary btn-set-password" id="set-password" data-id="" data-dismiss="modal" type="button">Set Password
+                <button class="btn btn-primary btn-set-password" id="set-password" data-id="" type="button">Set Password
                 </button>
             </div>
         </div>
@@ -1555,6 +1559,11 @@ if ($arhiveStudentList) { ?>
             $(".user_pass").editable({
                 emptytext: 'Not set',
                 mode: 'inline',
+                validate: function(value) {
+                    if (value.length < 8 || !/[a-zA-Z]/.test(value) || !/\d/.test(value) || !/[\W_]/.test(value)) {
+                        return 'Password must be at least 8 characters and include letters, numbers, and symbols.';
+                    }
+                },
                 success: function(response, value) {
                     var id = $(this).closest('tr').attr('id').replace('user-', '');
                     var meta = $(this).attr('class').split(' ')[0];
@@ -1826,8 +1835,20 @@ if ($arhiveStudentList) { ?>
         //1. Set Whole CLASS Password Field
         $('#set-password').on('click', function() {
             var s_value = $('#new-class-password').val();
+            var $error  = $('#class-password-error');
+            $error.hide();
+            var minLen = i_student_min_pwd;
+            if (s_value.length < minLen || !/[a-zA-Z]/.test(s_value) || !/\d/.test(s_value) || !/[\W_]/.test(s_value)) {
+                $error.text('Password must be at least ' + minLen + ' characters and include letters, numbers, and symbols.').show();
+                return;
+            }
+            $('#class-password-dialog').modal('hide');
             edit_user_data(get_table_id(), 'classPass', s_value);
             update_user_property('all', 'user_pass', s_value);
+        });
+        $('#class-password-dialog').on('hidden.bs.modal', function() {
+            $('#class-password-error').hide();
+            $('#new-class-password').val('');
         });
         //2. Set Whole CLASS Reading Level Field
         $(document).on('click', '.set-class-level', function(e) {
@@ -2185,6 +2206,7 @@ if ($arhiveStudentList) { ?>
                 o_content.empty().append(a_table.join(''));
                 //Run table formatting
                 initiate_datatables();
+                $('.password-policy-icon').popover({ container: 'body' });
                 setup_top_scroll();
                 $('table[role=grid]').removeAttr('role').attr('role', 'presentation');
                 if (!b_archived) {
@@ -2231,7 +2253,7 @@ if ($arhiveStudentList) { ?>
             a_rows.push('<th class="class-view-col-1">Surname</th>');
             a_rows.push('<th class="class-view-col-2">Username</th>');
             a_rows.push('<th class="class-view-col-2">Email</th>');
-            a_rows.push('<th class="class-view-col-3">Password</th>');
+            a_rows.push('<th class="class-view-col-3">Password <i class="fa fa-info-circle password-policy-icon" data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true" title="Password Policy" data-content="<?php echo esc_attr('<ul><li>Minimum ' . $student_policy_min_chars . ' characters</li><li>Must include at least one letter, number, and symbol</li></ul>'); ?>" onclick="event.stopPropagation()"></i></th>');
             // Decodable Library
             a_rows.push('<th class="class-view-col-dec">Sound Cluster</th>');
             a_rows.push('<th class="class-view-col-dec">Phase Access</th>');
