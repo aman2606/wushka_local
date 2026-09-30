@@ -1561,7 +1561,7 @@ if ($arhiveStudentList) { ?>
                 mode: 'inline',
                 validate: function(value) {
                     if (value.length < 8 || !/[a-zA-Z]/.test(value) || !/\d/.test(value) || !/[\W_]/.test(value)) {
-                        return 'Password must be at least 8 characters and include letters, numbers, and symbols.';
+                        return 'Password must be at least 8 characters long with uppercase, numbers & special characters.';
                     }
                 },
                 success: function(response, value) {
@@ -1839,7 +1839,7 @@ if ($arhiveStudentList) { ?>
             $error.hide();
             var minLen = i_student_min_pwd;
             if (s_value.length < minLen || !/[a-zA-Z]/.test(s_value) || !/\d/.test(s_value) || !/[\W_]/.test(s_value)) {
-                $error.text('Password must be at least ' + minLen + ' characters and include letters, numbers, and symbols.').show();
+                $error.text('Password must be at least ' + minLen + ' characters long with uppercase, numbers & special characters.').show();
                 return;
             }
             $('#class-password-dialog').modal('hide');

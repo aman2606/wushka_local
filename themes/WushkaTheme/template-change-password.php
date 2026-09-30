@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!is_password_policy_valid_for_user($new_pass, $user)) {
         $min_chars = in_array('student', (array)$user->roles) ? 8 : 15;
-        $errors[] = "New password must be at least {$min_chars} characters long and include letters, numbers, and symbols.";
+        $errors[] = "New password must be at least {$min_chars} characters long with uppercase, numbers & special characters.";
     }
 
     if ($new_pass !== $confirm_pass) {
@@ -110,7 +110,7 @@ get_header();
             $role_label = $is_student ? 'student' : 'non-student';
         ?>
         <p class="note text-center">
-            <strong>Note:</strong> As a <?= esc_html($role_label); ?> user, your password must meet the password policy criteria (At least <?= $min_chars; ?> characters long and include letters, numbers, and symbols).
+            <strong>Note:</strong> As a <?= esc_html($role_label); ?> user, your password must meet the password policy criteria (At least <?= $min_chars; ?> characters long with uppercase, numbers & special characters).
         </p>
 
         <form method="post" class="mt-3">

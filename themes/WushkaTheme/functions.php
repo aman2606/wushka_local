@@ -5629,6 +5629,10 @@ function wushka_get_ordered_sound_clusters() {
     $results = $wpdb->get_results($sql);
 
     foreach ($results as $key => $row) {
+        // $sounds = array_map('trim', explode(',', $row->esiss_sounds));
+        // $sounds = array_filter($sounds, 'strlen');
+        // $sounds = array_values(array_unique($sounds));
+        // $row->esiss_sounds = implode(', ', $sounds);
 
         if (preg_match('/Phase\s+\d+(?:\.\d+)?/i', $row->phase, $matches)) {
             $phase = $matches[0];
@@ -7006,7 +7010,7 @@ function passwordPolicyAllowedRoles()
 {
     //return ['administrator', 'subadmin', 'marketingmanager'];
     //return ['subadmin','customer', 'student', 'parent','school','school_admin'];
-    return ['subadmin','customer','parent','school_admin','school','teacher','marketingmanager','student'];
+    return ['subadmin','customer','parent','school_admin','school','teacher','marketingmanager','student','editor','author','contributor','subscriber','shop_manager','fue_manager','home-user','bdm'];
 }
 
 // function check_password_policy($user_id)

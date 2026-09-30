@@ -57,7 +57,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
                 !preg_match('/\d/', $meta_value) ||
                 !preg_match('/[\W_]/', $meta_value)) {
                 http_response_code(400);
-                echo 'Password must be at least 8 characters and include letters, numbers, and symbols.';
+                echo 'Password must be at least 8 characters long with uppercase, numbers & special characters.';
                 exit;
             }
             wushka_set_whole_class_password($id, $meta_value);
@@ -156,7 +156,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
                 !preg_match('/\d/', $meta_value) ||
                 !preg_match('/[\W_]/', $meta_value)) {
                 http_response_code(400);
-                echo 'Password must be at least 8 characters and include letters, numbers, and symbols.';
+                echo 'Password must be at least 8 characters long with uppercase, numbers & special characters.';
                 exit;
             }
             wushka_set_student_pwd($id, $meta_value);

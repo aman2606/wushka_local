@@ -132,7 +132,7 @@ if (isset($_GET['login']) && isset($_GET['key'])) {
 					$role_label = $is_student ? 'student' : 'non-student';
 				?>
 				<div class="alert alert-warning" role="alert">
-					As a <?= esc_html($role_label); ?> user, your password must meet the password policy criteria (At least <?= $min_chars; ?> characters long and include letters, numbers, and symbols).
+					As a <?= esc_html($role_label); ?> user, your password must meet the password policy criteria (At least <?= $min_chars; ?> characters long with uppercase, numbers & special characters).
 				</div>
 				<!--erro msg starts-->
 				<?php if (count($attributes['errors']) > 0) : ?>
